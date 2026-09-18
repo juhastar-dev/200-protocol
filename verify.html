@@ -1,0 +1,31 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>200 Verify — Live On-Chain Verifier</title><style>
+:root{--bg:#050a0f;--card:#0d1a26;--line:#20394e;--cyan:#27e6e6;--text:#eaf6ff;--muted:#9db1c2;--ok:#2ae48f;--bad:#ff6b6b;--warn:#ffd166}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(circle at top,#0f2737,#050a0f 55%);color:var(--text)}main{max-width:1000px;margin:auto;padding:36px 20px}h1{font-size:42px;margin:0 0 6px}.cyan{color:var(--cyan)}.sub{color:var(--muted)}.card{background:rgba(13,26,38,.95);border:1px solid var(--line);border-radius:18px;padding:20px;margin:15px 0}code{word-break:break-all;color:#bdefff}button{background:var(--cyan);border:0;border-radius:11px;padding:13px 20px;font-weight:850;cursor:pointer;font-size:15px}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line)}.pass{color:var(--ok);font-weight:800}.fail{color:var(--bad);font-weight:800}.pending{color:var(--warn);font-weight:800}.result{font-size:28px;font-weight:900}.small{font-size:.9rem;color:var(--muted)}</style></head><body><main>
+<p><a style="color:#27e6e6" href="index.html">← 200 Protocol</a></p><h1><span class="cyan">200</span> Verify</h1><p class="sub">Direct Base Sepolia RPC verification before policy evaluation.</p>
+<div class="card"><b>Asset</b><p>200 Token (200)</p><code>0x47a369B53D0b4Df514F82507a73E4546563e0CD5</code><p class="small">CAIP-19: eip155:84532/erc20:0x47a369B53D0b4Df514F82507a73E4546563e0CD5</p><button id="run">Query Base Sepolia & assess</button></div>
+<div class="card"><div id="result" class="result">NOT YET ASSESSED</div><p id="detail" class="sub">No decision has been issued.</p></div>
+<div class="card"><h2>Direct on-chain checks</h2><table><thead><tr><th>Check</th><th>Expected</th><th>Observed</th><th>Status</th></tr></thead><tbody id="rows"></tbody></table></div>
+<div class="card"><h2>Declared properties awaiting stronger evidence</h2><p class="sub">These deployment declarations are not upgraded to independently verified fact merely because they appear in a manifest.</p><table><tbody>
+<tr><td>Transfer tax</td><td>0%</td><td class="pending">DECLARED</td></tr><tr><td>Blacklist</td><td>off</td><td class="pending">DECLARED</td></tr><tr><td>Pausable</td><td>off</td><td class="pending">DECLARED</td></tr><tr><td>Max wallet / transaction</td><td>off</td><td class="pending">DECLARED</td></tr>
+</tbody></table></div>
+<script>
+const RPC='https://sepolia.base.org', ADDRESS='0x47a369B53D0b4Df514F82507a73E4546563e0CD5';
+async function rpc(method,params){const r=await fetch(RPC,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method,params})});const j=await r.json();if(j.error)throw new Error(j.error.message);return j.result}
+async function call(data){return rpc('eth_call',[{to:ADDRESS,data},'latest'])}
+function uint(hex){return BigInt(hex||'0x0')}
+function abiString(hex){if(!hex||hex==='0x')return '';const s=hex.slice(2);const offset=parseInt(s.slice(0,64),16)*2;const len=parseInt(s.slice(offset,offset+64),16)*2;const data=s.slice(offset+64,offset+64+len);let out='';for(let i=0;i<data.length;i+=2)out+=String.fromCharCode(parseInt(data.slice(i,i+2),16));return out}
+const checks=[];
+function add(name,expected,observed,pass){checks.push({name,expected,observed,pass})}
+function render(){document.getElementById('rows').innerHTML=checks.map(x=>'<tr><td>'+x.name+'</td><td>'+x.expected+'</td><td><code>'+String(x.observed)+'</code></td><td class="'+(x.pass?'pass':'fail')+'">'+(x.pass?'PASS':'FAIL')+'</td></tr>').join('')}
+document.getElementById('run').onclick=async()=>{checks.length=0;document.getElementById('result').textContent='VERIFYING…';document.getElementById('detail').textContent='Querying Base Sepolia directly.';try{
+const chain=await rpc('eth_chainId',[]);add('Chain ID','84532',parseInt(chain,16),parseInt(chain,16)===84532);
+const code=await rpc('eth_getCode',[ADDRESS,'latest']);add('Contract code','present',code&&code!=='0x'?'present':'missing',!!code&&code!=='0x');
+const name=abiString(await call('0x06fdde03'));add('name()','200 Token',name,name==='200 Token');
+const symbol=abiString(await call('0x95d89b41'));add('symbol()','200',symbol,symbol==='200');
+const dec=Number(uint(await call('0x313ce567')));add('decimals()','18',dec,dec===18);
+const supply=uint(await call('0x18160ddd'))/10n**18n;add('totalSupply()','100000000',supply.toString(),supply===100000000n);
+try{const ds=await call('0x3644e515');add('ERC-2612 DOMAIN_SEPARATOR','responds',ds&&ds!=='0x'?'responds':'no response',!!ds&&ds!=='0x')}catch(e){add('ERC-2612 DOMAIN_SEPARATOR','responds','error',false)}
+try{const n=await call('0x7ecebe00'+'0'.repeat(64));add('ERC-2612 nonces(address)','responds',n?'responds':'no response',!!n)}catch(e){add('ERC-2612 nonces(address)','responds','error',false)}
+render();const essential=checks.slice(0,6).every(x=>x.pass);document.getElementById('result').textContent=essential?'STATUS 200 — OK TO ACT':'NOT 200 — DO NOT ACT';document.getElementById('result').className='result '+(essential?'pass':'fail');document.getElementById('detail').textContent=essential?'Required directly verifiable identity checks passed. Declared behavioral properties remain separately classified.':'One or more required on-chain checks failed or could not be verified.';
+}catch(e){render();document.getElementById('result').textContent='NOT 200 — VERIFICATION UNAVAILABLE';document.getElementById('result').className='result fail';document.getElementById('detail').textContent=e.message}}
+</script></main></body></html>
