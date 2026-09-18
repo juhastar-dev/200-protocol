@@ -1,15 +1,41 @@
 {
-  "assessmentId":"example-200-base-sepolia-001",
-  "asset":"eip155:84532/erc20:0x47a369B53D0b4Df514F82507a73E4546563e0CD5",
-  "policyId":"200-default-test-policy-v1",
-  "result":"200",
-  "decision":"OK TO ACT",
-  "scope":"Demonstration result. Direct on-chain facts and declared/observed properties have different evidence classes.",
-  "checks":[
-    {"rule":"chainId == 84532","observed":84532,"pass":true},
-    {"rule":"name == 200 Token","observed":"200 Token","pass":true},
-    {"rule":"symbol == 200","observed":"200","pass":true},
-    {"rule":"decimals == 18","observed":18,"pass":true},
-    {"rule":"totalSupply == 100000000","observed":"100000000","pass":true}
+  "assessmentId": "example-200-base-sepolia-001",
+  "asset": "eip155:84532/erc20:0x47a369B53D0b4Df514F82507a73E4546563e0CD5",
+  "policyId": "200-default-test-policy-v1",
+  "result": "200",
+  "decision": "OK TO ACT",
+  "scope": "Demonstration result combining direct on-chain facts with a completed standard wallet-to-wallet behavioral transfer test. Other behavioral properties remain separately classified until tested.",
+  "checks": [
+    {
+      "rule": "chainId == 84532",
+      "observed": 84532,
+      "pass": true
+    },
+    {
+      "rule": "name == 200 Token",
+      "observed": "200 Token",
+      "pass": true
+    },
+    {
+      "rule": "symbol == 200",
+      "observed": "200",
+      "pass": true
+    },
+    {
+      "rule": "decimals == 18",
+      "observed": 18,
+      "pass": true
+    },
+    {
+      "rule": "totalSupply == 100000000",
+      "observed": "100000000",
+      "pass": true
+    },
+    {
+      "rule": "standard transfer preserves 1000-token amount",
+      "observed": "1000 sent / 1000 received",
+      "pass": true,
+      "evidenceClass": "behavioral-test"
+    }
   ]
 }
