@@ -130,4 +130,39 @@ if(window.ethereum){
 }
 refresh();
 </script>
+
+<div class="card">
+<h2>4. Quote 200 → ETH sell</h2>
+<label for="sell200">200 to sell</label>
+<input id="sell200" value="500" inputmode="decimal">
+<p><button id="sellQuote">Get live sell quote</button></p>
+<div id="sellQuoteBox" style="display:none">
+<p class="quote">Expected ETH output: <span id="sellOut">—</span> ETH</p>
+<div class="kv">
+<div>Minimum received</div><div><span id="sellMin">—</span> ETH</div>
+<div>Slippage</div><div>0.5%</div>
+<div>Route</div><div>200 → WETH → ETH</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h2>5. Execute test sell</h2>
+<p class="muted">Selling ERC-20 requires a token approval first. The page requests approval only for the exact 200 amount entered, then requires a separate MetaMask confirmation for the swap.</p>
+<button id="approveSell">Approve exact 200 amount</button>
+<button id="sell" class="primary" disabled>Sell 200 with quoted minimum</button>
+<p id="sellResult" class="muted">No sell transaction submitted.</p>
+</div>
+<script type="module">
+import { BrowserProvider, Contract, parseEther, parseUnits, formatEther, formatUnits } from "https://cdn.jsdelivr.net/npm/ethers@6.15.0/+esm";
+const CHAIN=84532n, TOKEN='0x47a369B53D0b4Df514F82507a73E4546563e0CD5', ROUTER='0x8cFe327CEc66d1C090Dd72bd0FF11d690C33a2Eb', WETH='0x4200000000000000000000000000000000000006';
+const routerAbi=['function getAmountsOut(uint256,address[] path) view returns(uint256[])','function swapExactTokensForETH(uint256,uint256,address[] path,address to,uint256 deadline) returns(uint256[])'];
+const erc20Abi=['function approve(address,uint256) returns(bool)','function allowance(address,address) view returns(uint256)','function balanceOf(address) view returns(uint256)'];
+let sellProvider,sellSigner,sellAccount,sellLast;
+const sell200=document.getElementById('sell200'), sellQuote=document.getElementById('sellQuote'), approveSell=document.getElementById('approveSell'), sellBtn=document.getElementById('sell'), sellResult=document.getElementById('sellResult');
+async function sellCtx(){sellProvider=new BrowserProvider(window.ethereum);const net=await sellProvider.getNetwork();if(net.chainId!==CHAIN)throw new Error('Switch MetaMask to Base Sepolia first.');sellSigner=await sellProvider.getSigner();sellAccount=await sellSigner.getAddress();return true}
+sellQuote.onclick=async()=>{try{await sellCtx();const amount=parseUnits(sell200.value.trim(),18);const r=new Contract(ROUTER,routerAbi,sellProvider);const amounts=await r.getAmountsOut(amount,[TOKEN,WETH]);const expected=amounts[1],minimum=expected*995n/1000n;sellLast={amount,expected,minimum};document.getElementById('sellOut').textContent=formatEther(expected);document.getElementById('sellMin').textContent=formatEther(minimum);document.getElementById('sellQuoteBox').style.display='block';const t=new Contract(TOKEN,erc20Abi,sellProvider);const a=await t.allowance(sellAccount,ROUTER);sellBtn.disabled=a<amount;sellResult.textContent=a>=amount?'Quote ready and allowance sufficient. Review before selling.':'Quote ready. Approve the exact 200 amount first.'}catch(e){sellBtn.disabled=true;sellResult.textContent='Sell quote failed: '+(e.shortMessage||e.message)}};
+approveSell.onclick=async()=>{try{await sellCtx();const amount=parseUnits(sell200.value.trim(),18);const t=new Contract(TOKEN,erc20Abi,sellSigner);sellResult.textContent='Waiting for exact-amount approval confirmation…';const tx=await t.approve(ROUTER,amount);await tx.wait();sellResult.textContent='Exact allowance approved. Get a fresh sell quote, then sell.';sellBtn.disabled=true;sellLast=null}catch(e){sellResult.textContent='Approval not completed: '+(e.shortMessage||e.message)}};
+sellBtn.onclick=async()=>{try{await sellCtx();const amount=parseUnits(sell200.value.trim(),18);if(!sellLast||sellLast.amount!==amount)throw new Error('Get a fresh sell quote first.');const r=new Contract(ROUTER,routerAbi,sellSigner);const deadline=Math.floor(Date.now()/1000)+600;sellResult.textContent='Waiting for MetaMask sell confirmation…';const tx=await r.swapExactTokensForETH(amount,sellLast.minimum,[TOKEN,WETH],sellAccount,deadline);sellResult.innerHTML='Submitted: <a target="_blank" href="https://sepolia.basescan.org/tx/'+tx.hash+'">'+tx.hash+'</a><br>Waiting for confirmation…';await tx.wait();const t=new Contract(TOKEN,erc20Abi,sellProvider);const bal=await t.balanceOf(sellAccount);sellResult.innerHTML='<span class="ok">Sell confirmed.</span> Transaction: <a target="_blank" href="https://sepolia.basescan.org/tx/'+tx.hash+'">'+tx.hash.slice(0,12)+'…</a><br>Current wallet 200 balance: <strong>'+formatUnits(bal,18)+' 200</strong>';sellBtn.disabled=true}catch(e){sellResult.textContent='Sell not completed: '+(e.shortMessage||e.message)}};
+</script>
 </main></body></html>
