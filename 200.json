@@ -1,35 +1,147 @@
 {
-  "spec":{"name":"200 Protocol","version":"0.6","status":"live-testnet-onchain-verifier"},
-  "purpose":"Machine-readable economic compatibility and policy-based asset selection for autonomous AI agents",
-  "meaning":{"human":"200 = OK / successful machine authorization","protocol":"A successful assessment means an economic action satisfies the agent's authorized policy; it is not an investment or credit rating."},
-  "coreProcess":["DECLARE","VERIFY","EVALUATE","ACT"],
-  "methodology":{"AAA":"Agent Asset Assessment","ASA":"Agent Selects Asset","result":"200 when policy conditions pass; otherwise return a structured non-pass result"},
-  "nativeAsset":{
-    "name":"200 Token","symbol":"200","standard":["ERC-20","ERC-2612"],"network":"Base Sepolia",
-    "chainId":84532,"contract":"0x47a369B53D0b4Df514F82507a73E4546563e0CD5",
-    "caip19":"eip155:84532/erc20:0x47a369B53D0b4Df514F82507a73E4546563e0CD5",
-    "decimals":18,"maximumSupply":"100000000","mintable":false,"mainnetChainId":8453,
-    "deploymentStatus":"live-testnet",
-    "explorer":"https://sepolia.basescan.org/token/0x47a369B53D0b4Df514F82507a73E4546563e0CD5",
-    "rpc":"https://sepolia.base.org"
+  "spec": {
+    "name": "200 Protocol",
+    "version": "0.6",
+    "status": "live-testnet-onchain-verifier"
   },
-  "declaredEconomicProperties":{"transferTaxPercent":0,"buyTaxPercent":0,"sellTaxPercent":0,"blacklist":false,"pausable":false,"maxWallet":false,"maxTransaction":false},
-  "interfaces":[
-    {"protocol":"x402","status":"planned-adapter"},
-    {"protocol":"A2A","status":"planned-adapter"},
-    {"protocol":"ERC-8004","status":"planned-adapter"},
-    {"protocol":"CAIP-19","status":"required-for-canonical-asset-identity"}
+  "purpose": "Machine-readable economic compatibility and policy-based asset selection for autonomous AI agents",
+  "meaning": {
+    "human": "200 = OK / successful machine authorization",
+    "protocol": "A successful assessment means an economic action satisfies the agent's authorized policy; it is not an investment or credit rating."
+  },
+  "coreProcess": [
+    "DECLARE",
+    "VERIFY",
+    "EVALUATE",
+    "ACT"
   ],
-  "capabilities":["asset-declaration","asset-verification","policy-evaluation","asset-selection","service-compatibility","contribution-rewards-planned","agent-staking-planned","policy-evaluator-prototype"],
-  "verification":{
-    "principle":"Declarations should be independently verified before economic action",
-    "manifestSignature":"PENDING-SIGNED-MANIFEST",
-    "evidence":[
-      {"type":"block-explorer","network":"Base Sepolia","status":"recognized-as-ERC20","url":"https://sepolia.basescan.org/token/0x47a369B53D0b4Df514F82507a73E4546563e0CD5"},
-      {"type":"observed-metadata","name":"200 Token","symbol":"200","decimals":18,"maximumSupply":"100000000"},
-      {"type":"direct-rpc-verifier","status":"implemented-prototype","endpoint":"/verify.html","rpc":"https://sepolia.base.org","directChecks":["eth_chainId","eth_getCode","name()","symbol()","decimals()","totalSupply()","DOMAIN_SEPARATOR()","nonces(address)"],"scopeNote":"Direct checks prove only returned on-chain facts. Contract behaviors such as taxes or blacklist logic require verified source/ABI or behavioral testing."}
+  "methodology": {
+    "AAA": "Agent Asset Assessment",
+    "ASA": "Agent Selects Asset",
+    "result": "200 when policy conditions pass; otherwise return a structured non-pass result"
+  },
+  "nativeAsset": {
+    "name": "200 Token",
+    "symbol": "200",
+    "standard": [
+      "ERC-20",
+      "ERC-2612"
+    ],
+    "network": "Base Sepolia",
+    "chainId": 84532,
+    "contract": "0x47a369B53D0b4Df514F82507a73E4546563e0CD5",
+    "caip19": "eip155:84532/erc20:0x47a369B53D0b4Df514F82507a73E4546563e0CD5",
+    "decimals": 18,
+    "maximumSupply": "100000000",
+    "mintable": false,
+    "mainnetChainId": 8453,
+    "deploymentStatus": "live-testnet",
+    "explorer": "https://sepolia.basescan.org/token/0x47a369B53D0b4Df514F82507a73E4546563e0CD5",
+    "rpc": "https://sepolia.base.org"
+  },
+  "declaredEconomicProperties": {
+    "transferTaxPercent": 0,
+    "buyTaxPercent": 0,
+    "sellTaxPercent": 0,
+    "blacklist": false,
+    "pausable": false,
+    "maxWallet": false,
+    "maxTransaction": false,
+    "transferTaxPercentEvidence": "behaviorally tested for one standard 1000-token wallet-to-wallet transfer; exact amount received"
+  },
+  "interfaces": [
+    {
+      "protocol": "x402",
+      "status": "planned-adapter"
+    },
+    {
+      "protocol": "A2A",
+      "status": "planned-adapter"
+    },
+    {
+      "protocol": "ERC-8004",
+      "status": "planned-adapter"
+    },
+    {
+      "protocol": "CAIP-19",
+      "status": "required-for-canonical-asset-identity"
+    }
+  ],
+  "capabilities": [
+    "asset-declaration",
+    "asset-verification",
+    "policy-evaluation",
+    "asset-selection",
+    "service-compatibility",
+    "contribution-rewards-planned",
+    "agent-staking-planned",
+    "policy-evaluator-prototype"
+  ],
+  "verification": {
+    "principle": "Declarations should be independently verified before economic action",
+    "manifestSignature": "PENDING-SIGNED-MANIFEST",
+    "evidence": [
+      {
+        "type": "block-explorer",
+        "network": "Base Sepolia",
+        "status": "recognized-as-ERC20",
+        "url": "https://sepolia.basescan.org/token/0x47a369B53D0b4Df514F82507a73E4546563e0CD5"
+      },
+      {
+        "type": "observed-metadata",
+        "name": "200 Token",
+        "symbol": "200",
+        "decimals": 18,
+        "maximumSupply": "100000000"
+      },
+      {
+        "type": "direct-rpc-verifier",
+        "status": "implemented-prototype",
+        "endpoint": "/verify.html",
+        "rpc": "https://sepolia.base.org",
+        "directChecks": [
+          "eth_chainId",
+          "eth_getCode",
+          "name()",
+          "symbol()",
+          "decimals()",
+          "totalSupply()",
+          "DOMAIN_SEPARATOR()",
+          "nonces(address)"
+        ],
+        "scopeNote": "Direct checks prove only returned on-chain facts. Contract behaviors such as taxes or blacklist logic require verified source/ABI or behavioral testing."
+      },
+      {
+        "type": "behavioral-transfer-test",
+        "network": "Base Sepolia",
+        "status": "passed",
+        "date": "2026-09-18",
+        "amountSent": "1000",
+        "amountReceived": "1000",
+        "recipient": "0x1fDe29f8fD7Dca926954eF5F142c86FdCC6752Db",
+        "observedResult": "A standard transfer of 1,000 200 resulted in exactly 1,000 200 at the recipient account.",
+        "evidenceMeaning": "This test is behavioral evidence that this ordinary transfer incurred no token-amount deduction. It does not by itself prove every possible transfer path or DEX trade is tax-free."
+      }
     ]
   },
-  "humanAuthority":{"principle":"Agents operate within owner-defined economic limits","exampleControls":["approved-assets","approved-chains","maximum-transaction","daily-spending-limit","minimum-reputation","maximum-slippage","escalation-threshold"]},
-  "machineEndpoints":{"manifest":"/200.json","status":"/status.json","spec":"/spec/200-1.json","policyExample":"/policy/default-policy.json","verifier":"/verify.html","assessmentExample":"/examples/assessment-200.json"}
+  "humanAuthority": {
+    "principle": "Agents operate within owner-defined economic limits",
+    "exampleControls": [
+      "approved-assets",
+      "approved-chains",
+      "maximum-transaction",
+      "daily-spending-limit",
+      "minimum-reputation",
+      "maximum-slippage",
+      "escalation-threshold"
+    ]
+  },
+  "machineEndpoints": {
+    "manifest": "/200.json",
+    "status": "/status.json",
+    "spec": "/spec/200-1.json",
+    "policyExample": "/policy/default-policy.json",
+    "verifier": "/verify.html",
+    "assessmentExample": "/examples/assessment-200.json"
+  }
 }
