@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>200 Swap Test — Base Sepolia</title>
+<meta name="description" content="Testnet-only PancakeSwap V2 ETH to 200 behavioral swap tester for 200 Protocol.">
+<link rel="icon" href="200-icon.svg" type="image/svg+xml">
+<style>
+:root{--bg:#06100c;--card:#0d1d16;--line:#1e3e2d;--ink:#eaf7ef;--muted:#9fc2ad;--accent:#76f3a5;--cyan:#28dff0;--warn:#ffd166;--bad:#ff7272}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#123326,#06100c 48%);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.5}
+main{max-width:900px;margin:auto;padding:30px 20px 60px}a{color:var(--accent)}h1{font-size:clamp(2.6rem,7vw,5rem);line-height:.95;margin:.2em 0}.eyebrow{color:var(--accent);font-size:.78rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+.card{background:rgba(13,29,22,.96);border:1px solid var(--line);border-radius:18px;padding:20px;margin:16px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.mono{font:13px ui-monospace,Menlo,monospace;word-break:break-all;color:#c8edd3}.muted{color:var(--muted)}.warning{border-color:#5c512d;background:#211d0c;color:#f4e0ad}
+button{border:1px solid var(--line);background:#10251a;color:var(--ink);border-radius:12px;padding:13px 18px;font-weight:850;font-size:15px;cursor:pointer}button.primary{background:var(--accent);color:#06100c}button:disabled{opacity:.45;cursor:not-allowed}
+input{width:100%;padding:14px 15px;border-radius:12px;border:1px solid #31513e;background:#07110d;color:var(--ink);font-size:18px}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.pill{border:1px solid #31513e;border-radius:999px;padding:7px 11px;font-size:.8rem}.ok{color:var(--accent);font-weight:850}.bad{color:var(--bad);font-weight:850}.quote{font-size:1.35rem;font-weight:900}.kv{display:grid;grid-template-columns:150px 1fr;gap:8px 16px}.kv div:nth-child(odd){color:var(--muted)}
+</style></head>
+<body><main>
+<p><a href="index.html">← 200 Protocol</a></p>
+<div class="eyebrow">Testnet behavioral evidence</div>
+<h1>200 Swap Test</h1>
+<p class="muted">Direct PancakeSwap V2 Base Sepolia quote and ETH → 200 test. This page is intentionally locked to chain ID 84532.</p>
+
+<div class="card warning"><strong>TESTNET ONLY.</strong> Do not use this page with Base mainnet or real-value funds. Every swap still requires your explicit MetaMask confirmation.</div>
+
+<div class="card">
+<h2>1. Connect Account 3</h2>
+<div class="row"><button id="connect" class="primary">Connect MetaMask</button><button id="switch">Switch to Base Sepolia</button><span id="wallet" class="pill">Not connected</span></div>
+</div>
+
+<div class="card">
+<h2>2. Quote ETH → 200</h2>
+<label for="eth">ETH to spend</label>
+<input id="eth" value="0.000001" inputmode="decimal">
+<p><button id="quote" disabled>Get live router quote</button></p>
+<div id="quoteBox" style="display:none">
+<p class="quote">Expected output: <span id="out">—</span> 200</p>
+<div class="kv">
+<div>Minimum received</div><div><span id="min">—</span> 200</div>
+<div>Slippage</div><div>0.5%</div>
+<div>Route</div><div>ETH → WETH → 200</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h2>3. Execute test buy</h2>
+<p class="muted">The transaction button stays disabled until a fresh live quote has been obtained.</p>
+<button id="buy" class="primary" disabled>Buy 200 with quoted minimum</button>
+<p id="result" class="muted">No transaction submitted.</p>
+</div>
+
+<div class="card">
+<h2>Known testnet contracts</h2>
+<div class="kv">
+<div>200 Token</div><div class="mono">0x47a369B53D0b4Df514F82507a73E4546563e0CD5</div>
+<div>Pancake V2 Router</div><div class="mono">0x8cFe327CEc66d1C090Dd72bd0FF11d690C33a2Eb</div>
+<div>200/WETH Pool</div><div class="mono">0x769b276A04ac8Db2E3044cD12A47df9E098f2923</div>
+<div>Base Sepolia WETH</div><div class="mono">0x4200000000000000000000000000000000000006</div>
+</div>
+</div>
+
+<script type="module">
+import { BrowserProvider, Contract, parseEther, formatUnits } from "https://cdn.jsdelivr.net/npm/ethers@6.15.0/+esm";
+
+const CHAIN=84532n;
+const CHAIN_HEX='0x14a34';
+const TOKEN='0x47a369B53D0b4Df514F82507a73E4546563e0CD5';
+const ROUTER='0x8cFe327CEc66d1C090Dd72bd0FF11d690C33a2Eb';
+const WETH='0x4200000000000000000000000000000000000006';
+const routerAbi=[
+ 'function getAmountsOut(uint256 amountIn,address[] path) view returns (uint256[] amounts)',
+ 'function swapExactETHForTokens(uint256 amountOutMin,address[] path,address to,uint256 deadline) payable returns (uint256[] amounts)'
+];
+const tokenAbi=['function balanceOf(address) view returns (uint256)'];
+let provider, signer, account, lastQuote, lastInput;
+
+const connect=document.getElementById('connect'), sw=document.getElementById('switch'), quoteBtn=document.getElementById('quote'), buy=document.getElementById('buy');
+const wallet=document.getElementById('wallet'), eth=document.getElementById('eth'), result=document.getElementById('result');
+
+async function refresh(){
+ if(!window.ethereum){wallet.textContent='MetaMask not detected';wallet.className='pill bad';return false}
+ provider=new BrowserProvider(window.ethereum);
+ const net=await provider.getNetwork();
+ const accounts=await provider.send('eth_accounts',[]);
+ account=accounts[0]||null;
+ wallet.textContent=(account?account.slice(0,6)+'…'+account.slice(-4):'Not connected')+' · chain '+net.chainId;
+ wallet.className='pill '+(account&&net.chainId===CHAIN?'ok':'');
+ quoteBtn.disabled=!(account&&net.chainId===CHAIN);
+ if(net.chainId!==CHAIN){buy.disabled=true}
+ return account&&net.chainId===CHAIN;
+}
+connect.onclick=async()=>{try{provider=new BrowserProvider(window.ethereum);await provider.send('eth_requestAccounts',[]);signer=await provider.getSigner();await refresh()}catch(e){result.textContent=e.message}};
+sw.onclick=async()=>{try{await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:CHAIN_HEX}]});await refresh()}catch(e){result.textContent='Network switch failed: '+e.message}};
+quoteBtn.onclick=async()=>{try{
+ if(!(await refresh())) throw new Error('Connect MetaMask and switch to Base Sepolia first.');
+ const amount=parseEther(eth.value.trim());
+ if(amount<=0n) throw new Error('Enter an ETH amount greater than zero.');
+ const r=new Contract(ROUTER,routerAbi,provider);
+ const amounts=await r.getAmountsOut(amount,[WETH,TOKEN]);
+ const expected=amounts[1];
+ const minimum=expected*995n/1000n;
+ lastQuote={expected,minimum}; lastInput=amount;
+ document.getElementById('out').textContent=formatUnits(expected,18);
+ document.getElementById('min').textContent=formatUnits(minimum,18);
+ document.getElementById('quoteBox').style.display='block';
+ buy.disabled=false;
+ result.textContent='Live quote received. Review it before submitting.';
+}catch(e){buy.disabled=true;result.textContent='Quote failed: '+(e.shortMessage||e.message)}};
+buy.onclick=async()=>{try{
+ if(!(await refresh())) throw new Error('Wrong network or wallet disconnected.');
+ const amount=parseEther(eth.value.trim());
+ if(!lastQuote||amount!==lastInput) throw new Error('Amount changed. Get a fresh quote first.');
+ signer=await provider.getSigner();
+ const r=new Contract(ROUTER,routerAbi,signer);
+ const deadline=Math.floor(Date.now()/1000)+600;
+ result.textContent='Waiting for MetaMask confirmation…';
+ const tx=await r.swapExactETHForTokens(lastQuote.minimum,[WETH,TOKEN],account,deadline,{value:amount});
+ result.innerHTML='Submitted: <a target="_blank" href="https://sepolia.basescan.org/tx/'+tx.hash+'">'+tx.hash+'</a><br>Waiting for confirmation…';
+ const receipt=await tx.wait();
+ const t=new Contract(TOKEN,tokenAbi,provider);
+ const bal=await t.balanceOf(account);
+ result.innerHTML='<span class="ok">Confirmed.</span> Transaction: <a target="_blank" href="https://sepolia.basescan.org/tx/'+tx.hash+'">'+tx.hash.slice(0,12)+'…</a><br>Current wallet 200 balance: <strong>'+formatUnits(bal,18)+' 200</strong>';
+ buy.disabled=true;
+}catch(e){result.textContent='Swap not completed: '+(e.shortMessage||e.message)}};
+
+if(window.ethereum){
+ window.ethereum.on?.('accountsChanged',()=>{lastQuote=null;buy.disabled=true;refresh()});
+ window.ethereum.on?.('chainChanged',()=>{lastQuote=null;buy.disabled=true;refresh()});
+}
+refresh();
+</script>
+</main></body></html>
