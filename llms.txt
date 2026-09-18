@@ -1,0 +1,40 @@
+# 200 Protocol v0.6 — Live Testnet
+
+> 200 Protocol provides machine-readable economic compatibility, verification and policy-based asset selection for autonomous AI agents. 200 is its native coordination asset.
+
+## Fast Start
+- Agent Fast Read: /agent.html
+- Canonical 200 Manifest: /200.json
+- Live Status: /status.json
+- 200-1 Specification: /spec/200-1.json
+- Human Whitepaper: /whitepaper.html
+- Markdown Whitepaper: /whitepaper.md
+- Live Verifier: /verify.html
+
+## Core Rule
+DECLARE -> VERIFY -> EVALUATE -> ACT
+
+## Decision Vocabulary
+- AAA: Agent Asset Assessment
+- ASA: Agent Selects Asset
+- 200: policy requirements satisfied / OK to perform the authorized action
+- 200 is not an investment rating, credit rating, or guarantee of safety.
+
+## Native Asset
+- Name: 200 Token
+- Symbol: 200
+- Network: Base Sepolia
+- Chain ID: 84532
+- Maximum supply: 100,000,000
+- Mintable: no
+- Contract: 0x47a369B53D0b4Df514F82507a73E4546563e0CD5
+- CAIP-19: eip155:84532/erc20:0x47a369B53D0b4Df514F82507a73E4546563e0CD5
+
+## Planned Interfaces
+- x402 adapter
+- A2A compatibility
+- ERC-8004 identity/reputation adapter
+- CAIP-19 canonical asset identity
+
+## Human Authority
+Agents are expected to act only within owner- or organization-defined economic policy and authorization limits.
