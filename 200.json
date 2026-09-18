@@ -180,8 +180,13 @@
         "minimumReceivedEth": "0.000000503681301361",
         "balanceBefore200": "5001987.648209114086982351",
         "balanceAfter200": "5001487.648209114086982351",
-        "observedResult": "The 500 200 sell transaction through the PancakeSwap V2 Base Sepolia router confirmed and the wallet token balance decreased by exactly 500 200.",
-        "evidenceMeaning": "Behavioral evidence that the tested 200→ETH sell path executes successfully without an additional token-side deduction from the wallet beyond the exact 500 200 sold. Successful standard-router execution is also consistent with no fee-on-transfer behavior on this tested path. Exact ETH received should be taken from the confirmed transaction receipt when archived."
+        "observedResult": "BaseScan confirms 500 200 transferred from Account 3 to the 200/WETH pool and 0.000000506212363177 ETH returned to Account 3; the ETH received matched the router quote exactly.",
+        "evidenceMeaning": "On-chain behavioral evidence that the tested 200→ETH PancakeSwap V2 sell executed successfully, debited exactly 500 200, and returned the quoted ETH amount.",
+        "transactionHash": "0x73d124bde1a26cde1afa04166f2630b9dfd46b5daee9e8d6b01368c32cf5e8a3",
+        "baseScanUrl": "https://sepolia.basescan.org/tx/0x73d124bde1a26cde1afa04166f2630b9dfd46b5daee9e8d6b01368c32cf5e8a3",
+        "actualEthReceived": "0.000000506212363177",
+        "block": "46997144",
+        "onChainStatus": "Success"
       }
     ]
   },
