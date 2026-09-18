@@ -17,7 +17,8 @@
     "BaseScan": true,
     "MetaMask": true,
     "numericSymbol200": true,
-    "standardTransfer1000": true
+    "standardTransfer1000": true,
+    "largeTransfer5PercentSupply": true
   },
   "verification": {
     "onChainVerifier": "/verify.html",
@@ -31,10 +32,19 @@
       "recipient": "0x1fDe29f8fD7Dca926954eF5F142c86FdCC6752Db",
       "result": "PASS",
       "scope": "One standard wallet-to-wallet Base Sepolia transfer."
+    },
+    "behavioralLargeTransferTest": {
+      "date": "2026-09-18",
+      "amountSent": "5000000",
+      "amountReceived": "5000000",
+      "supplyPercent": "5",
+      "recipientBalanceAfter": "5001000",
+      "result": "PASS",
+      "scope": "One standard wallet-to-wallet Base Sepolia transfer."
     }
   },
   "nextMilestones": [
-    "behavioral-restriction-tests",
+    "pancakeswap-v2-liquidity-test",
     "signed-manifest",
     "x402-adapter",
     "ERC-8004-integration"
