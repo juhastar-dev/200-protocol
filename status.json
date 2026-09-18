@@ -47,11 +47,15 @@
     },
     "pancakeSwapV2LiquidityTest": {
       "date": "2026-09-18",
-      "tokenAmountAdded": "100000",
+      "tokenAmountAdded200": "100000",
       "ethAmountAdded": "0.0001",
-      "lpTokenApproxReceived": "3.162",
-      "poolAddress": "0x769b276A04ac8Db2E3044cD12A47df9E098f2923",
-      "result": "PASS"
+      "lpTokensMinted": "3.162277660168378331",
+      "transactionHash": "0x0949db26e964ac498c4765dc7eb9063c0b0781d98240743aa98c793a171b1897",
+      "baseScanUrl": "https://sepolia.basescan.org/tx/0x0949db26e964ac498c4765dc7eb9063c0b0781d98240743aa98c793a171b1897",
+      "block": "46995505",
+      "onChainStatus": "Success",
+      "result": "PASS",
+      "scope": "Initial PancakeSwap V2 Base Sepolia 200/WETH liquidity creation."
     },
     "pancakeSwapV2BuyTest": {
       "date": "2026-09-18",
@@ -83,7 +87,6 @@
     }
   },
   "nextMilestones": [
-    "archive-dex-transaction-hashes",
     "signed-manifest",
     "x402-adapter",
     "ERC-8004-integration"
