@@ -1,0 +1,37 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>200 Protocol — Agent Fast Read</title><style>body{max-width:900px;margin:40px auto;padding:0 22px;background:#07110d;color:#eaf7ef;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;line-height:1.55}a{color:#76f3a5}pre{white-space:pre-wrap;background:#0d1d16;border:1px solid #1e3e2d;padding:20px;border-radius:14px}</style></head><body>
+<h1>200 Protocol — Agent Fast Read</h1>
+<pre>protocol: 200 Protocol
+version: 0.6
+status: LIVE TESTNET
+purpose: machine-readable economic compatibility, verification and policy-based asset selection for autonomous AI agents
+
+native_asset:
+  name: 200 Token
+  symbol: 200
+  network: Base Sepolia
+  chain_id: 84532
+  contract: 0x47a369B53D0b4Df514F82507a73E4546563e0CD5
+  caip19: eip155:84532/erc20:0x47a369B53D0b4Df514F82507a73E4546563e0CD5
+  decimals: 18
+  maximum_supply: 100000000
+
+core_loop:
+  DECLARE -> VERIFY -> EVALUATE -> ACT
+
+decision_vocabulary:
+  AAA: Agent Asset Assessment
+  ASA: Agent Selects Asset
+  200: policy passed / OK TO ACT
+
+canonical_manifest: /200.json
+status: /status.json
+specification: /spec/200-1.json
+policy: /policy/default-policy.json
+verifier: /verify.html
+human_whitepaper: /whitepaper.html
+
+warning:
+  A 200 result is not an investment rating, credit rating or guarantee.
+  Agents should operate only inside explicit owner or organization authorization.</pre>
+<p><a href="200.json">Canonical manifest</a> · <a href="verify.html">Run 200 Verify</a> · <a href="index.html">Human site</a></p>
+</body></html>
