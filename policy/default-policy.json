@@ -1,0 +1,18 @@
+{
+  "policyId": "200-default-test-policy-v1",
+  "purpose": "Demonstrate explicit machine asset acceptance rules for the live 200 Token test asset.",
+  "rules": {
+    "chainId": {"operator":"equals","value":84532,"required":true},
+    "standard": {"operator":"contains","value":"ERC-20","required":true},
+    "mintable": {"operator":"equals","value":false,"required":true},
+    "transferTaxPercent": {"operator":"lte","value":0,"required":true},
+    "blacklist": {"operator":"equals","value":false,"required":true},
+    "pausable": {"operator":"equals","value":false,"required":true},
+    "maxWallet": {"operator":"equals","value":false,"required":true},
+    "maxTransaction": {"operator":"equals","value":false,"required":true}
+  },
+  "resultSemantics": {
+    "pass": "200 — OK TO ACT",
+    "fail": "NOT 200 — DO NOT ACT / ESCALATE"
+  }
+}
