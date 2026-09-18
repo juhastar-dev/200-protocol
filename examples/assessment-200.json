@@ -57,9 +57,11 @@
     },
     {
       "rule": "PancakeSwap V2 200→ETH sell executes with exact requested token amount",
-      "observed": "500 200 sold; wallet balance decreased by exactly 500 200; router transaction confirmed",
+      "observed": "500 200 sold; BaseScan confirms exact 500-token transfer to pool and 0.000000506212363177 ETH returned; transaction succeeded",
       "pass": true,
-      "evidenceClass": "behavioral-test"
+      "evidenceClass": "behavioral-test",
+      "transactionHash": "0x73d124bde1a26cde1afa04166f2630b9dfd46b5daee9e8d6b01368c32cf5e8a3",
+      "baseScanUrl": "https://sepolia.basescan.org/tx/0x73d124bde1a26cde1afa04166f2630b9dfd46b5daee9e8d6b01368c32cf5e8a3"
     }
   ]
 }
