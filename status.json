@@ -18,7 +18,8 @@
     "MetaMask": true,
     "numericSymbol200": true,
     "standardTransfer1000": true,
-    "largeTransfer5PercentSupply": true
+    "largeTransfer5PercentSupply": true,
+    "pancakeSwapV2Liquidity": true
   },
   "verification": {
     "onChainVerifier": "/verify.html",
@@ -41,10 +42,19 @@
       "recipientBalanceAfter": "5001000",
       "result": "PASS",
       "scope": "One standard wallet-to-wallet Base Sepolia transfer."
+    },
+    "pancakeSwapV2LiquidityTest": {
+      "date": "2026-09-18",
+      "tokenAmountAdded": "100000",
+      "ethAmountAdded": "0.0001",
+      "lpTokenApproxReceived": "3.162",
+      "poolAddress": "0x769b276A04ac8Db2E3044cD12A47df9E098f2923",
+      "result": "PASS"
     }
   },
   "nextMilestones": [
-    "pancakeswap-v2-liquidity-test",
+    "pancakeswap-v2-buy-test",
+    "pancakeswap-v2-sell-test",
     "signed-manifest",
     "x402-adapter",
     "ERC-8004-integration"
