@@ -50,7 +50,8 @@
     "transferTaxPercentEvidence": "behaviorally tested for one standard 1000-token wallet-to-wallet transfer; exact amount received",
     "maxTransactionEvidence": "behaviorally tested with one 5,000,000-token transfer (5% of total supply); transfer completed",
     "maxWalletEvidence": "recipient successfully held 5,001,000 200 after test (5.001% of total supply)",
-    "buyTaxPercentEvidence": "behaviorally tested on one PancakeSwap V2 Base Sepolia ETH→200 buy; actual 200 received matched router quote exactly"
+    "buyTaxPercentEvidence": "behaviorally tested on one PancakeSwap V2 Base Sepolia ETH→200 buy; actual 200 received matched router quote exactly",
+    "sellTaxPercentEvidence": "behaviorally tested on one PancakeSwap V2 Base Sepolia 200→ETH sell; exact 500 200 left wallet and standard router swap confirmed"
   },
   "interfaces": [
     {
@@ -166,6 +167,21 @@
         "balanceAfter200": "5001987.648209114086982351",
         "observedResult": "Actual 200 received matched the live PancakeSwap V2 router quote exactly.",
         "evidenceMeaning": "Behavioral evidence that this tested ETH→200 buy path incurred no additional token-side deduction beyond normal AMM pricing/fees. It does not prove every possible trade size or route."
+      },
+      {
+        "type": "pancakeswap-v2-sell-test",
+        "network": "Base Sepolia",
+        "dex": "PancakeSwap V2",
+        "status": "passed",
+        "date": "2026-09-18",
+        "account": "0x1fDe29f8fD7Dca926954eF5F142c86FdCC6752Db",
+        "tokenAmountSold": "500",
+        "routerQuotedEth": "0.000000506212363177",
+        "minimumReceivedEth": "0.000000503681301361",
+        "balanceBefore200": "5001987.648209114086982351",
+        "balanceAfter200": "5001487.648209114086982351",
+        "observedResult": "The 500 200 sell transaction through the PancakeSwap V2 Base Sepolia router confirmed and the wallet token balance decreased by exactly 500 200.",
+        "evidenceMeaning": "Behavioral evidence that the tested 200→ETH sell path executes successfully without an additional token-side deduction from the wallet beyond the exact 500 200 sold. Successful standard-router execution is also consistent with no fee-on-transfer behavior on this tested path. Exact ETH received should be taken from the confirmed transaction receipt when archived."
       }
     ]
   },
