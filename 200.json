@@ -47,7 +47,9 @@
     "pausable": false,
     "maxWallet": false,
     "maxTransaction": false,
-    "transferTaxPercentEvidence": "behaviorally tested for one standard 1000-token wallet-to-wallet transfer; exact amount received"
+    "transferTaxPercentEvidence": "behaviorally tested for one standard 1000-token wallet-to-wallet transfer; exact amount received",
+    "maxTransactionEvidence": "behaviorally tested with one 5,000,000-token transfer (5% of total supply); transfer completed",
+    "maxWalletEvidence": "recipient successfully held 5,001,000 200 after test (5.001% of total supply)"
   },
   "interfaces": [
     {
@@ -121,6 +123,19 @@
         "recipient": "0x1fDe29f8fD7Dca926954eF5F142c86FdCC6752Db",
         "observedResult": "A standard transfer of 1,000 200 resulted in exactly 1,000 200 at the recipient account.",
         "evidenceMeaning": "This test is behavioral evidence that this ordinary transfer incurred no token-amount deduction. It does not by itself prove every possible transfer path or DEX trade is tax-free."
+      },
+      {
+        "type": "behavioral-large-transfer-test",
+        "network": "Base Sepolia",
+        "status": "passed",
+        "date": "2026-09-18",
+        "amountSent": "5000000",
+        "amountReceived": "5000000",
+        "totalSupplyPercent": "5",
+        "recipient": "0x1fDe29f8fD7Dca926954eF5F142c86FdCC6752Db",
+        "recipientBalanceAfter": "5001000",
+        "observedResult": "A single transfer of 5,000,000 200 completed and the recipient balance increased from 1,000 to 5,001,000 200.",
+        "evidenceMeaning": "Behavioral evidence that no low max-transaction or low max-wallet restriction interfered with this 5%-of-supply wallet-to-wallet transfer. It does not prove the absence of every possible limit in every context."
       }
     ]
   },
