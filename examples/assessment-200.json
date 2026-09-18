@@ -51,9 +51,11 @@
     },
     {
       "rule": "PancakeSwap V2 ETH→200 buy delivers router-quoted token output",
-      "observed": "987.648209114086982351 quoted / 987.648209114086982351 received",
+      "observed": "BaseScan confirms 0.000001 ETH spent and 987.648209114086982351 200 received; actual output matched router quote exactly",
       "pass": true,
-      "evidenceClass": "behavioral-test"
+      "evidenceClass": "behavioral-test",
+      "transactionHash": "0x372046b334aa82d1e97fef33db4eb2b5b9102dc68ff8afc5427edb49c1b58930",
+      "baseScanUrl": "https://sepolia.basescan.org/tx/0x372046b334aa82d1e97fef33db4eb2b5b9102dc68ff8afc5427edb49c1b58930"
     },
     {
       "rule": "PancakeSwap V2 200→ETH sell executes with exact requested token amount",
