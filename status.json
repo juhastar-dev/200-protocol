@@ -20,7 +20,8 @@
     "standardTransfer1000": true,
     "largeTransfer5PercentSupply": true,
     "pancakeSwapV2Liquidity": true,
-    "pancakeSwapV2Buy": true
+    "pancakeSwapV2Buy": true,
+    "pancakeSwapV2Sell": true
   },
   "verification": {
     "onChainVerifier": "/verify.html",
@@ -59,10 +60,20 @@
       "actualReceived200": "987.648209114086982351",
       "result": "PASS",
       "scope": "One PancakeSwap V2 Base Sepolia ETH→200 test buy."
+    },
+    "pancakeSwapV2SellTest": {
+      "date": "2026-09-18",
+      "tokenAmountSold": "500",
+      "quotedEth": "0.000000506212363177",
+      "minimumReceivedEth": "0.000000503681301361",
+      "balanceBefore200": "5001987.648209114086982351",
+      "balanceAfter200": "5001487.648209114086982351",
+      "result": "PASS",
+      "scope": "One PancakeSwap V2 Base Sepolia 200→ETH test sell."
     }
   },
   "nextMilestones": [
-    "pancakeswap-v2-sell-test",
+    "archive-dex-transaction-hashes",
     "signed-manifest",
     "x402-adapter",
     "ERC-8004-integration"
