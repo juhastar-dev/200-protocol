@@ -54,6 +54,12 @@
       "observed": "987.648209114086982351 quoted / 987.648209114086982351 received",
       "pass": true,
       "evidenceClass": "behavioral-test"
+    },
+    {
+      "rule": "PancakeSwap V2 200→ETH sell executes with exact requested token amount",
+      "observed": "500 200 sold; wallet balance decreased by exactly 500 200; router transaction confirmed",
+      "pass": true,
+      "evidenceClass": "behavioral-test"
     }
   ]
 }
