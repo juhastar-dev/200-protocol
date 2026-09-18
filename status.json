@@ -59,7 +59,12 @@
       "quoted200": "987.648209114086982351",
       "actualReceived200": "987.648209114086982351",
       "result": "PASS",
-      "scope": "One PancakeSwap V2 Base Sepolia ETH→200 test buy."
+      "scope": "One PancakeSwap V2 Base Sepolia ETH→200 test buy.",
+      "transactionHash": "0x372046b334aa82d1e97fef33db4eb2b5b9102dc68ff8afc5427edb49c1b58930",
+      "baseScanUrl": "https://sepolia.basescan.org/tx/0x372046b334aa82d1e97fef33db4eb2b5b9102dc68ff8afc5427edb49c1b58930",
+      "block": "46996651",
+      "onChainStatus": "Success",
+      "actualEthSpent": "0.000001"
     },
     "pancakeSwapV2SellTest": {
       "date": "2026-09-18",
