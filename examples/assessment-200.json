@@ -36,6 +36,12 @@
       "observed": "1000 sent / 1000 received",
       "pass": true,
       "evidenceClass": "behavioral-test"
+    },
+    {
+      "rule": "single 5,000,000-token transfer succeeds without low wallet/transaction cap interference",
+      "observed": "5,000,000 sent / 5,000,000 received; recipient balance 5,001,000",
+      "pass": true,
+      "evidenceClass": "behavioral-test"
     }
   ]
 }
