@@ -69,7 +69,12 @@
       "balanceBefore200": "5001987.648209114086982351",
       "balanceAfter200": "5001487.648209114086982351",
       "result": "PASS",
-      "scope": "One PancakeSwap V2 Base Sepolia 200→ETH test sell."
+      "scope": "One PancakeSwap V2 Base Sepolia 200→ETH test sell.",
+      "transactionHash": "0x73d124bde1a26cde1afa04166f2630b9dfd46b5daee9e8d6b01368c32cf5e8a3",
+      "baseScanUrl": "https://sepolia.basescan.org/tx/0x73d124bde1a26cde1afa04166f2630b9dfd46b5daee9e8d6b01368c32cf5e8a3",
+      "actualEthReceived": "0.000000506212363177",
+      "block": "46997144",
+      "onChainStatus": "Success"
     }
   },
   "nextMilestones": [
