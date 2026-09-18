@@ -192,6 +192,25 @@
         "actualEthReceived": "0.000000506212363177",
         "block": "46997144",
         "onChainStatus": "Success"
+      },
+      {
+        "type": "pancakeswap-v2-liquidity-add",
+        "network": "Base Sepolia",
+        "dex": "PancakeSwap V2",
+        "status": "passed",
+        "date": "2026-09-18",
+        "transactionHash": "0x0949db26e964ac498c4765dc7eb9063c0b0781d98240743aa98c793a171b1897",
+        "baseScanUrl": "https://sepolia.basescan.org/tx/0x0949db26e964ac498c4765dc7eb9063c0b0781d98240743aa98c793a171b1897",
+        "block": "46995505",
+        "onChainStatus": "Success",
+        "providerAccount": "0x64d6719831414f883aA51CB59584D7B4F4066E08",
+        "tokenAmountAdded200": "100000",
+        "ethAmountAdded": "0.0001",
+        "lpTokensMinted": "3.162277660168378331",
+        "poolAddress": "0x769b276A04ac8Db2E3044cD12A47df9E098f2923",
+        "routerAddress": "0x8cFe327CEc66d1C090Dd72bd0FF11d690C33a2Eb",
+        "observedResult": "BaseScan confirms 100,000 200 and 0.0001 ETH were supplied to the PancakeSwap V2 Base Sepolia pool, and 3.162277660168378331 Cake-LP tokens were minted to Account 2.",
+        "evidenceMeaning": "On-chain evidence that the configured 200/WETH PancakeSwap V2 liquidity pool was successfully initialized and funded."
       }
     ]
   },
