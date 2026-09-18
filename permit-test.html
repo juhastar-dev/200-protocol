@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>200 Permit Test — Base Sepolia</title>
+<link rel="icon" href="200-icon.svg" type="image/svg+xml">
+<style>
+:root{--bg:#06100c;--card:#0d1d16;--line:#1e3e2d;--ink:#eaf7ef;--muted:#9fc2ad;--accent:#76f3a5;--warn:#ffd166;--bad:#ff7373}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#123326,#06100c 48%);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.5}
+main{max-width:920px;margin:auto;padding:32px 20px 60px}a{color:var(--accent)}h1{font-size:clamp(2.5rem,7vw,4.8rem);line-height:.95}.card{background:rgba(13,29,22,.96);border:1px solid var(--line);border-radius:18px;padding:20px;margin:16px 0}.muted{color:var(--muted)}.mono{font:13px ui-monospace,Menlo,monospace;word-break:break-all;color:#c8edd3}
+button{border:1px solid var(--line);background:#10251a;color:var(--ink);border-radius:12px;padding:13px 18px;font-weight:850;font-size:15px;cursor:pointer;margin:4px 6px 4px 0}button.primary{background:var(--accent);color:#06100c}button:disabled{opacity:.45;cursor:not-allowed}
+input{width:100%;padding:13px;border:1px solid #31513e;border-radius:12px;background:#07110d;color:var(--ink);font-size:17px}.ok{color:var(--accent);font-weight:850}.bad{color:var(--bad);font-weight:850}.warn{color:var(--warn);font-weight:850}.kv{display:grid;grid-template-columns:180px 1fr;gap:8px 16px}
+</style></head>
+<body><main>
+<p><a href="index.html">← 200 Protocol</a></p>
+<h1>200 Permit Test</h1>
+<p class="muted">Live ERC‑2612 / EIP‑712 permit test for the Base Sepolia 200 Token. This page does not move tokens by itself; it tests signature-based allowance authorization.</p>
+<div class="card">
+<h2>1. Connect signer</h2>
+<p>Use <strong>Account 3</strong> on Base Sepolia.</p>
+<button id="connect" class="primary">Connect MetaMask</button>
+<button id="switch">Switch to Base Sepolia</button>
+<p id="wallet" class="mono">Not connected</p>
+</div>
+<div class="card">
+<h2>2. Verify EIP‑712 domain</h2>
+<p class="muted">The page compares the contract's on-chain DOMAIN_SEPARATOR with the standard OpenZeppelin-style domain for 200 Token, version 1, chain 84532, and this contract address. Permit signing is blocked if they do not match.</p>
+<button id="verifyDomain" disabled>Verify domain separator</button>
+<div class="kv">
+<div>On-chain separator</div><div id="onchain" class="mono">—</div>
+<div>Computed separator</div><div id="computed" class="mono">—</div>
+<div>Result</div><div id="domainResult">Not checked</div>
+</div>
+</div>
+<div class="card">
+<h2>3. Sign and submit permit</h2>
+<label>Spender address</label>
+<input id="spender" value="0x64d6719831414f883aA51CB59584D7B4F4066E08">
+<label>Allowance amount (200)</label>
+<input id="amount" value="123">
+<p class="muted">This test authorizes exactly 123 200 to Account 2. It does not transfer them.</p>
+<button id="signPermit" disabled>Sign permit</button>
+<button id="submitPermit" class="primary" disabled>Submit permit on-chain</button>
+<p id="permitStatus" class="muted">No permit signed.</p>
+</div>
+<div class="card">
+<h2>4. Verify allowance</h2>
+<button id="checkAllowance" disabled>Read allowance on-chain</button>
+<p>Current allowance: <strong id="allowance">—</strong> 200</p>
+<p id="final" class="muted">Permit test not complete.</p>
+</div>
+<script type="module">
+import {BrowserProvider,Contract,TypedDataEncoder,parseUnits,formatUnits,Signature} from "https://cdn.jsdelivr.net/npm/ethers@6.15.0/+esm";
+const CHAIN=84532n, CHAIN_HEX='0x14a34';
+const TOKEN='0x47a369B53D0b4Df514F82507a73E4546563e0CD5';
+const abi=[
+ 'function DOMAIN_SEPARATOR() view returns(bytes32)',
+ 'function nonces(address) view returns(uint256)',
+ 'function allowance(address,address) view returns(uint256)',
+ 'function permit(address owner,address spender,uint256 value,uint256 deadline,uint8 v,bytes32 r,bytes32 s)'
+];
+let provider,signer,owner,domainOK=false,signed=null;
+const connect=document.getElementById('connect'),sw=document.getElementById('switch'),verifyDomain=document.getElementById('verifyDomain'),signPermit=document.getElementById('signPermit'),submitPermit=document.getElementById('submitPermit'),checkAllowance=document.getElementById('checkAllowance');
+async function ctx(){
+ if(!window.ethereum) throw new Error('MetaMask not detected.');
+ provider=new BrowserProvider(window.ethereum);
+ const net=await provider.getNetwork();
+ const accts=await provider.send('eth_accounts',[]);
+ owner=accts[0]||null;
+ document.getElementById('wallet').textContent=(owner||'Not connected')+' · chain '+net.chainId;
+ if(!owner||net.chainId!==CHAIN) return false;
+ signer=await provider.getSigner();
+ verifyDomain.disabled=false;checkAllowance.disabled=false;return true;
+}
+connect.onclick=async()=>{try{provider=new BrowserProvider(window.ethereum);await provider.send('eth_requestAccounts',[]);await ctx()}catch(e){document.getElementById('permitStatus').textContent=e.message}};
+sw.onclick=async()=>{try{await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:CHAIN_HEX}]});await ctx()}catch(e){document.getElementById('permitStatus').textContent=e.message}};
+verifyDomain.onclick=async()=>{try{
+ if(!(await ctx())) throw new Error('Connect MetaMask on Base Sepolia first.');
+ const c=new Contract(TOKEN,abi,provider);
+ const oc=await c.DOMAIN_SEPARATOR();
+ const domain={name:'200 Token',version:'1',chainId:84532,verifyingContract:TOKEN};
+ const cp=TypedDataEncoder.hashDomain(domain);
+ document.getElementById('onchain').textContent=oc;
+ document.getElementById('computed').textContent=cp;
+ domainOK=oc.toLowerCase()===cp.toLowerCase();
+ document.getElementById('domainResult').innerHTML=domainOK?'<span class="ok">MATCH — permit domain verified</span>':'<span class="bad">MISMATCH — stop</span>';
+ signPermit.disabled=!domainOK;
+}catch(e){document.getElementById('domainResult').innerHTML='<span class="bad">'+(e.shortMessage||e.message)+'</span>'}};
+signPermit.onclick=async()=>{try{
+ if(!domainOK) throw new Error('Verify domain first.');
+ await ctx();
+ const spender=document.getElementById('spender').value.trim();
+ const value=parseUnits(document.getElementById('amount').value.trim(),18);
+ const c=new Contract(TOKEN,abi,provider);
+ const nonce=await c.nonces(owner);
+ const deadline=BigInt(Math.floor(Date.now()/1000)+3600);
+ const domain={name:'200 Token',version:'1',chainId:84532,verifyingContract:TOKEN};
+ const types={Permit:[
+  {name:'owner',type:'address'},{name:'spender',type:'address'},{name:'value',type:'uint256'},{name:'nonce',type:'uint256'},{name:'deadline',type:'uint256'}
+ ]};
+ const message={owner,spender,value,nonce,deadline};
+ const sigHex=await signer.signTypedData(domain,types,message);
+ const sig=Signature.from(sigHex);
+ signed={spender,value,deadline,v:sig.v,r:sig.r,s:sig.s,nonce};
+ document.getElementById('permitStatus').innerHTML='<span class="ok">Permit signed.</span> Nonce '+nonce.toString()+'. No token transfer occurred.';
+ submitPermit.disabled=false;
+}catch(e){document.getElementById('permitStatus').textContent='Signing failed: '+(e.shortMessage||e.message)}};
+submitPermit.onclick=async()=>{try{
+ if(!signed) throw new Error('Sign a permit first.');
+ await ctx();
+ const c=new Contract(TOKEN,abi,signer);
+ document.getElementById('permitStatus').textContent='Waiting for MetaMask transaction confirmation…';
+ const tx=await c.permit(owner,signed.spender,signed.value,signed.deadline,signed.v,signed.r,signed.s);
+ document.getElementById('permitStatus').innerHTML='Submitted: <a target="_blank" href="https://sepolia.basescan.org/tx/'+tx.hash+'">'+tx.hash+'</a><br>Waiting for confirmation…';
+ await tx.wait();
+ document.getElementById('permitStatus').innerHTML='<span class="ok">Permit transaction confirmed.</span> <a target="_blank" href="https://sepolia.basescan.org/tx/'+tx.hash+'">View on BaseScan</a>';
+ await readAllowance();
+}catch(e){document.getElementById('permitStatus').textContent='Permit not completed: '+(e.shortMessage||e.message)}};
+async function readAllowance(){try{
+ if(!(await ctx())) throw new Error('Connect MetaMask on Base Sepolia first.');
+ const spender=document.getElementById('spender').value.trim();
+ const c=new Contract(TOKEN,abi,provider);
+ const a=await c.allowance(owner,spender);
+ document.getElementById('allowance').textContent=formatUnits(a,18);
+ const expected=parseUnits(document.getElementById('amount').value.trim(),18);
+ document.getElementById('final').innerHTML=a===expected?'<span class="ok">PASS — on-chain allowance matches signed permit amount.</span>':'<span class="warn">Allowance read succeeded, but differs from the current test amount.</span>';
+}catch(e){document.getElementById('final').textContent=e.shortMessage||e.message}}
+checkAllowance.onclick=readAllowance;
+if(window.ethereum){window.ethereum.on?.('accountsChanged',()=>{domainOK=false;signed=null;signPermit.disabled=true;submitPermit.disabled=true;ctx()});window.ethereum.on?.('chainChanged',()=>{domainOK=false;signed=null;signPermit.disabled=true;submitPermit.disabled=true;ctx()})}
+ctx();
+</script>
+</main></body></html>
