@@ -1,0 +1,13 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"200-1 Asset Manifest Draft",
+  "description":"Development draft for machine-readable economic asset declarations, verification evidence and policy-based selection by autonomous agents.",
+  "version":"0.6-draft",
+  "requiredConcepts":["canonical-asset-identity","declared-economic-properties","verification-evidence","supported-agent-interfaces","capabilities","human-authority-policy"],
+  "canonicalIdentity":{"preferred":"CAIP-19","tickerAloneIsCanonical":false},
+  "decisionModel":["DECLARE","VERIFY","EVALUATE","ACT"],
+  "selectionModel":{"AAA":"Agent Asset Assessment","ASA":"Agent Selects Asset","successCode":"200","successMeaning":"Policy requirements satisfied for the proposed action; not a financial or credit rating."},
+  "versioning":{"tokenContractStable":true,"protocolManifestsVersioned":true,"adaptersReplaceable":true},
+  "securityPrinciples":["verify-critical-claims","minimize-token-owner-privileges","avoid-ticker-only-identification","do-not-require-prose-comprehension","preserve-human-authorization-boundaries"],
+  "testnetAsset":{"network":"Base Sepolia","chainId":84532,"contract":"0x47a369B53D0b4Df514F82507a73E4546563e0CD5","caip19":"eip155:84532/erc20:0x47a369B53D0b4Df514F82507a73E4546563e0CD5","status":"live"}
+}
