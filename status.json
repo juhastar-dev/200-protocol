@@ -1,0 +1,34 @@
+{
+  "protocol": "200 Protocol",
+  "version": "0.6",
+  "status": "live-testnet-development",
+  "network": "Base Sepolia",
+  "chainId": 84532,
+  "rpc": "https://sepolia.base.org",
+  "asset": {
+    "name": "200 Token",
+    "symbol": "200",
+    "contract": "0x47a369B53D0b4Df514F82507a73E4546563e0CD5",
+    "caip19": "eip155:84532/erc20:0x47a369B53D0b4Df514F82507a73E4546563e0CD5",
+    "supply": "100000000",
+    "decimals": 18
+  },
+  "compatibilityConfirmed": {
+    "BaseScan": true,
+    "MetaMask": true,
+    "numericSymbol200": true
+  },
+  "verification": {
+    "onChainVerifier": "/verify.html",
+    "directRpcChecksImplemented": true,
+    "sourceVerifiedOnTestnet": false,
+    "note": "Direct RPC verifier distinguishes verified on-chain facts from manifest declarations."
+  },
+  "nextMilestones": [
+    "small-transfer-test",
+    "behavioral-restriction-tests",
+    "signed-manifest",
+    "x402-adapter",
+    "ERC-8004-integration"
+  ]
+}
