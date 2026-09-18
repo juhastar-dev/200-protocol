@@ -3,36 +3,78 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>200 Protocol — Machine-Readable Economics for Autonomous Agents</title>
-<meta name="description" content="200 Protocol is a machine-readable economic compatibility and asset-selection protocol for autonomous AI agents.">
+<meta name="description" content="200 Protocol is a machine-readable economic compatibility, verification and asset-selection protocol for autonomous AI agents.">
+<link rel="icon" href="200-icon.svg" type="image/svg+xml">
 <style>
-:root{--bg:#07110d;--panel:#0d1d16;--ink:#eaf7ef;--muted:#9fc2ad;--accent:#76f3a5;--line:#1e3e2d}
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#06100c,#0a1711);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.55}
-a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}.wrap{max-width:1120px;margin:auto;padding:28px}
-nav{display:flex;justify-content:space-between;align-items:center;padding:8px 0 44px}.brand{font-weight:900;letter-spacing:.08em;font-size:1.3rem}.tag,.muted{color:var(--muted)}
-.hero{padding:50px 0}.eyebrow{color:var(--accent);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:.78rem}.hero h1{font-size:clamp(3rem,8vw,6.5rem);line-height:.92;margin:.22em 0}.hero p{max-width:800px;font-size:1.2rem;color:#c8dfd1}
-.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}.btn{padding:13px 18px;border:1px solid var(--line);border-radius:12px;background:#10251a;color:var(--ink);font-weight:750}.btn.primary{background:var(--accent);color:#06100c}
-.section{padding:34px 0;border-top:1px solid var(--line)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px}.mono{font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all;color:#bfe7cb}.flow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}.step{border:1px solid var(--line);padding:9px 13px;border-radius:999px}.arrow{color:var(--accent)}footer{padding:40px 0;color:var(--muted)}
+:root{--bg:#07110d;--panel:#0d1d16;--ink:#eaf7ef;--muted:#9fc2ad;--accent:#76f3a5;--cyan:#36dff1;--line:#1e3e2d;--warn:#ffca6a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 70% -10%,#113425,#06100c 35%,#07110d 100%);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.55}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}.wrap{max-width:1120px;margin:auto;padding:26px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:8px 0 32px;gap:18px}.identity{display:flex;align-items:center;gap:12px}.logo{width:52px;height:52px}.brand{font-weight:900;letter-spacing:.08em;font-size:1.25rem}.tag,.muted{color:var(--muted)}
+.badge{display:inline-flex;align-items:center;gap:8px;border:1px solid #375c42;border-radius:999px;padding:7px 11px;font-size:.78rem;font-weight:800;letter-spacing:.05em}.dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.hero{padding:50px 0 58px}.eyebrow{color:var(--accent);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:.78rem}.hero h1{font-size:clamp(3rem,8vw,6.4rem);line-height:.93;margin:.22em 0}.hero p{max-width:820px;font-size:1.2rem;color:#c8dfd1}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:27px}.btn{padding:13px 18px;border:1px solid var(--line);border-radius:12px;background:#10251a;color:var(--ink);font-weight:750}.btn.primary{background:var(--accent);color:#06100c}.btn.cyan{border-color:#245861}
+.section{padding:36px 0;border-top:1px solid var(--line)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:16px}.card{background:linear-gradient(180deg,#0e2118,#0b1912);border:1px solid var(--line);border-radius:16px;padding:20px}.card h3{margin-top:0}.mono{font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all;color:#bfe7cb;font-size:.92rem}.flow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}.step{border:1px solid var(--line);padding:9px 13px;border-radius:999px;background:#0b1912}.arrow{color:var(--accent)}.notice{border:1px solid #65582e;background:#201d0d;border-radius:14px;padding:14px 16px;color:#f4dfad;margin-top:22px}.kicker{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+footer{padding:42px 0;color:var(--muted);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+@media(max-width:640px){nav{align-items:flex-start}.logo{width:44px;height:44px}.hero{padding-top:30px}}
 </style></head>
 <body><div class="wrap">
-<nav><div><div class="brand">200</div><div class="tag">Protocol</div></div><div class="tag">v0.6 · LIVE TESTNET</div></nav>
-<section class="hero"><div class="eyebrow">Machine-readable economics</div><h1>Built for agents<br>that transact.</h1>
-<p>200 Protocol is a machine-readable economic compatibility, verification and policy-based asset-selection protocol for autonomous AI agents. <strong>200 Token</strong> is its native coordination asset.</p>
-<div class="cta"><a class="btn primary" href="whitepaper.html">For Humans — Understand 200</a><a class="btn" href="agent.html">For AI Agents — Fast Read</a><a class="btn" href="verify.html">Run 200 Verify</a><a class="btn" href="200.json">Machine Manifest</a></div></section>
-<section class="section"><h2>Core decision loop</h2><div class="flow"><span class="step">DECLARE</span><span class="arrow">→</span><span class="step">VERIFY</span><span class="arrow">→</span><span class="step">EVALUATE</span><span class="arrow">→</span><span class="step">ACT</span></div><p class="muted">Important claims should be independently verified before an autonomous economic action.</p></section>
-<section class="section"><h2>Live Base Sepolia test asset</h2><div class="grid">
-<div class="card"><h3>200 Token (200)</h3><p>ERC-20 · 18 decimals · 100,000,000 maximum supply</p></div>
-<div class="card"><h3>Canonical identity</h3><div class="mono">eip155:84532/erc20:0x47a369B53D0b4Df514F82507a73E4546563e0CD5</div></div>
-<div class="card"><h3>Contract</h3><div class="mono">0x47a369B53D0b4Df514F82507a73E4546563e0CD5</div><p><a href="https://sepolia.basescan.org/token/0x47a369B53D0b4Df514F82507a73E4546563e0CD5">View on BaseScan →</a></p></div>
-</div></section>
-<section class="section"><h2>Why 200?</h2><p>In machine and web systems, 200 is associated with successful completion. In this protocol, a <strong>200 result</strong> means the proposed action satisfied the defined verification and authorization policy. It is not an investment rating, credit rating or guarantee.</p><div class="flow"><span class="step">AAA · ASSESS</span><span class="arrow">→</span><span class="step">ASA · SELECT</span><span class="arrow">→</span><span class="step">200 · OK TO ACT</span></div></section>
-<section class="section"><h2>Machine information bank</h2><div class="grid">
-<div class="card"><h3>Manifest</h3><p><a href="200.json">/200.json</a></p></div>
-<div class="card"><h3>Status</h3><p><a href="status.json">/status.json</a></p></div>
-<div class="card"><h3>AI fast context</h3><p><a href="llms.txt">/llms.txt</a></p></div>
-<div class="card"><h3>Specification</h3><p><a href="spec/200-1.json">/spec/200-1.json</a></p></div>
-<div class="card"><h3>Agent card</h3><p><a href=".well-known/agent-card.json">/.well-known/agent-card.json</a></p></div>
-<div class="card"><h3>Policy example</h3><p><a href="policy/default-policy.json">/policy/default-policy.json</a></p></div>
-</div></section>
-<section class="section"><h2>Development status</h2><p>This is the <strong>Base Sepolia testnet phase</strong>. The final Base mainnet token has not been deployed. Numeric symbol <strong>200</strong> has been successfully recognized by 20lab, BaseScan and MetaMask.</p></section>
-<footer>200 Protocol · v0.6 · Base Sepolia development environment</footer>
+<nav>
+<div class="identity"><img class="logo" src="200-icon.svg" alt="200 Protocol icon"><div><div class="brand">200</div><div class="tag">Protocol</div></div></div>
+<div class="badge"><span class="dot"></span> BASE SEPOLIA · LIVE TESTNET</div>
+</nav>
+
+<section class="hero">
+<div class="eyebrow">Machine-readable economics for autonomous agents</div>
+<h1>Verify first.<br>Then act.</h1>
+<p>200 Protocol gives autonomous agents a structured way to identify, verify, evaluate and select economic assets and services under explicit policy. <strong>200 Token</strong> is the live Base Sepolia coordination asset used to test the architecture.</p>
+<div class="cta">
+<a class="btn primary" href="verify.html">Run 200 Verify</a>
+<a class="btn" href="agent.html">AI Agent Fast Read</a>
+<a class="btn" href="whitepaper.html">Read Whitepaper</a>
+<a class="btn cyan" href="https://sepolia.basescan.org/token/0x47a369B53D0b4Df514F82507a73E4546563e0CD5">View 200 on BaseScan</a>
+</div>
+<div class="notice"><strong>Testnet only.</strong> This site documents the live Base Sepolia development asset. A Base mainnet 200 Token has not been deployed.</div>
+</section>
+
+<section class="section">
+<div class="kicker">Protocol logic</div><h2>DECLARE → VERIFY → EVALUATE → ACT</h2>
+<div class="flow"><span class="step">DECLARE</span><span class="arrow">→</span><span class="step">VERIFY</span><span class="arrow">→</span><span class="step">EVALUATE</span><span class="arrow">→</span><span class="step">ACT</span></div>
+<p class="muted">A project may declare properties. 200 is designed so an agent can distinguish those declarations from facts that have been independently verified.</p>
+</section>
+
+<section class="section">
+<div class="kicker">Live asset identity</div><h2>200 Token (200)</h2>
+<div class="grid">
+<div class="card"><h3>Token</h3><p><strong>200 Token</strong><br>Symbol: <strong>200</strong><br>ERC-20 · 18 decimals<br>100,000,000 maximum supply</p></div>
+<div class="card"><h3>Network</h3><p><strong>Base Sepolia</strong><br>Chain ID: <strong>84532</strong></p><p class="muted">Numeric symbol 200 has been successfully recognized by 20lab, BaseScan and MetaMask.</p></div>
+<div class="card"><h3>Contract</h3><div class="mono">0x47a369B53D0b4Df514F82507a73E4546563e0CD5</div></div>
+<div class="card"><h3>CAIP-19</h3><div class="mono">eip155:84532/erc20:0x47a369B53D0b4Df514F82507a73E4546563e0CD5</div></div>
+</div>
+</section>
+
+<section class="section">
+<div class="kicker">Machine decision vocabulary</div><h2>Assess → Select → 200</h2>
+<div class="flow"><span class="step">AAA · Agent Asset Assessment</span><span class="arrow">→</span><span class="step">ASA · Agent Selects Asset</span><span class="arrow">→</span><span class="step">200 · OK TO ACT</span></div>
+<p>A <strong>200 result</strong> means the proposed action satisfied the verifier's defined policy requirements. It is <strong>not</strong> an investment rating, credit rating, or guarantee of safety.</p>
+</section>
+
+<section class="section">
+<div class="kicker">For machines</div><h2>200 Information Bank</h2>
+<div class="grid">
+<div class="card"><h3>Canonical Manifest</h3><p><a href="200.json">/200.json →</a></p><p class="muted">Asset identity, declared properties, capabilities and evidence.</p></div>
+<div class="card"><h3>Live Status</h3><p><a href="status.json">/status.json →</a></p><p class="muted">Current deployment and development state.</p></div>
+<div class="card"><h3>LLM Context</h3><p><a href="llms.txt">/llms.txt →</a></p><p class="muted">Compact fast-read context for AI systems.</p></div>
+<div class="card"><h3>200-1 Specification</h3><p><a href="spec/200-1.json">/spec/200-1.json →</a></p><p class="muted">Machine-readable protocol design.</p></div>
+<div class="card"><h3>A2A Agent Card</h3><p><a href=".well-known/agent-card.json">/.well-known/agent-card.json →</a></p><p class="muted">Agent discovery metadata.</p></div>
+<div class="card"><h3>Default Policy</h3><p><a href="policy/default-policy.json">/policy/default-policy.json →</a></p><p class="muted">Example explicit asset-acceptance rules.</p></div>
+</div>
+</section>
+
+<section class="section">
+<div class="kicker">Public proof of concept</div><h2>200 Verify</h2>
+<p>The v0.6 verifier queries Base Sepolia directly and checks chain ID, deployed bytecode, ERC-20 name, numeric symbol <strong>200</strong>, decimals, total supply and ERC-2612 read-interface evidence. If required verification fails or cannot be completed, it fails closed instead of issuing a 200 result.</p>
+<div class="cta"><a class="btn primary" href="verify.html">Open 200 Verify</a><a class="btn" href="examples/assessment-200.json">Example Assessment JSON</a></div>
+</section>
+
+<footer><span>200 Protocol · v0.6 · Base Sepolia development environment</span><span><a href="https://github.com/juhastar-dev/200-protocol">GitHub repository</a></span></footer>
 </div></body></html>
