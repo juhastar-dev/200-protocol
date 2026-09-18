@@ -136,6 +136,19 @@
         "recipientBalanceAfter": "5001000",
         "observedResult": "A single transfer of 5,000,000 200 completed and the recipient balance increased from 1,000 to 5,001,000 200.",
         "evidenceMeaning": "Behavioral evidence that no low max-transaction or low max-wallet restriction interfered with this 5%-of-supply wallet-to-wallet transfer. It does not prove the absence of every possible limit in every context."
+      },
+      {
+        "type": "pancakeswap-v2-liquidity-test",
+        "network": "Base Sepolia",
+        "dex": "PancakeSwap V2",
+        "status": "passed",
+        "date": "2026-09-18",
+        "tokenAmountAdded": "100000",
+        "ethAmountAdded": "0.0001",
+        "lpTokenApproxReceived": "3.162",
+        "poolAddress": "0x769b276A04ac8Db2E3044cD12A47df9E098f2923",
+        "observedResult": "Initial 200/ETH liquidity was successfully added to the configured PancakeSwap V2 Base Sepolia pool.",
+        "scopeNote": "This confirms liquidity provisioning and LP token minting for the tested deposit. It does not yet establish buy/sell behavior or trade-tax behavior."
       }
     ]
   },
