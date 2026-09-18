@@ -49,7 +49,8 @@
     "maxTransaction": false,
     "transferTaxPercentEvidence": "behaviorally tested for one standard 1000-token wallet-to-wallet transfer; exact amount received",
     "maxTransactionEvidence": "behaviorally tested with one 5,000,000-token transfer (5% of total supply); transfer completed",
-    "maxWalletEvidence": "recipient successfully held 5,001,000 200 after test (5.001% of total supply)"
+    "maxWalletEvidence": "recipient successfully held 5,001,000 200 after test (5.001% of total supply)",
+    "buyTaxPercentEvidence": "behaviorally tested on one PancakeSwap V2 Base Sepolia ETH→200 buy; actual 200 received matched router quote exactly"
   },
   "interfaces": [
     {
@@ -149,6 +150,22 @@
         "poolAddress": "0x769b276A04ac8Db2E3044cD12A47df9E098f2923",
         "observedResult": "Initial 200/ETH liquidity was successfully added to the configured PancakeSwap V2 Base Sepolia pool.",
         "scopeNote": "This confirms liquidity provisioning and LP token minting for the tested deposit. It does not yet establish buy/sell behavior or trade-tax behavior."
+      },
+      {
+        "type": "pancakeswap-v2-buy-test",
+        "network": "Base Sepolia",
+        "dex": "PancakeSwap V2",
+        "status": "passed",
+        "date": "2026-09-18",
+        "account": "0x1fDe29f8fD7Dca926954eF5F142c86FdCC6752Db",
+        "ethSpent": "0.000001",
+        "routerQuoted200": "987.648209114086982351",
+        "minimumReceived200": "982.709968068516547439",
+        "actualReceived200": "987.648209114086982351",
+        "balanceBefore200": "5001000",
+        "balanceAfter200": "5001987.648209114086982351",
+        "observedResult": "Actual 200 received matched the live PancakeSwap V2 router quote exactly.",
+        "evidenceMeaning": "Behavioral evidence that this tested ETH→200 buy path incurred no additional token-side deduction beyond normal AMM pricing/fees. It does not prove every possible trade size or route."
       }
     ]
   },
