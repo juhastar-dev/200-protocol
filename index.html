@@ -31,6 +31,7 @@ footer{padding:42px 0;color:var(--muted);display:flex;justify-content:space-betw
 <a class="btn primary" href="verify.html">Run 200 Verify</a>
 <a class="btn" href="agent.html">AI Agent Fast Read</a>
 <a class="btn" href="whitepaper.html">Read Whitepaper</a>
+<a class="btn" href="swap-test.html">200 Swap Test</a>
 <a class="btn cyan" href="https://sepolia.basescan.org/token/0x47a369B53D0b4Df514F82507a73E4546563e0CD5">View 200 on BaseScan</a>
 </div>
 <div class="notice"><strong>Testnet only.</strong> This site documents the live Base Sepolia development asset. A Base mainnet 200 Token has not been deployed.</div>
@@ -58,6 +59,20 @@ footer{padding:42px 0;color:var(--muted);display:flex;justify-content:space-betw
 <p>A <strong>200 result</strong> means the proposed action satisfied the verifier's defined policy requirements. It is <strong>not</strong> an investment rating, credit rating, or guarantee of safety.</p>
 </section>
 
+
+<section class="section">
+<div class="kicker">Behavioral evidence</div><h2>Tested on Base Sepolia</h2>
+<p class="muted">These are observed test results from the deployed 200 Token and its configured PancakeSwap V2 pool. They are scoped evidence, not guarantees about every possible future route, trade size or environment.</p>
+<div class="grid">
+<div class="card"><h3>Standard transfer ✓</h3><p><strong>1,000 200</strong> sent wallet-to-wallet and exactly <strong>1,000 200</strong> received.</p></div>
+<div class="card"><h3>Large transfer ✓</h3><p><strong>5,000,000 200</strong> transferred successfully in one transaction; recipient balance rose to <strong>5,001,000 200</strong>.</p></div>
+<div class="card"><h3>Liquidity ✓</h3><p><strong>100,000 200 + 0.0001 ETH</strong> added to PancakeSwap V2 Base Sepolia; LP tokens were minted.</p></div>
+<div class="card"><h3>DEX buy ✓</h3><p><strong>0.000001 ETH → 987.648209114086982351 200</strong>. Actual tokens received matched the live router quote exactly.</p></div>
+<div class="card"><h3>DEX sell ✓</h3><p><strong>500 200 → ETH</strong> through the same PancakeSwap V2 router. Wallet balance decreased by exactly <strong>500 200</strong>.</p></div>
+<div class="card"><h3>Machine evidence</h3><p><a href="200.json">Canonical evidence manifest →</a><br><a href="status.json">Current verification status →</a><br><a href="swap-test.html">Open behavioral swap tester →</a></p></div>
+</div>
+</section>
+
 <section class="section">
 <div class="kicker">For machines</div><h2>200 Information Bank</h2>
 <div class="grid">
@@ -76,5 +91,5 @@ footer{padding:42px 0;color:var(--muted);display:flex;justify-content:space-betw
 <div class="cta"><a class="btn primary" href="verify.html">Open 200 Verify</a><a class="btn" href="examples/assessment-200.json">Example Assessment JSON</a></div>
 </section>
 
-<footer><span>200 Protocol · v0.6 · Base Sepolia development environment</span><span><a href="https://github.com/juhastar-dev/200-protocol">GitHub repository</a></span></footer>
+<footer><span>200 Protocol · v0.7 · Base Sepolia development environment</span><span><a href="https://github.com/juhastar-dev/200-protocol">GitHub repository</a></span></footer>
 </div></body></html>
