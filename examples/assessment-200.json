@@ -64,6 +64,14 @@
       "evidenceClass": "behavioral-test",
       "transactionHash": "0x73d124bde1a26cde1afa04166f2630b9dfd46b5daee9e8d6b01368c32cf5e8a3",
       "baseScanUrl": "https://sepolia.basescan.org/tx/0x73d124bde1a26cde1afa04166f2630b9dfd46b5daee9e8d6b01368c32cf5e8a3"
+    },
+    {
+      "rule": "PancakeSwap V2 liquidity creation succeeds",
+      "observed": "BaseScan confirms 100,000 200 + 0.0001 ETH added and 3.162277660168378331 Cake-LP minted",
+      "pass": true,
+      "evidenceClass": "on-chain-behavioral-test",
+      "transactionHash": "0x0949db26e964ac498c4765dc7eb9063c0b0781d98240743aa98c793a171b1897",
+      "baseScanUrl": "https://sepolia.basescan.org/tx/0x0949db26e964ac498c4765dc7eb9063c0b0781d98240743aa98c793a171b1897"
     }
   ]
 }
