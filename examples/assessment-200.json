@@ -42,6 +42,12 @@
       "observed": "5,000,000 sent / 5,000,000 received; recipient balance 5,001,000",
       "pass": true,
       "evidenceClass": "behavioral-test"
+    },
+    {
+      "rule": "PancakeSwap V2 Base Sepolia liquidity can be added",
+      "observed": "100000 200 + 0.0001 ETH added; ~3.162 LP received",
+      "pass": true,
+      "evidenceClass": "behavioral-test"
     }
   ]
 }
