@@ -165,8 +165,13 @@
         "actualReceived200": "987.648209114086982351",
         "balanceBefore200": "5001000",
         "balanceAfter200": "5001987.648209114086982351",
-        "observedResult": "Actual 200 received matched the live PancakeSwap V2 router quote exactly.",
-        "evidenceMeaning": "Behavioral evidence that this tested ETH→200 buy path incurred no additional token-side deduction beyond normal AMM pricing/fees. It does not prove every possible trade size or route."
+        "observedResult": "BaseScan confirms 0.000001 ETH moved from Account 3 into the PancakeSwap V2 router/pool path and 987.648209114086982351 200 was transferred from the pool to Account 3; the token amount received matched the live router quote exactly.",
+        "evidenceMeaning": "On-chain behavioral evidence that the tested ETH→200 PancakeSwap V2 buy executed successfully and delivered the router-quoted 200 amount.",
+        "transactionHash": "0x372046b334aa82d1e97fef33db4eb2b5b9102dc68ff8afc5427edb49c1b58930",
+        "baseScanUrl": "https://sepolia.basescan.org/tx/0x372046b334aa82d1e97fef33db4eb2b5b9102dc68ff8afc5427edb49c1b58930",
+        "block": "46996651",
+        "onChainStatus": "Success",
+        "actualEthSpent": "0.000001"
       },
       {
         "type": "pancakeswap-v2-sell-test",
