@@ -96,4 +96,115 @@ document.getElementById('preflight').onclick=async()=>{const out=document.getEle
  document.getElementById('remainingLp').textContent=formatUnits(bal-remove,18)+' LP';
  out.innerHTML='<span class="ok">PASS — LP position and live pool reserves read successfully. No state change was made.</span>';
 }catch(e){out.innerHTML='<span class="bad">'+err(e)+'</span>'}};
-</script></main></body></html>
+</script>
+<div class="card">
+<h2>Step 3 — Approve exactly 0.1 LP</h2>
+<p>This approves only the planned test amount to the PancakeSwap V2 router. It does not remove liquidity yet.</p>
+<button id="approveLp">Approve 0.1 LP</button>
+<p id="approveStatus">Not run.</p>
+<p class="mono">Approval tx: <span id="approveTx">—</span></p>
+<p>Router LP allowance: <strong id="lpAllowance">—</strong> LP</p>
+</div>
+
+<div class="card">
+<h2>Step 4 — Remove exactly 0.1 LP</h2>
+<p>Before submission, the page recalculates the live proportional outputs and applies a <strong>0.5% minimum-output guard</strong>. Account 2 remains the recipient.</p>
+<button id="removeLp">Remove 0.1 LP</button>
+<p id="removeStatus">Not run.</p>
+<p class="mono">Removal tx: <span id="removeTx">—</span></p>
+<p>LP balance after: <strong id="lpAfter">—</strong></p>
+<p>200 balance increase: <strong id="tokenIncrease">—</strong> 200</p>
+<p>Pool reserve 200 after: <strong id="reserve200After">—</strong> 200</p>
+<p>Pool reserve WETH after: <strong id="reserveWethAfter">—</strong> WETH</p>
+</div>
+
+<script type="module">
+import {BrowserProvider,Contract,parseUnits,formatUnits,formatEther} from "https://cdn.jsdelivr.net/npm/ethers@6.15.0/+esm";
+const R_ACCOUNT2='0x64d6719831414f883aA51CB59584D7B4F4066E08';
+const R_TOKEN='0x47a369B53D0b4Df514F82507a73E4546563e0CD5';
+const R_WETH='0x4200000000000000000000000000000000000006';
+const R_PAIR='0x769b276A04ac8Db2E3044cD12A47df9E098f2923';
+const R_ROUTER='0x8cFe327CEc66d1C090Dd72bd0FF11d690C33a2Eb';
+const REMOVE=parseUnits('0.1',18);
+const PAIR_ABI2=[
+ 'function balanceOf(address) view returns(uint256)',
+ 'function totalSupply() view returns(uint256)',
+ 'function getReserves() view returns(uint112 reserve0,uint112 reserve1,uint32 blockTimestampLast)',
+ 'function token0() view returns(address)',
+ 'function token1() view returns(address)',
+ 'function allowance(address,address) view returns(uint256)',
+ 'function approve(address,uint256) returns(bool)'
+];
+const TOKEN_ABI2=['function balanceOf(address) view returns(uint256)'];
+const ROUTER_ABI=[
+ 'function removeLiquidityETH(address token,uint256 liquidity,uint256 amountTokenMin,uint256 amountETHMin,address to,uint256 deadline) returns(uint256 amountToken,uint256 amountETH)'
+];
+function e2(e){return String(e.shortMessage||e.message||e).replace(/[<>]/g,'')}
+async function c2(){
+ if(!window.ethereum) throw new Error('MetaMask not detected.');
+ const provider=new BrowserProvider(window.ethereum);
+ const net=await provider.getNetwork();
+ if(net.chainId!==84532n) throw new Error('Switch to Base Sepolia first.');
+ const signer=await provider.getSigner();
+ const account=await signer.getAddress();
+ if(account.toLowerCase()!==R_ACCOUNT2.toLowerCase()) throw new Error('Use Account 2 for this test.');
+ return {provider,signer};
+}
+async function quoteRemoval(provider){
+ const p=new Contract(R_PAIR,PAIR_ABI2,provider);
+ const [supply,res,t0,t1]=await Promise.all([p.totalSupply(),p.getReserves(),p.token0(),p.token1()]);
+ let r200,rweth;
+ if(t0.toLowerCase()===R_TOKEN.toLowerCase()&&t1.toLowerCase()===R_WETH.toLowerCase()){r200=res.reserve0;rweth=res.reserve1;}
+ else if(t1.toLowerCase()===R_TOKEN.toLowerCase()&&t0.toLowerCase()===R_WETH.toLowerCase()){r200=res.reserve1;rweth=res.reserve0;}
+ else throw new Error('Unexpected pair tokens.');
+ return {p,supply,r200,rweth,exp200:(r200*REMOVE)/supply,expEth:(rweth*REMOVE)/supply};
+}
+
+document.getElementById('approveLp').onclick=async()=>{const out=document.getElementById('approveStatus');try{
+ const {provider,signer}=await c2();
+ const p=new Contract(R_PAIR,PAIR_ABI2,signer);
+ const bal=await p.balanceOf(R_ACCOUNT2);
+ if(bal<REMOVE) throw new Error('LP balance below 0.1 LP.');
+ out.textContent='Waiting for MetaMask approval confirmation…';
+ const tx=await p.approve(R_ROUTER,REMOVE);
+ document.getElementById('approveTx').innerHTML='<a target="_blank" href="https://sepolia.basescan.org/tx/'+tx.hash+'">'+tx.hash+'</a>';
+ await tx.wait();
+ const pr=new Contract(R_PAIR,PAIR_ABI2,provider);
+ const a=await pr.allowance(R_ACCOUNT2,R_ROUTER);
+ document.getElementById('lpAllowance').textContent=formatUnits(a,18);
+ out.innerHTML=a===REMOVE?'<span class="ok">PASS — router allowance is exactly 0.1 LP.</span>':'<span class="bad">Allowance differs from 0.1 LP. Stop.</span>';
+}catch(e){out.innerHTML='<span class="bad">'+e2(e)+'</span>'}};
+
+document.getElementById('removeLp').onclick=async()=>{const out=document.getElementById('removeStatus');try{
+ const {provider,signer}=await c2();
+ const {p,r200,rweth,exp200,expEth}=await quoteRemoval(provider);
+ const allowance=await p.allowance(R_ACCOUNT2,R_ROUTER);
+ if(allowance!==REMOVE) throw new Error('Router allowance must be exactly 0.1 LP before removal.');
+ const lpBefore=await p.balanceOf(R_ACCOUNT2);
+ if(lpBefore<REMOVE) throw new Error('LP balance below 0.1 LP.');
+ const token=new Contract(R_TOKEN,TOKEN_ABI2,provider);
+ const tokenBefore=await token.balanceOf(R_ACCOUNT2);
+ const min200=(exp200*995n)/1000n;
+ const minEth=(expEth*995n)/1000n;
+ const deadline=BigInt(Math.floor(Date.now()/1000)+1200);
+ out.innerHTML='Fresh estimate: '+formatUnits(exp200,18)+' 200 + '+formatEther(expEth)+' ETH.<br>Minimums (0.5% guard): '+formatUnits(min200,18)+' 200 + '+formatEther(minEth)+' ETH.<br>Waiting for MetaMask confirmation…';
+ const router=new Contract(R_ROUTER,ROUTER_ABI,signer);
+ const tx=await router.removeLiquidityETH(R_TOKEN,REMOVE,min200,minEth,R_ACCOUNT2,deadline);
+ document.getElementById('removeTx').innerHTML='<a target="_blank" href="https://sepolia.basescan.org/tx/'+tx.hash+'">'+tx.hash+'</a>';
+ out.textContent='Transaction submitted. Waiting for confirmation…';
+ await tx.wait();
+ const lpAfter=await p.balanceOf(R_ACCOUNT2);
+ const tokenAfter=await token.balanceOf(R_ACCOUNT2);
+ const qAfter=await quoteRemoval(provider);
+ document.getElementById('lpAfter').textContent=formatUnits(lpAfter,18)+' LP';
+ document.getElementById('tokenIncrease').textContent=formatUnits(tokenAfter-tokenBefore,18);
+ document.getElementById('reserve200After').textContent=formatUnits(qAfter.r200,18);
+ document.getElementById('reserveWethAfter').textContent=formatEther(qAfter.rweth);
+ const lpOK=(lpBefore-lpAfter)===REMOVE;
+ const tokenOK=(tokenAfter-tokenBefore)>=min200;
+ out.innerHTML=(lpOK&&tokenOK)
+  ?'<span class="ok">PASS — exactly 0.1 LP was removed and the received 200 amount met the 0.5% minimum-output guard.</span>'
+  :'<span class="bad">Transaction confirmed, but one or more verification checks differ from the expected removal.</span>';
+}catch(e){out.innerHTML='<span class="bad">'+e2(e)+'</span>'}};
+</script>
+</main></body></html>
