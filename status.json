@@ -234,7 +234,10 @@
     "manifest": "/200.json",
     "verificationSummary": "/verification-summary.json",
     "futureCompatibility": "/future-compatibility.json",
-    "integrity": "/integrity.json"
+    "integrity": "/integrity.json",
+    "integrityStatus": "AWAITING_WALLET_SIGNATURE",
+    "signingPayload": "/signing-payload.json",
+    "signingPage": "/sign-canonical-evidence.html"
   },
   "futureCompatibility": {
     "status": "LIVE_METADATA_LAYER",
