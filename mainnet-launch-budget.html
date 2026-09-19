@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>200 Mainnet Launch Budget</title>
+<style>
+body{margin:0;background:#07100c;color:#edf8f1;font-family:system-ui,sans-serif;line-height:1.55}main{max-width:900px;margin:auto;padding:32px 20px}
+.card{background:#0e1d16;border:1px solid #254534;border-radius:18px;padding:22px;margin:18px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.k{font-size:13px;color:#a9c7b5}.v{font-size:26px;font-weight:800}.ok{color:#7ef2a8}.warn{color:#ffd166}input{width:100%;box-sizing:border-box;padding:11px;border-radius:9px;border:1px solid #31513e;background:#08130e;color:white;font-size:16px}
+button{padding:12px 16px;border:0;border-radius:10px;background:#7ef2a8;color:#06100c;font-weight:800;cursor:pointer}a{color:#7ef2a8}.bad{color:#ff8c8c}
+</style></head><body><main>
+<p><a href="index.html">← 200 Protocol</a></p>
+<h1>200 Mainnet Launch Budget</h1>
+<p>This page is a <strong>read-only planning tool</strong>. It does not connect a wallet or submit transactions.</p>
+
+<div class="card">
+<h2>Frozen hard limits</h2>
+<div class="grid">
+<div><div class="k">Absolute launch ceiling</div><div class="v">€200</div></div>
+<div><div class="k">Initial ETH liquidity</div><div class="v">≤ €120</div></div>
+<div><div class="k">Deploy + liquidity gas reserve</div><div class="v">≤ €40</div></div>
+<div><div class="k">First buy test</div><div class="v">≤ €10</div></div>
+<div><div class="k">First sell test</div><div class="v">≤ €10</div></div>
+<div><div class="k">Untouched contingency</div><div class="v">€20</div></div>
+</div>
+<p class="warn"><strong>€200 is a ceiling, not a target.</strong> Unused money stays unused.</p>
+</div>
+
+<div class="card">
+<h2>Launch-day ETH calculator</h2>
+<p>Enter the live ETH price in euros immediately before launch. The calculator converts the maximum €120 liquidity allocation into ETH.</p>
+<label>Live ETH price (EUR)<input id="ethPrice" inputmode="decimal" placeholder="Example: 2500"></label>
+<p><button id="calc">Calculate maximum ETH liquidity</button></p>
+<div class="grid">
+<div><div class="k">Max ETH for liquidity</div><div id="maxEth" class="v">—</div></div>
+<div><div class="k">200 tokens paired</div><div class="v">500,000 200</div></div>
+<div><div class="k">Starting 200 per ETH</div><div id="perEth" class="v">—</div></div>
+<div><div class="k">Starting EUR per 200</div><div id="eurPer200" class="v">—</div></div>
+</div>
+</div>
+
+<div class="card">
+<h2>Hard-stop preflight</h2>
+<p>Enter projected real-money spending before signing a transaction.</p>
+<div class="grid">
+<label>Liquidity EUR<input id="liq" value="120"></label>
+<label>Gas EUR<input id="gas" value="0"></label>
+<label>Buy test EUR<input id="buy" value="0"></label>
+<label>Sell test EUR<input id="sell" value="0"></label>
+<label>Other EUR<input id="other" value="0"></label>
+</div>
+<p><button id="check">Check budget</button></p>
+<p id="result" class="v">—</p>
+</div>
+
+<script>
+function n(id){return Number(document.getElementById(id).value)||0}
+document.getElementById('calc').onclick=()=>{
+ const p=n('ethPrice'); if(p<=0)return;
+ const eth=120/p, per=500000/eth, eur=120/500000;
+ document.getElementById('maxEth').textContent=eth.toFixed(8)+' ETH';
+ document.getElementById('perEth').textContent=per.toLocaleString('en-US',{maximumFractionDigits:2})+' 200';
+ document.getElementById('eurPer200').textContent='€'+eur.toFixed(8);
+};
+document.getElementById('check').onclick=()=>{
+ const total=n('liq')+n('gas')+n('buy')+n('sell')+n('other');
+ const r=document.getElementById('result');
+ if(n('liq')>120||n('gas')>40||n('buy')>10||n('sell')>10||total>200){
+   r.textContent='STOP — projected spend €'+total.toFixed(2)+' breaches a frozen limit.';
+   r.className='v bad';
+ }else{
+   r.textContent='PASS — projected spend €'+total.toFixed(2)+' remains within the frozen €200 ceiling.';
+   r.className='v ok';
+ }
+};
+</script>
+</main></body></html>
