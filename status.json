@@ -24,7 +24,8 @@
     "pancakeSwapV2Sell": true,
     "erc2612Permit": true,
     "transferFromPermitConsumption": true,
-    "tokenRecovery": true
+    "tokenRecovery": true,
+    "adminControlReview": true
   },
   "verification": {
     "onChainVerifier": "/verify.html",
@@ -128,6 +129,18 @@
       "result": "PASS",
       "scope": "One controlled Base Sepolia test of recovery of the token's own 200 balance.",
       "note": "Fresh post-confirmation read was used for final state because the immediate UI read was stale."
+    },
+    "adminControlReview": {
+      "date": "2026-09-19",
+      "owner": "0x64d6719831414f883aA51CB59584D7B4F4066E08",
+      "pendingOwner": "0x0000000000000000000000000000000000000000",
+      "name": "200 Token",
+      "symbol": "200",
+      "decimals": 18,
+      "totalSupply200": "100000000",
+      "contractHeld200": "0",
+      "result": "PASS",
+      "scope": "Read-only Base Sepolia ownership and token-identity review; no state-changing transaction submitted."
     }
   },
   "nextMilestones": [
