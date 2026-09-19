@@ -72,6 +72,14 @@
       "evidenceClass": "on-chain-behavioral-test",
       "transactionHash": "0x0949db26e964ac498c4765dc7eb9063c0b0781d98240743aa98c793a171b1897",
       "baseScanUrl": "https://sepolia.basescan.org/tx/0x0949db26e964ac498c4765dc7eb9063c0b0781d98240743aa98c793a171b1897"
+    },
+    {
+      "rule": "ERC-2612 permit authorizes exact allowance",
+      "observed": "EIP-712 domain matched; Account 3 signed permit for 123 200 to Account 2; on-chain allowance read back exactly 123 200",
+      "pass": true,
+      "evidenceClass": "on-chain-behavioral-test",
+      "transactionHash": "0x28bbd6226a7bc21aaddd45c1fb6fa2b95f803f560d1465ee48f9155445a0481f",
+      "baseScanUrl": "https://sepolia.basescan.org/tx/0x28bbd6226a7bc21aaddd45c1fb6fa2b95f803f560d1465ee48f9155445a0481f"
     }
   ]
 }
