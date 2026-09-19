@@ -1,0 +1,36 @@
+{
+  "schema": "200-protocol/integrity/v1",
+  "status": "UNSIGNED",
+  "canonicalDiscovery": "/.well-known/200.json",
+  "algorithm": "sha-256",
+  "generatedAt": "2026-09-19T00:00:00Z",
+  "artifacts": [
+    {
+      "path": "/.well-known/200.json",
+      "contentHash": null
+    },
+    {
+      "path": "/200.json",
+      "contentHash": null
+    },
+    {
+      "path": "/verification-summary.json",
+      "contentHash": null
+    },
+    {
+      "path": "/status.json",
+      "contentHash": null
+    },
+    {
+      "path": "/spec/200-1.json",
+      "contentHash": null
+    }
+  ],
+  "signature": {
+    "type": null,
+    "value": null,
+    "signer": null,
+    "verificationMethod": null
+  },
+  "note": "Prepared integrity envelope. No cryptographic signature or SHA-256 artifact hashes have been published yet; null values MUST NOT be treated as verification."
+}
