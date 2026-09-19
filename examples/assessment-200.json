@@ -102,6 +102,14 @@
       "observed": "Owner is Account 2; pending owner is zero address; name 200 Token; symbol 200; decimals 18; total supply 100,000,000; contract-held balance 0",
       "pass": true,
       "evidenceClass": "on-chain-readonly-review"
+    },
+    {
+      "rule": "PancakeSwap V2 LP can be partially removed with guarded outputs",
+      "observed": "0.1 LP removed successfully; 3146.85686979135337764 200 received; 3.062277660168378331 LP remained; pool reserves stayed nonzero",
+      "pass": true,
+      "evidenceClass": "on-chain-behavioral-test",
+      "transactionHash": "0xda51ef606bdd9117eec0eead7d0b224ab77e656bcf1ffb3b2595d97f7b15dbc9",
+      "baseScanUrl": "https://sepolia.basescan.org/tx/0xda51ef606bdd9117eec0eead7d0b224ab77e656bcf1ffb3b2595d97f7b15dbc9"
     }
   ]
 }
