@@ -58,19 +58,34 @@ Reason: irreversible ownership changes should not be made merely for appearance.
 - Initial LP tokens must remain under deliberate owner control until a separate LP custody/locking policy is approved.
 - No LP burn or irreversible lock is part of this freeze.
 
-## 5. Launch economics — USER DECISION REQUIRED BEFORE FINAL FREEZE
+## 5. Launch economics — REAL-MONEY BUDGET FROZEN
 
-The following values are deliberately not invented:
+**Absolute total real-money launch budget: EUR 200 maximum.**
 
-- Initial 200 amount placed into liquidity: **TBD**
-- Initial ETH amount placed into liquidity: **TBD**
-- Implied initial 200/ETH price: **CALCULATED FROM THE TWO VALUES ABOVE**
-- Implied fully diluted valuation: **CALCULATED, NOT TARGETED AUTOMATICALLY**
-- Maximum intended launch slippage for setup/test transactions: **TBD**
-- Size of first real buy test after deployment: **TBD**
-- Size of first real sell test after deployment: **TBD**
+This EUR 200 cap includes all real-money costs in the production launch sequence:
+- ETH placed into initial liquidity
+- Base mainnet deployment gas
+- liquidity-creation gas
+- small post-launch buy test
+- small post-launch sell test
+- other unavoidable Base transaction fees associated with launch
 
-No production liquidity transaction should be submitted until these values are explicitly approved.
+### Token-side amount
+
+- Planned initial token-side liquidity: **500,000 200**
+- This means **500,000 units of the 200 Token**, not EUR 500,000.
+- These tokens come from the fixed 100,000,000 200 supply; they are not purchased for EUR 500,000.
+- Portion of fixed supply represented by 500,000 200: **0.5%**
+
+### ETH-side amount
+
+The previously illustrated **0.05 ETH is no longer a hard commitment**.
+
+The exact ETH amount will be calculated immediately before launch using the then-current ETH/EUR price. It must leave enough of the EUR 200 total budget for deployment gas, liquidity-creation gas, and deliberately small real buy/sell validation transactions.
+
+**Hard stop:** if projected cumulative real-money launch spending would exceed EUR 200, do not submit the transaction.
+
+Because the exact ETH amount is dynamic, the initial 200/ETH ratio, initial ETH price per 200, and mathematical implied FDV will also be recalculated immediately before launch. They are not frozen yet and are not market-value predictions.
 
 ## 6. Mainnet deployment sequence — FROZEN
 
@@ -139,9 +154,10 @@ STOP immediately if any of the following occurs:
 - no LP burn/irreversible lock during launch
 
 **STILL REQUIRED**
-- initial 200 liquidity amount
-- initial ETH liquidity amount
-- resulting launch price calculation
+- V3 fee tier
+- V3 price range
+- exact ETH liquidity amount calculated at launch under the EUR 200 total cap
+- resulting launch price calculation from that exact ETH amount
 - launch slippage/test trade sizes
 - live verification of current PancakeSwap Base Mainnet deployment addresses
 
