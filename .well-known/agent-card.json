@@ -1,15 +1,63 @@
 {
-  "name":"200 Protocol",
-  "description":"Machine-readable economic compatibility, verification and policy-based asset selection for autonomous AI agents.",
-  "url":"https://juhastar-dev.github.io/200-protocol/",
-  "version":"0.6",
-  "documentationUrl":"https://juhastar-dev.github.io/200-protocol/whitepaper.html",
-  "capabilities":{"streaming":false,"pushNotifications":false},
-  "defaultInputModes":["application/json","text/plain"],
-  "defaultOutputModes":["application/json","text/plain"],
-  "skills":[
-    {"id":"200-asset-read","name":"Read 200 asset manifest","description":"Return machine-readable 200 Protocol asset and economic declarations.","tags":["token","asset","verification","economics"]},
-    {"id":"200-policy-evaluate","name":"Evaluate economic compatibility","description":"Evaluate assets/services against an authorized machine policy and return a structured pass/non-pass decision.","tags":["policy","agent","risk","compatibility","selection"]}
+  "name": "200 Protocol",
+  "description": "Machine-readable economic compatibility, verification and policy-based asset selection for autonomous AI agents.",
+  "url": "https://juhastar-dev.github.io/200-protocol/",
+  "version": "0.6",
+  "documentationUrl": "https://juhastar-dev.github.io/200-protocol/whitepaper.html",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false
+  },
+  "defaultInputModes": [
+    "application/json",
+    "text/plain"
   ],
-  "metadata":{"nativeAsset":{"name":"200 Token","symbol":"200","network":"Base Sepolia","contract":"0x47a369B53D0b4Df514F82507a73E4546563e0CD5","caip19":"eip155:84532/erc20:0x47a369B53D0b4Df514F82507a73E4546563e0CD5"}}
+  "defaultOutputModes": [
+    "application/json",
+    "text/plain"
+  ],
+  "skills": [
+    {
+      "id": "200-asset-read",
+      "name": "Read 200 asset manifest",
+      "description": "Return machine-readable 200 Protocol asset and economic declarations.",
+      "tags": [
+        "token",
+        "asset",
+        "verification",
+        "economics"
+      ]
+    },
+    {
+      "id": "200-policy-evaluate",
+      "name": "Evaluate economic compatibility",
+      "description": "Evaluate assets/services against an authorized machine policy and return a structured pass/non-pass decision.",
+      "tags": [
+        "policy",
+        "agent",
+        "risk",
+        "compatibility",
+        "selection"
+      ]
+    }
+  ],
+  "metadata": {
+    "nativeAsset": {
+      "name": "200 Token",
+      "symbol": "200",
+      "network": "Base Sepolia",
+      "contract": "0x47a369B53D0b4Df514F82507a73E4546563e0CD5",
+      "caip19": "eip155:84532/erc20:0x47a369B53D0b4Df514F82507a73E4546563e0CD5"
+    }
+  },
+  "protocolDiscovery": {
+    "canonical": "/.well-known/200.json",
+    "manifest": "/200.json",
+    "verificationSummary": "/verification-summary.json",
+    "status": "/status.json",
+    "specification": "/spec/200-1.json",
+    "verifier": "/verify.html"
+  },
+  "machineReadable": true,
+  "semanticResult": "200 = OK_TO_ACT when configured policy checks pass"
 }
