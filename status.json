@@ -170,14 +170,14 @@
     "coreTokenTestCount": 11,
     "coreTokenPassCount": 11,
     "blockingCoreTokenTests": [],
-    "mainnetConfigFreeze": "DRAFT_CORE_CONFIG_FROZEN_FINAL_LAUNCH_AMOUNTS_PENDING",
+    "mainnetConfigFreeze": "DRAFT_BUDGET_AND_V3_FROZEN_PREFLIGHT_PENDING",
     "futureProtocolMilestones": [
       "signed-manifest",
       "x402-adapter",
       "ERC-8004-integration"
     ],
     "note": "Future protocol integrations are tracked separately and are not failures of the completed Base Sepolia core token validation.",
-    "nextDecision": "validation trade policy + gas reserve under EUR 200 cap",
+    "nextDecision": "final slippage/predeployment checklist",
     "mainnetConfig": "/mainnet-config.json",
     "mainnetFreezeDocument": "/mainnet-configuration-freeze.md",
     "maximumTotalRealMoneyBudgetEUR": "200",
@@ -186,6 +186,15 @@
     "budgetRule": "Total launch real-money spending must not exceed EUR 200.",
     "pancakeSwapVersion": "V3",
     "v3FeeTierPercent": "0.25",
-    "v3PriceRange": "FULL_RANGE"
+    "v3PriceRange": "FULL_RANGE",
+    "launchBudget": {
+      "absoluteMaxEUR": "200",
+      "liquidityMaxEUR": "120",
+      "deploymentAndLiquidityGasReserveMaxEUR": "40",
+      "firstBuyMaxEUR": "10",
+      "firstSellMaxEUR": "10",
+      "contingencyEUR": "20",
+      "unusedFunds": "remain unspent"
+    }
   }
 }
