@@ -1,6 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>200 Protocol — Sign Canonical Evidence</title>
-<script src="https://cdn.jsdelivr.net/npm/ethers@6.15.0/dist/ethers.min.js"></script>
 <style>body{margin:0;background:#07100c;color:#eef8f1;font-family:system-ui,sans-serif;line-height:1.5}main{max-width:900px;margin:auto;padding:30px 20px}.card{background:#0e1d16;border:1px solid #274936;border-radius:18px;padding:22px;margin:18px 0}.ok{color:#7ef2a8}.warn{color:#ffd166}.bad{color:#ff8c8c}.mono{font-family:monospace;word-break:break-all;background:#08130e;padding:10px;border-radius:10px}button{padding:13px 18px;border:0;border-radius:11px;background:#7ef2a8;color:#06100c;font-weight:800;cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}a{color:#7ef2a8}</style>
 </head><body><main>
 <p><a href="index.html">← 200 Protocol</a></p>
@@ -16,39 +15,58 @@ Payload SHA-256: 0x64fae78db37d5e9d91259d1aae1876937d5835fe55f263a907be221368c9e
 Canonical discovery: https://juhastar-dev.github.io/200-protocol/.well-known/200.json
 This is an off-chain signature. It sends no transaction and spends no ETH.</pre></div>
 <div class="card"><h2>Step 1</h2><button id="connect">Connect Account 2</button><p id="acct">Not connected.</p></div>
-<div class="card"><h2>Step 2</h2><button id="sign" disabled>Sign canonical evidence</button><p id="result">Waiting.</p><div id="sigbox" style="display:none"><h3>Signature</h3><div id="sig" class="mono"></div><h3>Recovered signer</h3><div id="rec" class="mono"></div></div></div>
+<div class="card"><h2>Step 2</h2><button id="sign" disabled>Sign canonical evidence</button><p id="result">Waiting.</p><div id="sigbox" style="display:none"><h3>Signature</h3><div id="sig" class="mono"></div><p class="warn">Copy this full signature and send it to ChatGPT. It will be independently verified before publication.</p></div></div>
 <script>
 const EXPECT='0x64d6719831414f883aA51CB59584D7B4F4066E08'.toLowerCase();
 const MESSAGE="200 Protocol Canonical Evidence Signature v1\nPurpose: authenticate the canonical machine-readable evidence set\nChain context: eip155:8453\nExpected signer: 0x64d6719831414f883aA51CB59584D7B4F4066E08\nPayload SHA-256: 0x64fae78db37d5e9d91259d1aae1876937d5835fe55f263a907be221368c9e0cc\nCanonical discovery: https://juhastar-dev.github.io/200-protocol/.well-known/200.json\nThis is an off-chain signature. It sends no transaction and spends no ETH.";
-let signer;
+let account=null;
+
+function utf8ToHex(str){
+  const bytes=new TextEncoder().encode(str);
+  return '0x'+Array.from(bytes).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
 document.getElementById('connect').onclick=async()=>{
- try{
-  if(!window.ethereum) throw new Error('MetaMask not found');
-  const provider=new ethers.BrowserProvider(window.ethereum);
-  const accounts=await provider.send('eth_requestAccounts',[]);
-  const account=accounts[0];
-  document.getElementById('acct').textContent='Connected: '+account;
-  if(account.toLowerCase()!==EXPECT){
-    document.getElementById('acct').className='bad';
-    document.getElementById('sign').disabled=true;
-    return;
+  const out=document.getElementById('acct');
+  try{
+    if(!window.ethereum) throw new Error('MetaMask not found');
+    const accounts=await window.ethereum.request({method:'eth_requestAccounts'});
+    account=accounts && accounts[0] ? accounts[0] : null;
+    if(!account) throw new Error('No account returned by MetaMask');
+    out.textContent='Connected: '+account;
+    if(account.toLowerCase()!==EXPECT){
+      out.className='bad';
+      document.getElementById('sign').disabled=true;
+      out.textContent += ' — STOP: this is not Account 2.';
+      return;
+    }
+    out.className='ok';
+    document.getElementById('sign').disabled=false;
+  }catch(e){
+    out.textContent='STOP — '+e.message;
+    out.className='bad';
   }
-  document.getElementById('acct').className='ok';
-  signer=await provider.getSigner();
-  document.getElementById('sign').disabled=false;
- }catch(e){document.getElementById('acct').textContent='STOP — '+e.message;document.getElementById('acct').className='bad'}
 };
+
 document.getElementById('sign').onclick=async()=>{
- try{
-  document.getElementById('result').textContent='Waiting for MetaMask signature…';
-  const sig=await signer.signMessage(MESSAGE);
-  const recovered=ethers.verifyMessage(MESSAGE,sig);
-  const ok=recovered.toLowerCase()===EXPECT;
-  document.getElementById('sig').textContent=sig;
-  document.getElementById('rec').textContent=recovered;
-  document.getElementById('sigbox').style.display='block';
-  document.getElementById('result').textContent=ok?'PASS — signature verifies to Account 2. Copy the signature below and send it to ChatGPT so it can be published in integrity.json.':'STOP — recovered signer does not match Account 2.';
-  document.getElementById('result').className=ok?'ok':'bad';
- }catch(e){document.getElementById('result').textContent='Signature cancelled or failed: '+e.message;document.getElementById('result').className='bad'}
+  const out=document.getElementById('result');
+  try{
+    if(!account || account.toLowerCase()!==EXPECT) throw new Error('Account 2 is not connected');
+    out.textContent='Waiting for MetaMask signature…';
+    out.className='warn';
+    const hexMessage=utf8ToHex(MESSAGE);
+    const sig=await window.ethereum.request({
+      method:'personal_sign',
+      params:[hexMessage, account]
+    });
+    if(!sig || !sig.startsWith('0x')) throw new Error('MetaMask did not return a signature');
+    document.getElementById('sig').textContent=sig;
+    document.getElementById('sigbox').style.display='block';
+    out.textContent='SIGNATURE CREATED — no transaction was sent. Send the full signature below to ChatGPT for independent recovery/verification.';
+    out.className='ok';
+  }catch(e){
+    out.textContent='Signature cancelled or failed: '+e.message;
+    out.className='bad';
+  }
 };
 </script></main></body></html>
