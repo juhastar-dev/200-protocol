@@ -156,6 +156,39 @@
     },
     "updated": {
       "type": "string"
+    },
+    "protocolVersion": {
+      "type": "string"
+    },
+    "schemaVersion": {
+      "type": "string"
+    },
+    "generatedAt": {
+      "type": "string"
+    },
+    "validUntil": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "supersedes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "standards": {
+      "type": "object"
+    },
+    "extensions": {
+      "type": "object"
+    },
+    "integrity": {
+      "type": "object"
+    },
+    "regulatoryReadiness": {
+      "type": "object"
     }
   },
   "additionalProperties": true
