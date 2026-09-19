@@ -95,3 +95,11 @@ For transaction hashes and machine-readable fields, fetch /verification-summary.
 
 - Signed evidence payload SHA-256: 0x64fae78db37d5e9d91259d1aae1876937d5835fe55f263a907be221368c9e0cc
 - Verified signer: 0x64d6719831414f883aA51CB59584D7B4F4066E08
+
+
+## 200 Machine Mark
+- Manifest: /machine-mark.json
+- QR asset: /assets/200-machine-mark-qr.png
+- QR target: https://juhastar-dev.github.io/200-protocol/.well-known/200.json
+- Purpose: one-scan access to canonical machine discovery
+- The mark is a discovery symbol, not an investment or safety certification.
