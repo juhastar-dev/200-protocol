@@ -170,12 +170,15 @@
     "coreTokenTestCount": 11,
     "coreTokenPassCount": 11,
     "blockingCoreTokenTests": [],
-    "mainnetConfigFreeze": "NEXT",
+    "mainnetConfigFreeze": "DRAFT_FUNDAMENTALS_FROZEN_LAUNCH_ECONOMICS_PENDING",
     "futureProtocolMilestones": [
       "signed-manifest",
       "x402-adapter",
       "ERC-8004-integration"
     ],
-    "note": "Future protocol integrations are tracked separately and are not failures of the completed Base Sepolia core token validation."
+    "note": "Future protocol integrations are tracked separately and are not failures of the completed Base Sepolia core token validation.",
+    "nextDecision": "initialLiquidity200 + initialLiquidityETH",
+    "mainnetConfig": "/mainnet-config.json",
+    "mainnetFreezeDocument": "/mainnet-configuration-freeze.md"
   }
 }
