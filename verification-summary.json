@@ -68,6 +68,16 @@
       "allowanceBefore200": "123",
       "allowanceAfter200": "113",
       "tx": "0xcb45319d1f01f776856a18177f787bceaf7bc3df549816c1bc04a86e0c25d811"
+    },
+    {
+      "id": "token-recovery",
+      "status": "PASS",
+      "amount200": "5",
+      "contractBalanceBefore200": "0",
+      "contractBalanceAfterDeposit200": "5",
+      "contractBalanceFinal200": "0",
+      "depositTx": "0xf5bb35d99edd60f65a6f2cb397e4f5741b5600ff36c24dfbdbaaf79316890d62",
+      "recoveryTx": "0xd43e63f859ee078f0b11339d8cf23728973864553f543407d6644ed64c6bc10d"
     }
   ],
   "canonical": {
