@@ -58,4 +58,86 @@ document.getElementById('switch').onclick=async function(){
  }catch(e){statusEl.innerHTML='<span class="bad">Network error: '+errText(e).replace(/[<>]/g,'')+'</span>'}
 };
 refresh();
-</script></main></body></html>
+</script>
+<div class="card">
+<h2>Step 2 — Read permit allowance</h2>
+<p>This reads the current allowance from Account 3 to Account 2. Expected value before the test: <strong>123 200</strong>.</p>
+<button type="button" id="readAllowance" class="secondary">Read allowance</button>
+<p>Allowance: <strong id="allowance">—</strong> 200</p>
+<p id="allowanceStatus">Not checked yet.</p>
+</div>
+
+<div class="card">
+<h2>Step 3 — Consume 10 200 with transferFrom</h2>
+<p>Account 2 will spend exactly <strong>10 200</strong> from Account 3 and receive those 10 200. Expected remaining allowance: <strong>113 200</strong>.</p>
+<button type="button" id="runTransfer">Run transferFrom(10 200)</button>
+<p id="transferStatus">Not run yet.</p>
+<p class="mono">Transaction: <span id="txHash">—</span></p>
+<p>Remaining allowance: <strong id="remaining">—</strong> 200</p>
+</div>
+
+<script type="module">
+import {BrowserProvider,Contract,parseUnits,formatUnits} from "https://cdn.jsdelivr.net/npm/ethers@6.15.0/+esm";
+const TOKEN='0x47a369B53D0b4Df514F82507a73E4546563e0CD5';
+const OWNER='0x1fDe29f8fD7Dca926954eF5F142c86FdCC6752Db';
+const SPENDER='0x64d6719831414f883aA51CB59584D7B4F4066E08';
+const ABI=[
+ 'function allowance(address owner,address spender) view returns(uint256)',
+ 'function transferFrom(address from,address to,uint256 amount) returns(bool)'
+];
+
+async function getCtx(){
+  if(!window.ethereum) throw new Error('MetaMask not detected.');
+  const provider=new BrowserProvider(window.ethereum);
+  const net=await provider.getNetwork();
+  if(net.chainId!==84532n) throw new Error('Switch MetaMask to Base Sepolia.');
+  const signer=await provider.getSigner();
+  const account=await signer.getAddress();
+  if(account.toLowerCase()!==SPENDER.toLowerCase()) throw new Error('Use Account 2 for this test.');
+  return {provider,signer,account};
+}
+
+async function readAllowanceValue(){
+  const {provider}=await getCtx();
+  const token=new Contract(TOKEN,ABI,provider);
+  const value=await token.allowance(OWNER,SPENDER);
+  document.getElementById('allowance').textContent=formatUnits(value,18);
+  return value;
+}
+
+document.getElementById('readAllowance').onclick=async()=>{
+  const out=document.getElementById('allowanceStatus');
+  try{
+    const value=await readAllowanceValue();
+    if(value===parseUnits('123',18)){
+      out.innerHTML='<span class="ok">PASS — current allowance is exactly 123 200.</span>';
+    }else{
+      out.innerHTML='<span class="bad">Allowance read succeeded, but it is '+formatUnits(value,18)+' 200, not 123 200.</span>';
+    }
+  }catch(e){out.innerHTML='<span class="bad">'+String(e.shortMessage||e.message||e).replace(/[<>]/g,'')+'</span>'}
+};
+
+document.getElementById('runTransfer').onclick=async()=>{
+  const out=document.getElementById('transferStatus');
+  try{
+    const {provider,signer}=await getCtx();
+    const readToken=new Contract(TOKEN,ABI,provider);
+    const before=await readToken.allowance(OWNER,SPENDER);
+    if(before!==parseUnits('123',18)) throw new Error('Stop: allowance is not exactly 123 200 before the test.');
+    const token=new Contract(TOKEN,ABI,signer);
+    out.textContent='Waiting for MetaMask transaction confirmation…';
+    const tx=await token.transferFrom(OWNER,SPENDER,parseUnits('10',18));
+    document.getElementById('txHash').innerHTML='<a target="_blank" href="https://sepolia.basescan.org/tx/'+tx.hash+'">'+tx.hash+'</a>';
+    out.textContent='Transaction submitted. Waiting for confirmation…';
+    await tx.wait();
+    const after=await readToken.allowance(OWNER,SPENDER);
+    document.getElementById('remaining').textContent=formatUnits(after,18);
+    if(after===parseUnits('113',18)){
+      out.innerHTML='<span class="ok">PASS — transferFrom moved 10 200 and remaining allowance is exactly 113 200.</span>';
+    }else{
+      out.innerHTML='<span class="bad">Transaction confirmed, but remaining allowance is '+formatUnits(after,18)+' 200 instead of 113 200.</span>';
+    }
+  }catch(e){out.innerHTML='<span class="bad">'+String(e.shortMessage||e.message||e).replace(/[<>]/g,'')+'</span>'}
+};
+</script>
+</main></body></html>
