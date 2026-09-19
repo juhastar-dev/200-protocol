@@ -1,7 +1,7 @@
 {
   "schema": "200-protocol/mainnet-configuration-freeze/v1",
   "date": "2026-09-19",
-  "status": "DRAFT_FUNDAMENTALS_FROZEN_LAUNCH_ECONOMICS_PENDING",
+  "status": "DRAFT_REAL_MONEY_BUDGET_FROZEN_V3_PARAMETERS_PENDING",
   "network": {
     "name": "Base Mainnet",
     "chainId": 8453,
@@ -48,19 +48,30 @@
     "productionPair": null,
     "addressPolicy": "verify current official production addresses immediately before launch; never copy Sepolia addresses",
     "lpBurnAtLaunch": false,
-    "irreversibleLpLockAtLaunch": false
+    "irreversibleLpLockAtLaunch": false,
+    "selectedScenario": "A-BUDGET-CAPPED",
+    "initialLiquidity200": "500000",
+    "initialLiquidityETH": null,
+    "initialLiquidityETHPolicy": "Calculated at launch from live ETH/EUR rate and the EUR 200 total launch cap.",
+    "initialSupplyPercent": "0.5"
   },
   "userDecisionsRequired": {
     "initialLiquidity200": null,
     "initialLiquidityETH": null,
     "maximumSetupSlippagePercent": null,
     "firstRealBuyETH": null,
-    "firstRealSell200": null
+    "firstRealSell200": null,
+    "maximumTotalRealMoneyBudgetEUR": null,
+    "v3FeeTier": null,
+    "v3PriceRange": null,
+    "finalLaunchEthAmount": "CALCULATE_AT_LAUNCH_UNDER_EUR_200_CAP"
   },
   "derivedAfterDecision": {
     "initial200PerETH": null,
     "initialETHPer200": null,
-    "impliedFDVInETH": null
+    "impliedFDVInETH": null,
+    "initialPoolNotionalETHAtStartRatio": null,
+    "note": "Price ratio and implied FDV must be recalculated from the actual ETH amount selected under the EUR 200 hard cap immediately before launch."
   },
   "prerequisites": {
     "baseSepoliaCoreValidation": "COMPLETE_11_PASS_0_FAIL",
@@ -68,7 +79,7 @@
     "sourceVerificationMainnet": "REQUIRED_WHERE_SUPPORTED",
     "productionDexAddressReverification": "REQUIRED"
   },
-  "nextAction": "SELECT_PRICE_RATIO_AND_LIQUIDITY_BUDGET; THEN FINALIZE_DEX_VERSION_AND_RANGE",
+  "nextAction": "SELECT_V3_FEE_TIER_AND_PRICE_RANGE; THEN CALCULATE FINAL ETH AMOUNT UNDER EUR_200_CAP IMMEDIATELY BEFORE LAUNCH",
   "liquidityModel": {
     "status": "ILLUSTRATIVE_NOT_FROZEN",
     "calculator": "/mainnet-liquidity-model.html",
@@ -110,5 +121,21 @@
     ],
     "dexImplementation": "PENDING_CURRENT_MAINNET_REVERIFICATION",
     "note": "Mainnet DEX version/range must be selected after checking current PancakeSwap Base production deployment. V2 price-impact examples are reference-only."
+  },
+  "budget": {
+    "currency": "EUR",
+    "absoluteMaximumTotalEUR": "200",
+    "appliesTo": [
+      "initial ETH liquidity",
+      "Base mainnet deployment gas",
+      "liquidity-creation gas",
+      "small post-launch validation buy",
+      "small post-launch validation sell",
+      "other unavoidable Base mainnet transaction fees in the launch sequence"
+    ],
+    "hardRule": "Do not submit a production transaction if projected cumulative real-money launch spending would exceed EUR 200.",
+    "tokenClarification": "500000 means 500,000 units of 200 Token, not EUR 500,000 and not a cash purchase.",
+    "ethPolicy": "Do not hard-code 0.05 ETH. Calculate the actual ETH liquidity amount immediately before launch from the then-current ETH/EUR price while preserving sufficient budget for gas and validation transactions.",
+    "initialLiquidityEthStatus": "DYNAMIC_WITHIN_EUR_200_TOTAL_CAP"
   }
 }
