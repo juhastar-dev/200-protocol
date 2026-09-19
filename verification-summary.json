@@ -1,0 +1,75 @@
+{
+  "schema": "200-protocol/verification-summary/v1",
+  "generated": "2026-09-19",
+  "environment": "Base Sepolia testnet",
+  "chainId": 84532,
+  "token": {
+    "name": "200 Token",
+    "symbol": "200",
+    "decimals": 18,
+    "contract": "0x47a369B53D0b4Df514F82507a73E4546563e0CD5"
+  },
+  "overallStatus": "TESTS_PASSING",
+  "note": "Scoped behavioral evidence from Base Sepolia. Testnet evidence is not a guarantee of all future behavior or mainnet behavior.",
+  "checks": [
+    {
+      "id": "transfer-standard",
+      "status": "PASS",
+      "amount200": "1000",
+      "evidence": "wallet-to-wallet exact receipt"
+    },
+    {
+      "id": "transfer-large",
+      "status": "PASS",
+      "amount200": "5000000",
+      "supplyPercent": "5",
+      "evidence": "single wallet-to-wallet transfer"
+    },
+    {
+      "id": "dex-liquidity",
+      "status": "PASS",
+      "amount200": "100000",
+      "eth": "0.0001",
+      "lpMinted": "3.162277660168378331",
+      "tx": "0x0949db26e964ac498c4765dc7eb9063c0b0781d98240743aa98c793a171b1897"
+    },
+    {
+      "id": "dex-buy",
+      "status": "PASS",
+      "ethSpent": "0.000001",
+      "received200": "987.648209114086982351",
+      "tx": "0x372046b334aa82d1e97fef33db4eb2b5b9102dc68ff8afc5427edb49c1b58930"
+    },
+    {
+      "id": "dex-sell",
+      "status": "PASS",
+      "sold200": "500",
+      "ethReceived": "0.000000506212363177",
+      "tx": "0x73d124bde1a26cde1afa04166f2630b9dfd46b5daee9e8d6b01368c32cf5e8a3"
+    },
+    {
+      "id": "erc2612-domain",
+      "status": "PASS",
+      "evidence": "on-chain DOMAIN_SEPARATOR matched computed EIP-712 domain"
+    },
+    {
+      "id": "erc2612-permit",
+      "status": "PASS",
+      "amount200": "123",
+      "allowance200": "123",
+      "tx": "0x28bbd6226a7bc21aaddd45c1fb6fa2b95f803f560d1465ee48f9155445a0481f"
+    },
+    {
+      "id": "transferFrom-permit-consumption",
+      "status": "PENDING",
+      "plannedAmount200": "10",
+      "expectedRemainingAllowance200": "113"
+    }
+  ],
+  "canonical": {
+    "manifest": "/200.json",
+    "status": "/status.json",
+    "llmContext": "/llms.txt",
+    "verifier": "/verify.html"
+  }
+}
