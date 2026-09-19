@@ -368,5 +368,10 @@
       "supersedes",
       "canonical"
     ]
+  },
+  "machineMark": {
+    "manifest": "/machine-mark.json",
+    "qrAsset": "/assets/200-machine-mark-qr.png",
+    "target": "/.well-known/200.json"
   }
 }
