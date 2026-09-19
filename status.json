@@ -21,7 +21,8 @@
     "largeTransfer5PercentSupply": true,
     "pancakeSwapV2Liquidity": true,
     "pancakeSwapV2Buy": true,
-    "pancakeSwapV2Sell": true
+    "pancakeSwapV2Sell": true,
+    "erc2612Permit": true
   },
   "verification": {
     "onChainVerifier": "/verify.html",
@@ -84,6 +85,17 @@
       "actualEthReceived": "0.000000506212363177",
       "block": "46997144",
       "onChainStatus": "Success"
+    },
+    "erc2612PermitTest": {
+      "date": "2026-09-19",
+      "owner": "0x1fDe29f8fD7Dca926954eF5F142c86FdCC6752Db",
+      "spender": "0x64d6719831414f883aA51CB59584D7B4F4066E08",
+      "amount200": "123",
+      "nonce": "0",
+      "transactionHash": "0x28bbd6226a7bc21aaddd45c1fb6fa2b95f803f560d1465ee48f9155445a0481f",
+      "baseScanUrl": "https://sepolia.basescan.org/tx/0x28bbd6226a7bc21aaddd45c1fb6fa2b95f803f560d1465ee48f9155445a0481f",
+      "result": "PASS",
+      "scope": "Base Sepolia ERC-2612 typed-data signature plus on-chain permit/allowance verification."
     }
   },
   "nextMilestones": [
