@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://juhastar-dev.github.io/200-protocol/spec/200-discovery-v1.schema.json",
+  "title": "200 Protocol Machine Discovery v1",
+  "type": "object",
+  "required": [
+    "protocol",
+    "discoveryVersion",
+    "purpose",
+    "semanticResult",
+    "canonicalWebsite",
+    "environment",
+    "asset",
+    "workflow",
+    "endpoints",
+    "capabilities"
+  ],
+  "properties": {
+    "schema": {
+      "type": "string",
+      "format": "uri"
+    },
+    "protocol": {
+      "const": "200 Protocol"
+    },
+    "discoveryVersion": {
+      "type": "string"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "semanticResult": {
+      "type": "object",
+      "required": [
+        "code",
+        "meaning",
+        "qualification"
+      ],
+      "properties": {
+        "code": {
+          "const": 200
+        },
+        "meaning": {
+          "const": "OK_TO_ACT"
+        },
+        "qualification": {
+          "type": "string"
+        }
+      }
+    },
+    "canonicalWebsite": {
+      "type": "string",
+      "format": "uri"
+    },
+    "environment": {
+      "type": "object",
+      "required": [
+        "currentPublicDeployment",
+        "chainId",
+        "productionStatus",
+        "futureMainnetChainId"
+      ],
+      "properties": {
+        "currentPublicDeployment": {
+          "type": "string"
+        },
+        "chainId": {
+          "type": "integer"
+        },
+        "productionStatus": {
+          "type": "string"
+        },
+        "futureMainnetChainId": {
+          "type": "integer"
+        }
+      }
+    },
+    "asset": {
+      "type": "object",
+      "required": [
+        "name",
+        "symbol",
+        "standard",
+        "currentTestnetContract",
+        "currentTestnetCAIP19"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "symbol": {
+          "type": "string"
+        },
+        "standard": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "currentTestnetContract": {
+          "type": "string"
+        },
+        "currentTestnetCAIP19": {
+          "type": "string"
+        },
+        "productionContract": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "productionCAIP19": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "workflow": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "const": "DECLARE"
+        },
+        {
+          "const": "VERIFY"
+        },
+        {
+          "const": "EVALUATE"
+        },
+        {
+          "const": "ACT"
+        }
+      ],
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "endpoints": {
+      "type": "object"
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidencePolicy": {
+      "type": "object"
+    },
+    "trustBoundaries": {
+      "type": "object"
+    },
+    "contentTypes": {
+      "type": "object"
+    },
+    "updated": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}
