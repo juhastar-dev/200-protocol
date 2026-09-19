@@ -86,7 +86,7 @@
     "sourceVerificationMainnet": "REQUIRED_WHERE_SUPPORTED",
     "productionDexAddressReverification": "REQUIRED"
   },
-  "nextAction": "LAUNCH_DAY_PREFLIGHT: LIVE ETH_EUR + GAS + PANCAKESWAP REVERIFICATION; NO TRANSACTION UNTIL USER EXPLICITLY APPROVES",
+  "nextAction": "FUNDING_PREPARATION_ONLY; USER MUST EXPLICITLY AUTHORIZE ANY REAL ETH TRANSFER",
   "liquidityModel": {
     "status": "ILLUSTRATIVE_NOT_FROZEN",
     "calculator": "/mainnet-liquidity-model.html",
@@ -177,7 +177,16 @@
     "ethEurRate": "FETCH_LIVE",
     "gasEstimates": "FETCH_LIVE",
     "walletAddress": "VERIFY_IN_WALLET",
-    "contractArtifact": "COMPARE_TO_FROZEN_CONFIGURATION"
+    "contractArtifact": "COMPARE_TO_FROZEN_CONFIGURATION",
+    "lastObserved": {
+      "date": "2026-09-19",
+      "chainId": 8453,
+      "account2EthBalance": "0",
+      "rpcGasPriceGwei": "0.006000",
+      "v3FactoryBytecodePresent": true,
+      "v3SwapRouterBytecodePresent": true,
+      "v3PositionManagerBytecodePresent": true
+    }
   },
   "hardStops": [
     "Wallet chain ID is not 8453 / 0x2105.",
@@ -220,5 +229,12 @@
       "Verify outputs and absence of unexplained token deductions.",
       "Publish mainnet evidence and switch public status to production-live only if all launch checks pass."
     ]
+  },
+  "funding": {
+    "status": "REQUIRED_BEFORE_DEPLOYMENT",
+    "destinationAccount": "0x64d6719831414f883aA51CB59584D7B4F4066E08",
+    "network": "Base Mainnet",
+    "rule": "Calculate the exact ETH funding amount immediately before transfer using live ETH/EUR. Do not exceed the frozen EUR 200 total launch ceiling.",
+    "transactionAuthorization": "NONE"
   }
 }
