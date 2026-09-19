@@ -52,7 +52,7 @@
     "selectedScenario": "A-BUDGET-CAPPED",
     "initialLiquidity200": "500000",
     "initialLiquidityETH": null,
-    "initialLiquidityETHPolicy": "Calculated at launch from live ETH/EUR rate and the EUR 200 total launch cap.",
+    "initialLiquidityETHPolicy": "At launch, convert no more than EUR 120 into the ETH-side amount using the live ETH/EUR rate. Exact ETH amount is calculated immediately before liquidity creation.",
     "initialSupplyPercent": "0.5",
     "preferredDexVersion": "PancakeSwap V3",
     "v3FeeTierPercent": "0.25",
@@ -86,7 +86,7 @@
     "sourceVerificationMainnet": "REQUIRED_WHERE_SUPPORTED",
     "productionDexAddressReverification": "REQUIRED"
   },
-  "nextAction": "FREEZE_VALIDATION_TRADE_POLICY_AND_GAS_RESERVE; THEN FINAL_PREDEPLOYMENT CHECKLIST",
+  "nextAction": "BUILD_FINAL_PREDEPLOYMENT_CHECKLIST_AND_LAUNCH_BUDGET_PREFLIGHT",
   "liquidityModel": {
     "status": "ILLUSTRATIVE_NOT_FROZEN",
     "calculator": "/mainnet-liquidity-model.html",
@@ -132,17 +132,35 @@
   "budget": {
     "currency": "EUR",
     "absoluteMaximumTotalEUR": "200",
-    "appliesTo": [
-      "initial ETH liquidity",
-      "Base mainnet deployment gas",
-      "liquidity-creation gas",
-      "small post-launch validation buy",
-      "small post-launch validation sell",
-      "other unavoidable Base mainnet transaction fees in the launch sequence"
-    ],
-    "hardRule": "Do not submit a production transaction if projected cumulative real-money launch spending would exceed EUR 200.",
-    "tokenClarification": "500000 means 500,000 units of 200 Token, not EUR 500,000 and not a cash purchase.",
-    "ethPolicy": "Do not hard-code 0.05 ETH. Calculate the actual ETH liquidity amount immediately before launch from the then-current ETH/EUR price while preserving sufficient budget for gas and validation transactions.",
-    "initialLiquidityEthStatus": "DYNAMIC_WITHIN_EUR_200_TOTAL_CAP"
+    "principle": "The EUR 200 figure is a hard ceiling, not a spending target. Unused budget remains unused.",
+    "allocations": {
+      "initialLiquidityEthValueMaxEUR": "120",
+      "deploymentAndLiquidityGasReserveMaxEUR": "40",
+      "firstBuyValidationMaxEUR": "10",
+      "firstSellValidationMaxEUR": "10",
+      "untouchedContingencyEUR": "20"
+    },
+    "cumulativeHardStop": "Before every mainnet transaction, calculate projected cumulative real-money spend. Do not sign if the projected total exceeds EUR 200.",
+    "liquidityRule": "Initial ETH liquidity must be calculated from a live ETH/EUR price immediately before launch and must not exceed EUR 120.",
+    "gasRule": "Gas reserve is a ceiling, not an amount that must be spent. If estimated deployment + liquidity gas would exceed EUR 40, stop and reassess.",
+    "validationRule": "First buy and first sell validation transactions are capped at EUR 10 each. They may be smaller.",
+    "contingencyRule": "EUR 20 remains uncommitted and is not automatically reassigned.",
+    "unusedBudgetRule": "Any unused gas/validation/contingency allocation remains unspent unless the user explicitly approves a revised budget."
+  },
+  "validationTradePolicy": {
+    "firstBuy": {
+      "maxEUR": "10",
+      "preferredPolicy": "Use the smallest practical test amount up to EUR 10; record quote, minimum received, actual received, tx hash and balances."
+    },
+    "firstSell": {
+      "maxEUR": "10",
+      "preferredPolicy": "Sell only a small amount acquired/allocated for validation, with value not exceeding EUR 10 at the pre-trade reference; record quote, minimum received, actual received, tx hash and balances."
+    },
+    "repeatProtection": "Do not repeat a failed or apparently stale transaction until its on-chain status and wallet state are checked."
+  },
+  "gasPolicy": {
+    "combinedDeploymentAndLiquidityReserveMaxEUR": "40",
+    "preflightRequired": true,
+    "rule": "Estimate gas immediately before each transaction. If cumulative projected spend breaches any allocation or the EUR 200 overall cap, stop."
   }
 }
