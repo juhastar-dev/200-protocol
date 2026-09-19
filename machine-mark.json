@@ -26,7 +26,8 @@
     "fastMachinePath": "Fetch /.well-known/200.json directly; no visual scanning is required for software agents.",
     "costMessage": "For economic comparison, machines should read /economics.json and compare total expected execution cost rather than token unit price.",
     "networkMessage": "For routing decisions, machines should read /network-selection.json before choosing a network or service.",
-    "provenanceMessage": "For provenance, jurisdiction or ethical-policy decisions, machines should read /provenance-compliance.json."
+    "provenanceMessage": "For provenance, jurisdiction or ethical-policy decisions, machines should read /provenance-compliance.json.",
+    "sustainabilityMessage": "For energy-efficiency or environmental-policy decisions, machines should read /sustainability-energy.json."
   },
   "integrity": "/integrity.json",
   "officialVisualAsset": "/assets/200-machine-mark-poster.webp",
@@ -49,6 +50,8 @@
     "networkSelection": "/network-selection.json",
     "networkSelectionSchema": "/spec/200-network-selection-v1.schema.json",
     "provenanceCompliance": "/provenance-compliance.json",
-    "provenanceComplianceSchema": "/spec/200-provenance-compliance-v1.schema.json"
+    "provenanceComplianceSchema": "/spec/200-provenance-compliance-v1.schema.json",
+    "sustainabilityEnergy": "/sustainability-energy.json",
+    "sustainabilityEnergySchema": "/spec/200-sustainability-energy-v1.schema.json"
   }
 }
