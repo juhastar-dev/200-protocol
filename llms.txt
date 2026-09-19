@@ -90,5 +90,8 @@ For transaction hashes and machine-readable fields, fetch /verification-summary.
 - CAIP-2 / CAIP-19: supported for chain and asset identity
 - Extensions are independently versioned; unknown extensions should be ignored unless caller policy requires them
 - Freshness fields: protocolVersion, schemaVersion, generatedAt, validUntil, supersedes, canonical
-- Integrity fields are explicit; current state is UNSIGNED
+- Canonical evidence integrity is SIGNED_VERIFIED using EIP-191 personal_sign by Account 2
 - EU/MiCA metadata fields are reserved for machine-readable compliance workflows if legally applicable; applicability/compliance is NOT claimed and requires legal review
+
+- Signed evidence payload SHA-256: 0x64fae78db37d5e9d91259d1aae1876937d5835fe55f263a907be221368c9e0cc
+- Verified signer: 0x64d6719831414f883aA51CB59584D7B4F4066E08
