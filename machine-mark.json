@@ -1,0 +1,25 @@
+{
+  "schema": "200-protocol/machine-mark/v1",
+  "name": "200 Machine Mark",
+  "version": "1.0",
+  "meaning": "Machine-readable entry point to the canonical 200 Protocol discovery layer",
+  "qrTarget": "https://juhastar-dev.github.io/200-protocol/.well-known/200.json",
+  "qrAsset": "/assets/200-machine-mark-qr.png",
+  "canonicalDiscovery": "/.well-known/200.json",
+  "semanticResult": {
+    "code": 200,
+    "meaning": "OK_TO_ACT",
+    "qualification": "The mark identifies the canonical machine-discovery doorway. It does not by itself certify an asset, service, transaction, or investment."
+  },
+  "usage": {
+    "purpose": [
+      "machine-discovery",
+      "camera-scan",
+      "agent-discovery",
+      "developer-discovery"
+    ],
+    "stableTarget": true,
+    "note": "The QR encodes only the canonical discovery URL. Underlying protocol data may evolve without changing the QR target."
+  },
+  "integrity": "/integrity.json"
+}
