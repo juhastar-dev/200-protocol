@@ -70,6 +70,7 @@ footer{padding:42px 0;color:var(--muted);display:flex;justify-content:space-betw
 <div class="card"><h3>DEX buy ✓</h3><p><strong>0.000001 ETH → 987.648209114086982351 200</strong>. Actual tokens received matched the live router quote exactly.</p></div>
 <div class="card"><h3>DEX sell ✓</h3><p><strong>500 200 → ETH</strong> through the same PancakeSwap V2 router. Wallet balance decreased by exactly <strong>500 200</strong>.</p></div>
 <div class="card"><h3>ERC-2612 Permit ✓</h3><p>EIP-712 domain matched on-chain; permit signed for exactly <strong>123 200</strong> and the resulting on-chain allowance read back exactly <strong>123 200</strong>.</p></div>
+<div class="card"><h3>transferFrom ✓</h3><p>Account 2 consumed exactly <strong>10 200</strong> from the Permit allowance. Remaining allowance decreased exactly from <strong>123</strong> to <strong>113 200</strong>.</p></div>
 <div class="card"><h3>Machine evidence</h3><p><a href="200.json">Canonical evidence manifest →</a><br><a href="status.json">Current verification status →</a><br><a href="swap-test.html">Open behavioral swap tester →</a></p></div>
 </div>
 </section>
