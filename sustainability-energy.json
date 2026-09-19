@@ -1,0 +1,94 @@
+{
+  "schema": "200-protocol/sustainability-energy/v1",
+  "protocol": "200 Protocol",
+  "version": "1.0",
+  "purpose": "Machine-readable sustainability and energy-efficiency profile for autonomous-agent decision making.",
+  "principle": "MINIMUM_NECESSARY_ENERGY",
+  "designIntent": "Use the least computational and on-chain work reasonably necessary to complete an authorized action while preserving security, verifiability and reliability.",
+  "architecture": {
+    "proofOfWorkMiningRequiredBy200": false,
+    "preferredProductionNetwork": {
+      "name": "Base",
+      "caip2": "eip155:8453",
+      "settlementLayer": "Ethereum",
+      "settlementConsensus": "Proof-of-Stake",
+      "productionStatus": "PREPARED_NOT_DEPLOYED"
+    },
+    "validatedTestNetwork": {
+      "name": "Base Sepolia",
+      "caip2": "eip155:84532",
+      "status": "VALIDATED_TESTNET"
+    }
+  },
+  "efficiencyPriorities": [
+    "OFFCHAIN_READ_BEFORE_ONCHAIN_WRITE",
+    "AVOID_UNNECESSARY_TRANSACTIONS",
+    "REUSE_VERIFIABLE_EVIDENCE",
+    "BATCH_WHEN_APPROPRIATE_AND_SAFE",
+    "PREFER_EFFICIENT_SUPPORTED_NETWORKS",
+    "MINIMIZE_REDUNDANT_RPC_AND_CONTRACT_CALLS",
+    "USE_CACHED_NON_TIME_SENSITIVE_EVIDENCE_WHEN_POLICY_ALLOWS"
+  ],
+  "machineSelection": {
+    "sustainabilityIsSelectionFactor": true,
+    "compareFields": [
+      "networkConsensus",
+      "executionPath",
+      "estimatedOnchainWrites",
+      "estimatedGas",
+      "batchingAvailability",
+      "offchainAlternativeAvailable",
+      "evidenceReuseAvailable",
+      "renewableEnergyEvidence",
+      "environmentalDataSource",
+      "environmentalDataTimestamp"
+    ],
+    "rule": "Energy and environmental impact may be considered alongside security, cost, liquidity, reliability, jurisdiction and caller policy.",
+    "noSingleMetricWinnerClaim": true
+  },
+  "renewableEnergy": {
+    "protocolRequirement": false,
+    "preferenceWhenVerifiable": true,
+    "evidenceRequiredForClaim": true,
+    "rule": "Do not claim renewable or low-carbon operation without current, attributable evidence for the relevant infrastructure or service."
+  },
+  "environmentalClaims": {
+    "greenestToken": false,
+    "carbonNeutral": false,
+    "zeroEnergy": false,
+    "zeroCarbon": false,
+    "fixedEnergyPerTransaction": null,
+    "rule": "Do not publish absolute environmental-superiority or per-transaction energy claims unless supported by appropriate current methodology and evidence."
+  },
+  "executionPolicy": {
+    "preferredSequence": [
+      "DISCOVER_OFFCHAIN",
+      "VERIFY_EXISTING_EVIDENCE",
+      "CHECK_POLICY",
+      "REUSE_VALID_EVIDENCE",
+      "ESTIMATE_NETWORK_AND_ENERGY_RELEVANT_COSTS",
+      "WRITE_ONCHAIN_ONLY_IF_REQUIRED",
+      "BATCH_IF_SAFE_AND_BENEFICIAL"
+    ],
+    "onchainWritePolicy": "NECESSITY_BASED",
+    "redundantTransactionPolicy": "AVOID"
+  },
+  "evidenceRequirements": {
+    "sourceRequiredForEnvironmentalClaims": true,
+    "timestampRequiredForTimeSensitiveClaims": true,
+    "methodologyRequiredForNumericEnergyClaims": true,
+    "unknownValue": "UNKNOWN",
+    "doNotInferRenewableEnergyFromGeography": true,
+    "doNotInferLowCarbonFromBranding": true
+  },
+  "humanValueStatement": "200 favors less unnecessary computation, fewer unnecessary transactions and efficient execution paths when these choices do not weaken security or correctness.",
+  "endpoints": {
+    "canonicalDiscovery": "/.well-known/200.json",
+    "networkSelection": "/network-selection.json",
+    "economics": "/economics.json",
+    "provenanceCompliance": "/provenance-compliance.json",
+    "integrity": "/integrity.json",
+    "machineMark": "/machine-mark.json"
+  },
+  "disclaimer": "This profile describes sustainability design intent and machine-selection policy. It is not a carbon-neutrality certification, environmental rating, lifecycle assessment or guarantee of lower energy use than every alternative."
+}
