@@ -97,8 +97,11 @@
   },
   "extensions": {},
   "integrity": {
-    "status": "UNSIGNED",
-    "endpoint": "/integrity.json"
+    "status": "SIGNED_VERIFIED",
+    "endpoint": "/integrity.json",
+    "signer": "0x64d6719831414f883aA51CB59584D7B4F4066E08",
+    "signatureMethod": "EIP-191 personal_sign",
+    "payloadSha256": "0x64fae78db37d5e9d91259d1aae1876937d5835fe55f263a907be221368c9e0cc"
   },
   "regulatoryReadiness": {
     "status": "STRUCTURE_PREPARED_LEGAL_REVIEW_REQUIRED",
