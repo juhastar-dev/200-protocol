@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>200 Mainnet Launch Control</title>
+<style>
+body{margin:0;background:#07100c;color:#eef8f1;font-family:system-ui,sans-serif;line-height:1.5}
+main{max-width:1050px;margin:auto;padding:30px 20px}.hero{padding:28px;border:1px solid #2d5a40;background:#0e1d16;border-radius:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:18px}
+.card{background:#0e1d16;border:1px solid #274936;border-radius:18px;padding:20px}
+.ok{color:#7ef2a8}.warn{color:#ffd166}.bad{color:#ff8c8c}.muted{color:#a9c7b5}
+a{color:#7ef2a8;text-decoration:none}.pill{display:inline-block;border:1px solid #31513e;border-radius:999px;padding:6px 10px;margin:3px 4px 3px 0}
+h1,h2,h3{line-height:1.15}
+</style></head><body><main>
+<div class="hero">
+<h1>200 Mainnet Launch Control</h1>
+<p><strong>Status:</strong> <span class="warn">PREPARED — NOT DEPLOYED</span></p>
+<p>No Base-mainnet 200 contract exists yet. Account 2 was last observed with <strong>0 ETH</strong>. No production transaction is authorized.</p>
+<span class="pill">Base Mainnet 8453</span>
+<span class="pill">€200 hard cap</span>
+<span class="pill">500,000 200 planned token-side LP</span>
+<span class="pill">PancakeSwap V3 preferred</span>
+<span class="pill">0.25% fee</span>
+<span class="pill">Full Range</span>
+</div>
+
+<div class="grid">
+<div class="card"><h3>1. Testnet evidence</h3><p class="ok"><strong>COMPLETE</strong></p><p>11 PASS · 0 FAIL · 0 pending core checks.</p><p><a href="verification-summary.json">AI verification summary →</a></p><p><a href="reports/base-sepolia-testnet-verification-report.md">Formal testnet report →</a></p></div>
+<div class="card"><h3>2. Mainnet configuration</h3><p class="ok"><strong>FROZEN CORE SETTINGS</strong></p><p><a href="mainnet-configuration-freeze.md">Configuration freeze →</a></p><p><a href="mainnet-config.json">Machine-readable config →</a></p></div>
+<div class="card"><h3>3. Budget controls</h3><p class="ok"><strong>READY</strong></p><p>€200 absolute ceiling; spending is never automatic.</p><p><a href="mainnet-launch-budget.html">Budget calculator →</a></p></div>
+<div class="card"><h3>4. Read-only preflight</h3><p class="ok"><strong>TECHNICAL CHECKS PASSED</strong></p><p>Chain 8453 and DEX bytecode checks passed. Account 2 balance: 0 ETH.</p><p><a href="mainnet-preflight.html">Run preflight again →</a></p></div>
+<div class="card"><h3>5. Funding gate</h3><p class="warn"><strong>NOT FUNDED</strong></p><p>Funding is optional until you choose to launch. No ETH should be sent merely to keep preparing.</p></div>
+<div class="card"><h3>6. Deployment gate</h3><p class="warn"><strong>BLOCKED UNTIL FUNDING + FRESH PREFLIGHT</strong></p><p>Deploy once only after wallet, network, live gas, budget and final contract settings are rechecked.</p></div>
+<div class="card"><h3>7. Post-deployment identity</h3><p class="ok"><strong>TOOL PREPARED</strong></p><p>Future production address must pass identity checks before liquidity.</p><p><a href="mainnet-postdeploy-verify.html">Post-deployment verifier →</a></p></div>
+<div class="card"><h3>8. Liquidity gate</h3><p class="warn"><strong>BLOCKED UNTIL CONTRACT PASS</strong></p><p>Planned token side: 500,000 200. ETH side is calculated from live EUR/ETH under the frozen budget cap.</p></div>
+<div class="card"><h3>9. Buy / sell validation</h3><p class="warn"><strong>BLOCKED UNTIL LIQUIDITY</strong></p><p>Each initial validation trade ≤ €10 and ≤ 1% slippage ceiling.</p></div>
+<div class="card"><h3>10. Production evidence</h3><p class="ok"><strong>EMPTY TEMPLATE READY</strong></p><p>No mainnet claims are pre-filled.</p><p><a href="mainnet-launch-record.json">Launch record →</a></p></div>
+</div>
+
+<div class="card" style="margin-top:18px">
+<h2>Exact launch order</h2>
+<p>Fund Account 2 → fresh read-only preflight → review deployment transaction → deploy → verify identity/source → update canonical address → create liquidity → verify pool/position → tiny buy → verify → tiny sell → verify → publish production evidence → mark production live.</p>
+</div>
+
+<div class="card">
+<h2>Hard stop</h2>
+<p class="bad"><strong>Do not continue</strong> if any network, address, spender, contract setting, budget, quote, gas estimate, transaction status, or post-deployment identity differs from the reviewed plan.</p>
+</div>
+
+<p class="muted">This control page is informational only. It does not connect a wallet or submit transactions.</p>
+</main></body></html>
