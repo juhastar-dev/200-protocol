@@ -51,3 +51,5 @@ Agents are expected to act only within owner- or organization-defined economic p
 - Permit allowance transferFrom consumption: PASS (10 200 consumed; 123 -> 113 200 remaining)
 
 For transaction hashes and machine-readable fields, fetch /verification-summary.json or /status.json.
+
+- Token recovery: PASS (5 200 deposited into contract, recovered by owner, contract balance 5 -> 0)
