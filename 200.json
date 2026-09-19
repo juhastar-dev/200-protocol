@@ -242,6 +242,27 @@
         "result": "PASS",
         "observedResult": "Account 2 successfully called transferFrom for exactly 10 200 from Account 3 using the ERC-2612-created allowance. The allowance decreased exactly from 123 200 to 113 200.",
         "evidenceMeaning": "Behavioral evidence that the tested ERC-2612-created allowance can be consumed through standard ERC-20 transferFrom semantics."
+      },
+      {
+        "type": "token-recovery-test",
+        "network": "Base Sepolia",
+        "date": "2026-09-19",
+        "status": "passed",
+        "owner": "0x64d6719831414f883aA51CB59584D7B4F4066E08",
+        "amount200": "5",
+        "baselineContractBalance200": "0",
+        "depositedContractBalance200": "5",
+        "finalContractBalance200": "0",
+        "baselineOwnerBalance200": "94899010",
+        "finalOwnerBalance200": "94899010",
+        "depositTransactionHash": "0xf5bb35d99edd60f65a6f2cb397e4f5741b5600ff36c24dfbdbaaf79316890d62",
+        "depositBaseScanUrl": "https://sepolia.basescan.org/tx/0xf5bb35d99edd60f65a6f2cb397e4f5741b5600ff36c24dfbdbaaf79316890d62",
+        "recoveryTransactionHash": "0xd43e63f859ee078f0b11339d8cf23728973864553f543407d6644ed64c6bc10d",
+        "recoveryBaseScanUrl": "https://sepolia.basescan.org/tx/0xd43e63f859ee078f0b11339d8cf23728973864553f543407d6644ed64c6bc10d",
+        "result": "PASS",
+        "observedResult": "Account 2, verified as on-chain owner, sent exactly 5 200 to the 200 Token contract. The owner-restricted recovery transaction was confirmed. A fresh on-chain read after confirmation showed the contract balance returned from 5 200 to 0 and Account 2 returned from 94,899,005 200 to its pre-test 94,899,010 200.",
+        "evidenceMeaning": "Behavioral evidence that the deployed token recovery function can return the token's own accidentally-held 200 balance to the on-chain owner in the tested scenario.",
+        "note": "The immediate post-transaction UI initially displayed stale pre-refresh balances; a fresh RPC read confirmed the final recovered state."
       }
     ]
   },
