@@ -49,6 +49,55 @@ input{width:100%;padding:13px;border:1px solid #31513e;border-radius:12px;backgr
 <p>Current allowance: <strong id="allowance">—</strong> 200</p>
 <p id="final" class="muted">Permit test not complete.</p>
 </div>
+<script>
+/* Native MetaMask connection bootstrap: works even if the ethers module/CDN is delayed. */
+(function(){
+  const connectBtn=document.getElementById('connect');
+  const switchBtn=document.getElementById('switch');
+  const walletEl=document.getElementById('wallet');
+  const statusEl=document.getElementById('permitStatus');
+  async function showWallet(){
+    if(!window.ethereum){
+      walletEl.textContent='MetaMask not detected in this browser.';
+      statusEl.innerHTML='<span class="bad">MetaMask was not detected. Open this page in the browser where the MetaMask extension is installed and enabled.</span>';
+      return;
+    }
+    try{
+      const accounts=await window.ethereum.request({method:'eth_accounts'});
+      const chainId=await window.ethereum.request({method:'eth_chainId'});
+      walletEl.textContent=(accounts[0]||'Not connected')+' · chain '+parseInt(chainId,16);
+    }catch(e){ statusEl.textContent='Wallet check: '+(e.message||e); }
+  }
+  connectBtn.addEventListener('click',async function(){
+    if(!window.ethereum){
+      statusEl.innerHTML='<span class="bad">MetaMask not detected in this browser.</span>';
+      return;
+    }
+    try{
+      statusEl.textContent='Opening MetaMask…';
+      const accounts=await window.ethereum.request({method:'eth_requestAccounts'});
+      const chainId=await window.ethereum.request({method:'eth_chainId'});
+      walletEl.textContent=(accounts[0]||'Not connected')+' · chain '+parseInt(chainId,16);
+      statusEl.innerHTML='<span class="ok">MetaMask connected.</span> Now verify the EIP-712 domain.';
+      document.getElementById('verifyDomain').disabled=(chainId.toLowerCase()!=='0x14a34');
+      document.getElementById('checkAllowance').disabled=(chainId.toLowerCase()!=='0x14a34');
+    }catch(e){
+      statusEl.innerHTML='<span class="bad">MetaMask connection failed: '+String(e.message||e).replace(/[<>]/g,'')+'</span>';
+    }
+  });
+  switchBtn.addEventListener('click',async function(){
+    if(!window.ethereum){statusEl.innerHTML='<span class="bad">MetaMask not detected.</span>';return;}
+    try{
+      await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:'0x14a34'}]});
+      await showWallet();
+      statusEl.innerHTML='<span class="ok">Base Sepolia selected.</span>';
+      document.getElementById('verifyDomain').disabled=false;
+      document.getElementById('checkAllowance').disabled=false;
+    }catch(e){statusEl.innerHTML='<span class="bad">Network switch failed: '+String(e.message||e).replace(/[<>]/g,'')+'</span>';}
+  });
+  showWallet();
+})();
+</script>
 <script type="module">
 import {BrowserProvider,Contract,TypedDataEncoder,parseUnits,formatUnits,Signature} from "https://cdn.jsdelivr.net/npm/ethers@6.15.0/+esm";
 const CHAIN=84532n, CHAIN_HEX='0x14a34';
