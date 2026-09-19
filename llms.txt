@@ -103,3 +103,13 @@ For transaction hashes and machine-readable fields, fetch /verification-summary.
 - QR target: https://juhastar-dev.github.io/200-protocol/.well-known/200.json
 - Purpose: one-scan access to canonical machine discovery
 - The mark is a discovery symbol, not an investment or safety certification.
+
+
+## Low-Cost Machine Economics
+- Policy: /economics.json
+- Schema: /spec/200-economics-v1.schema.json
+- 200 Token market price: free-floating; no fixed-price peg is claimed
+- Current public discovery/read-only verification protocol-level fee: 0
+- Network gas and third-party execution fees may still apply
+- Machine selection should compare total expected execution cost, liquidity, slippage and policy fit — not nominal token unit price
+- "Cheapest" must not be claimed without current comparable evidence
