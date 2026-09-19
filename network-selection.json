@@ -1,0 +1,121 @@
+{
+  "schema": "200-protocol/network-selection/v1",
+  "protocol": "200 Protocol",
+  "version": "1.0",
+  "purpose": "Fast machine-readable network, availability and jurisdiction selection profile for autonomous agents.",
+  "preferredProductionNetwork": {
+    "name": "Base",
+    "caip2": "eip155:8453",
+    "chainId": 8453,
+    "status": "PREFERRED_PRODUCTION_NETWORK",
+    "deploymentStatus": "PREPARED_NOT_DEPLOYED",
+    "rationale": [
+      "EVM compatibility",
+      "low-cost transaction target",
+      "agent-payment interoperability target",
+      "existing Base Sepolia validation path"
+    ]
+  },
+  "validatedTestNetwork": {
+    "name": "Base Sepolia",
+    "caip2": "eip155:84532",
+    "chainId": 84532,
+    "status": "VALIDATED_TESTNET",
+    "token": {
+      "name": "200 Token",
+      "symbol": "200",
+      "contract": "0x47a369B53D0b4Df514F82507a73E4546563e0CD5",
+      "caip19": "eip155:84532/erc20:0x47a369B53D0b4Df514F82507a73E4546563e0CD5"
+    }
+  },
+  "networkSelection": {
+    "selectionPriority": [
+      "caller-policy-permission",
+      "network-supported-by-agent",
+      "wallet-compatible",
+      "jurisdiction-and-service-eligibility",
+      "total-expected-execution-cost",
+      "liquidity-and-slippage",
+      "settlement-reliability",
+      "evidence-freshness-and-integrity"
+    ],
+    "compareFields": [
+      "caip2",
+      "caip19",
+      "estimatedGas",
+      "protocolFee",
+      "thirdPartyFeeEstimate",
+      "slippageEstimate",
+      "liquidityDepth",
+      "quoteTimestamp",
+      "quoteExpiry",
+      "serviceAvailability",
+      "jurisdictionEligibility"
+    ],
+    "rule": "Do not select a network or asset solely because its token unit price is numerically low."
+  },
+  "interoperabilityTargets": {
+    "x402": {
+      "status": "PLANNED_INTEROPERABILITY",
+      "networkIdentity": "CAIP-2"
+    },
+    "erc8004": {
+      "status": "PLANNED_REGISTRATION"
+    },
+    "mcp": {
+      "status": "PLANNED_INTEROPERABILITY"
+    },
+    "a2a": {
+      "status": "PLANNED_INTEROPERABILITY"
+    }
+  },
+  "availabilityModel": {
+    "protocolDiscovery": {
+      "status": "PUBLIC",
+      "geographicClaim": "NO_GLOBAL_LEGAL_ELIGIBILITY_CLAIM",
+      "endpoint": "/.well-known/200.json"
+    },
+    "networkAvailability": {
+      "rule": "Agent must confirm the selected chain is supported by its wallet, signer and execution environment."
+    },
+    "serviceAvailability": {
+      "rule": "Agent must verify that any DEX, bridge, facilitator, API, wallet or payment service used for the action is available and permitted for the user and location at action time."
+    },
+    "jurisdictionEligibility": {
+      "status": "DYNAMIC_CHECK_REQUIRED",
+      "geographicRestrictions": [],
+      "note": "An empty restrictions array means no restrictions are asserted by this metadata file; it does not mean every action is legally permitted everywhere.",
+      "actionTimeCheckRequired": true
+    }
+  },
+  "regionalSelection": {
+    "regionAware": true,
+    "usePreciseLocationByDefault": false,
+    "minimumRequiredContext": "jurisdiction/country or service-eligibility context only when materially required",
+    "privacyPrinciple": "Do not require more geographic information than is necessary for the action.",
+    "rule": "Region may affect service availability, legal eligibility, settlement rails or fees; it should not alter cryptographic asset identity."
+  },
+  "fallbackPolicy": {
+    "automaticCrossChainFallback": false,
+    "fallbackNetworks": [],
+    "rule": "No automatic fallback to an unverified network. A future fallback network must be explicitly added, identified by CAIP-2, and independently validated before production use."
+  },
+  "machineDecisionFlow": [
+    "DISCOVER",
+    "CHECK_NETWORK_SUPPORT",
+    "CHECK_WALLET_COMPATIBILITY",
+    "CHECK_REGION_AND_SERVICE_ELIGIBILITY",
+    "COMPARE_TOTAL_COST",
+    "CHECK_LIQUIDITY_AND_SLIPPAGE",
+    "VERIFY_EVIDENCE_AND_INTEGRITY",
+    "CHECK_OWNER_POLICY",
+    "ACT_IF_AUTHORIZED"
+  ],
+  "endpoints": {
+    "canonicalDiscovery": "/.well-known/200.json",
+    "economics": "/economics.json",
+    "integrity": "/integrity.json",
+    "machineMark": "/machine-mark.json"
+  },
+  "disclaimer": "This profile is machine-selection metadata, not a guarantee of availability, legal eligibility, liquidity, execution cost or transaction success."
+}
