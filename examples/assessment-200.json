@@ -80,6 +80,14 @@
       "evidenceClass": "on-chain-behavioral-test",
       "transactionHash": "0x28bbd6226a7bc21aaddd45c1fb6fa2b95f803f560d1465ee48f9155445a0481f",
       "baseScanUrl": "https://sepolia.basescan.org/tx/0x28bbd6226a7bc21aaddd45c1fb6fa2b95f803f560d1465ee48f9155445a0481f"
+    },
+    {
+      "rule": "ERC-2612-created allowance is consumable via transferFrom",
+      "observed": "Account 2 spent exactly 10 200 from Account 3; allowance decreased exactly from 123 to 113 200",
+      "pass": true,
+      "evidenceClass": "on-chain-behavioral-test",
+      "transactionHash": "0xcb45319d1f01f776856a18177f787bceaf7bc3df549816c1bc04a86e0c25d811",
+      "baseScanUrl": "https://sepolia.basescan.org/tx/0xcb45319d1f01f776856a18177f787bceaf7bc3df549816c1bc04a86e0c25d811"
     }
   ]
 }
