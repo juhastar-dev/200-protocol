@@ -1,7 +1,7 @@
 {
   "protocol": "200 Protocol",
-  "version": "0.6",
-  "status": "live-testnet-development",
+  "version": "0.8",
+  "status": "core-testnet-validation-complete",
   "network": "Base Sepolia",
   "chainId": 84532,
   "rpc": "https://sepolia.base.org",
@@ -164,5 +164,18 @@
     "signed-manifest",
     "x402-adapter",
     "ERC-8004-integration"
-  ]
+  ],
+  "readiness": {
+    "coreTokenValidation": "COMPLETE",
+    "coreTokenTestCount": 11,
+    "coreTokenPassCount": 11,
+    "blockingCoreTokenTests": [],
+    "mainnetConfigFreeze": "NEXT",
+    "futureProtocolMilestones": [
+      "signed-manifest",
+      "x402-adapter",
+      "ERC-8004-integration"
+    ],
+    "note": "Future protocol integrations are tracked separately and are not failures of the completed Base Sepolia core token validation."
+  }
 }
