@@ -44,7 +44,10 @@
     "verifier": "/verify.html",
     "assessmentExample": "/examples/assessment-200.json",
     "mainnetConfig": "/mainnet-config.json",
-    "mainnetLaunchRecord": "/mainnet-launch-record.json"
+    "mainnetLaunchRecord": "/mainnet-launch-record.json",
+    "futureCompatibility": "/future-compatibility.json",
+    "integrity": "/integrity.json",
+    "erc8004RegistrationTemplate": "/spec/erc8004-registration-template.json"
   },
   "capabilities": [
     "asset-discovery",
@@ -75,5 +78,30 @@
     "status": "application/json",
     "llmContext": "text/plain"
   },
-  "updated": "2026-09-19"
+  "updated": "2026-09-19",
+  "protocolVersion": "0.9",
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-19T00:00:00Z",
+  "validUntil": null,
+  "supersedes": null,
+  "standards": {
+    "caip2": "SUPPORTED",
+    "caip19": "SUPPORTED",
+    "erc20": "SUPPORTED",
+    "erc2612": "SUPPORTED",
+    "mcp": "PLANNED_INTEROPERABILITY",
+    "a2a": "PLANNED_INTEROPERABILITY",
+    "x402": "PLANNED_INTEROPERABILITY",
+    "erc8004": "PLANNED_REGISTRATION",
+    "w3cVerifiableCredentials": "PLANNED_ATTESTATION_LAYER"
+  },
+  "extensions": {},
+  "integrity": {
+    "status": "UNSIGNED",
+    "endpoint": "/integrity.json"
+  },
+  "regulatoryReadiness": {
+    "status": "STRUCTURE_PREPARED_LEGAL_REVIEW_REQUIRED",
+    "endpoint": "/future-compatibility.json"
+  }
 }
