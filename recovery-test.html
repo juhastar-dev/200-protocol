@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>200 Token Recovery Test</title>
+<style>
+body{margin:0;background:#06100c;color:#eaf7ef;font-family:system-ui,sans-serif;line-height:1.5}main{max-width:830px;margin:auto;padding:32px 20px}
+.card{background:#0d1d16;border:1px solid #1e3e2d;border-radius:18px;padding:22px;margin:18px 0}
+button{background:#76f3a5;color:#06100c;border:0;border-radius:12px;padding:15px 20px;font-weight:800;font-size:16px;cursor:pointer;margin:5px}
+button.secondary{background:#183426;color:#eaf7ef;border:1px solid #31513e}.mono{font-family:monospace;word-break:break-all;color:#c8edd3}.ok{color:#76f3a5;font-weight:800}.bad{color:#ff7373;font-weight:800}.warn{color:#ffd166;font-weight:800}a{color:#76f3a5}
+</style></head><body><main>
+<p><a href="index.html">← 200 Protocol</a></p>
+<h1>200 Token Recovery Test</h1>
+<p>Base Sepolia controlled test of the owner-only <code>recoverToken()</code> feature. Test amount: <strong>5 200</strong>.</p>
+
+<div class="card">
+<h2>Step 1 — Connect owner</h2>
+<p>Required: Account 2 on Base Sepolia.</p>
+<button id="connect">Connect MetaMask</button>
+<button id="switch" class="secondary">Switch to Base Sepolia</button>
+<p id="connection">Ready.</p>
+<p id="wallet" class="mono">Wallet: —</p>
+</div>
+
+<div class="card">
+<h2>Step 2 — Recovery preflight</h2>
+<p>Before moving any tokens, verify the contract owner and read the 200 balance currently held by the 200 Token contract itself.</p>
+<button id="preflight" class="secondary">Run recovery preflight</button>
+<p>On-chain owner: <span id="owner" class="mono">—</span></p>
+<p>Contract-held 200: <strong id="contractBalance">—</strong></p>
+<p>Account 2 200: <strong id="ownerBalance">—</strong></p>
+<p id="preflightStatus">Not checked yet.</p>
+</div>
+
+<div class="card">
+<h2>Step 3 — Place 5 200 into contract</h2>
+<p class="warn">Only run after Step 2 passes. This sends exactly 5 testnet 200 from Account 2 to the 200 Token contract address.</p>
+<button id="deposit">Send 5 200 to contract</button>
+<p id="depositStatus">Not run.</p>
+<p class="mono">Deposit tx: <span id="depositTx">—</span></p>
+</div>
+
+<div class="card">
+<h2>Step 4 — Recover exactly 5 200</h2>
+<p>This calls the owner-restricted <code>recoverToken(5 200)</code>. Expected result: the contract-held balance falls by exactly 5 200 and Account 2 receives those tokens back.</p>
+<button id="recover">Recover 5 200</button>
+<p id="recoverStatus">Not run.</p>
+<p class="mono">Recovery tx: <span id="recoverTx">—</span></p>
+<p>Contract-held 200 after: <strong id="afterContract">—</strong></p>
+<p>Account 2 200 after: <strong id="afterOwner">—</strong></p>
+</div>
+
+<script type="module">
+import {BrowserProvider,Contract,parseUnits,formatUnits} from "https://cdn.jsdelivr.net/npm/ethers@6.15.0/+esm";
+const TOKEN='0x47a369B53D0b4Df514F82507a73E4546563e0CD5';
+const OWNER_EXPECTED='0x64d6719831414f883aA51CB59584D7B4F4066E08';
+const ABI=[
+ 'function owner() view returns(address)',
+ 'function balanceOf(address) view returns(uint256)',
+ 'function transfer(address to,uint256 value) returns(bool)',
+ 'function recoverToken(uint256 amount)'
+];
+let baselineContract=null,baselineOwner=null,preflightOK=false,deposited=false;
+function err(e){return String(e.shortMessage||e.message||e).replace(/[<>]/g,'')}
+async function ctx(){
+ if(!window.ethereum) throw new Error('MetaMask not detected.');
+ const provider=new BrowserProvider(window.ethereum);
+ const net=await provider.getNetwork();
+ if(net.chainId!==84532n) throw new Error('Switch to Base Sepolia first.');
+ const signer=await provider.getSigner();
+ const account=await signer.getAddress();
+ document.getElementById('wallet').textContent='Wallet: '+account;
+ if(account.toLowerCase()!==OWNER_EXPECTED.toLowerCase()) throw new Error('Use Account 2 for this test.');
+ return {provider,signer,account};
+}
+document.getElementById('connect').onclick=async()=>{try{
+ await window.ethereum.request({method:'eth_requestAccounts'});
+ await ctx();
+ document.getElementById('connection').innerHTML='<span class="ok">CONNECTED — Account 2 on Base Sepolia.</span>';
+}catch(e){document.getElementById('connection').innerHTML='<span class="bad">'+err(e)+'</span>'}};
+document.getElementById('switch').onclick=async()=>{try{
+ await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:'0x14a34'}]});
+ await ctx();
+ document.getElementById('connection').innerHTML='<span class="ok">Base Sepolia ready.</span>';
+}catch(e){document.getElementById('connection').innerHTML='<span class="bad">'+err(e)+'</span>'}};
+
+document.getElementById('preflight').onclick=async()=>{const out=document.getElementById('preflightStatus');try{
+ const {provider}=await ctx();
+ const t=new Contract(TOKEN,ABI,provider);
+ const own=await t.owner();
+ baselineContract=await t.balanceOf(TOKEN);
+ baselineOwner=await t.balanceOf(OWNER_EXPECTED);
+ document.getElementById('owner').textContent=own;
+ document.getElementById('contractBalance').textContent=formatUnits(baselineContract,18)+' 200';
+ document.getElementById('ownerBalance').textContent=formatUnits(baselineOwner,18)+' 200';
+ preflightOK=own.toLowerCase()===OWNER_EXPECTED.toLowerCase();
+ out.innerHTML=preflightOK?'<span class="ok">PASS — Account 2 is the on-chain owner. Safe to continue with the controlled 5-token test.</span>':'<span class="bad">STOP — connected Account 2 is not the on-chain token owner.</span>';
+}catch(e){out.innerHTML='<span class="bad">'+err(e)+'</span>'}};
+
+document.getElementById('deposit').onclick=async()=>{const out=document.getElementById('depositStatus');try{
+ if(!preflightOK) throw new Error('Run and pass Step 2 first.');
+ const {provider,signer}=await ctx();
+ const t=new Contract(TOKEN,ABI,signer);
+ const amount=parseUnits('5',18);
+ out.textContent='Waiting for MetaMask confirmation…';
+ const tx=await t.transfer(TOKEN,amount);
+ document.getElementById('depositTx').innerHTML='<a target="_blank" href="https://sepolia.basescan.org/tx/'+tx.hash+'">'+tx.hash+'</a>';
+ await tx.wait();
+ const read=new Contract(TOKEN,ABI,provider);
+ const after=await read.balanceOf(TOKEN);
+ if(after===baselineContract+amount){
+   deposited=true;
+   out.innerHTML='<span class="ok">PASS — contract-held balance increased by exactly 5 200.</span>';
+ }else{
+   out.innerHTML='<span class="bad">STOP — deposit confirmed but contract balance did not increase by exactly 5 200.</span>';
+ }
+}catch(e){out.innerHTML='<span class="bad">'+err(e)+'</span>'}};
+
+document.getElementById('recover').onclick=async()=>{const out=document.getElementById('recoverStatus');try{
+ if(!preflightOK||!deposited) throw new Error('Complete Steps 2 and 3 successfully first.');
+ const {provider,signer}=await ctx();
+ const t=new Contract(TOKEN,ABI,signer);
+ const amount=parseUnits('5',18);
+ out.textContent='Waiting for MetaMask confirmation…';
+ const tx=await t.recoverToken(amount);
+ document.getElementById('recoverTx').innerHTML='<a target="_blank" href="https://sepolia.basescan.org/tx/'+tx.hash+'">'+tx.hash+'</a>';
+ await tx.wait();
+ const read=new Contract(TOKEN,ABI,provider);
+ const cb=await read.balanceOf(TOKEN), ob=await read.balanceOf(OWNER_EXPECTED);
+ document.getElementById('afterContract').textContent=formatUnits(cb,18)+' 200';
+ document.getElementById('afterOwner').textContent=formatUnits(ob,18)+' 200';
+ if(cb===baselineContract && ob===baselineOwner){
+   out.innerHTML='<span class="ok">PASS — exactly 5 200 recovered to Account 2; both balances returned to their pre-test values.</span>';
+ }else{
+   out.innerHTML='<span class="bad">Recovery transaction confirmed, but balances did not return exactly to the pre-test values.</span>';
+ }
+}catch(e){out.innerHTML='<span class="bad">'+err(e)+'</span>'}};
+</script></main></body></html>
