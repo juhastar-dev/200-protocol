@@ -170,7 +170,7 @@
     "coreTokenTestCount": 11,
     "coreTokenPassCount": 11,
     "blockingCoreTokenTests": [],
-    "mainnetConfigFreeze": "DRAFT_BUDGET_AND_V3_FROZEN_PREFLIGHT_PENDING",
+    "mainnetConfigFreeze": "PREDEPLOYMENT_CHECKLIST_READY",
     "futureProtocolMilestones": [
       "signed-manifest",
       "x402-adapter",
@@ -195,6 +195,10 @@
       "firstSellMaxEUR": "10",
       "contingencyEUR": "20",
       "unusedFunds": "remain unspent"
-    }
+    },
+    "maximumValidationSlippagePercent": "1.0",
+    "predeploymentChecklist": "/MAINNET-PREDEPLOYMENT-CHECKLIST.md",
+    "transactionAuthorization": "NONE",
+    "nextStep": "launch-day read-only live preflight"
   }
 }
