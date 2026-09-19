@@ -1,6 +1,6 @@
 {
   "schema": "200-protocol/integrity/v1",
-  "status": "AWAITING_WALLET_SIGNATURE",
+  "status": "SIGNED_VERIFIED",
   "canonicalDiscovery": "/.well-known/200.json",
   "algorithm": "sha-256",
   "generatedAt": "2026-09-19T00:00:00Z",
@@ -35,16 +35,25 @@
     }
   ],
   "signature": {
-    "type": "EIP-191",
-    "value": null,
-    "signer": null,
-    "verificationMethod": "ecrecover / ethers.verifyMessage"
+    "type": "EIP-191 personal_sign",
+    "value": "0x5c11bf309b437d7a8369f5389689d1f7e537d3ba50cab78dc11b07d502b852657b3f48ec0cbc7b06e8a4210c22d09b0835e5a3eac16b2c863de573f3670f735c1b",
+    "signer": "0x64d6719831414f883aA51CB59584D7B4F4066E08",
+    "verificationMethod": "Ethereum ECDSA secp256k1 public-key recovery (EIP-191 personal_sign)"
   },
-  "note": "Artifact SHA-256 hashes are published. Signature remains null until Account 2 signs the canonical message. This is off-chain and requires no ETH.",
+  "note": "SIGNED_VERIFIED. Artifact hashes are bound to the canonical signing payload. The EIP-191 signature independently recovers to Account 2. This is an off-chain authenticity/integrity proof and does not itself prove truth of every underlying claim.",
   "signatureMethod": "EIP-191 personal_sign",
   "expectedSigner": "0x64d6719831414f883aA51CB59584D7B4F4066E08",
   "chainContext": "eip155:8453",
   "payload": "/signing-payload.json",
   "payloadSha256": "0x64fae78db37d5e9d91259d1aae1876937d5835fe55f263a907be221368c9e0cc",
-  "signingPage": "/sign-canonical-evidence.html"
+  "signingPage": "/sign-canonical-evidence.html",
+  "verifiedSigner": "0x64d6719831414f883aA51CB59584D7B4F4066E08",
+  "verification": {
+    "status": "PASS",
+    "expectedSigner": "0x64d6719831414f883aA51CB59584D7B4F4066E08",
+    "recoveredSigner": "0x64d6719831414f883aA51CB59584D7B4F4066E08",
+    "payloadSha256": "0x64fae78db37d5e9d91259d1aae1876937d5835fe55f263a907be221368c9e0cc",
+    "verifiedAt": "2026-09-19T00:00:00Z",
+    "statement": "The published signature recovers to the expected Account 2 address for the canonical signing message bound to this payload digest."
+  }
 }
