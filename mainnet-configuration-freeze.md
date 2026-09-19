@@ -87,6 +87,14 @@ The exact ETH amount will be calculated immediately before launch using the then
 
 Because the exact ETH amount is dynamic, the initial 200/ETH ratio, initial ETH price per 200, and mathematical implied FDV will also be recalculated immediately before launch. They are not frozen yet and are not market-value predictions.
 
+### V3 launch-position rationale
+
+- **0.25% fee tier** is selected for the initial 200/WETH pool.
+- **Full Range** is selected for the initial V3 position.
+- Full Range prioritizes operational simplicity and avoids an initial position becoming inactive merely because a new token's price moves outside a narrow range.
+- A narrower concentrated position may be evaluated later after 200 has observable mainnet trading history.
+- This configuration does not alter the EUR 200 maximum total real-money launch budget.
+
 ## 6. Mainnet deployment sequence — FROZEN
 
 1. Verify Base Mainnet chain ID and wallet network.
@@ -154,8 +162,6 @@ STOP immediately if any of the following occurs:
 - no LP burn/irreversible lock during launch
 
 **STILL REQUIRED**
-- V3 fee tier
-- V3 price range
 - exact ETH liquidity amount calculated at launch under the EUR 200 total cap
 - resulting launch price calculation from that exact ETH amount
 - launch slippage/test trade sizes
