@@ -1,0 +1,79 @@
+{
+  "schema": "https://juhastar-dev.github.io/200-protocol/spec/200-discovery-v1.schema.json",
+  "protocol": "200 Protocol",
+  "discoveryVersion": "1.0",
+  "purpose": "machine-readable economic policy verification and asset assessment for autonomous AI agents",
+  "semanticResult": {
+    "code": 200,
+    "meaning": "OK_TO_ACT",
+    "qualification": "The configured policy conditions for an authorized action passed. This is not an investment rating, credit rating, or guarantee of safety."
+  },
+  "canonicalWebsite": "https://juhastar-dev.github.io/200-protocol/",
+  "environment": {
+    "currentPublicDeployment": "Base Sepolia",
+    "chainId": 84532,
+    "productionStatus": "PREPARED_NOT_DEPLOYED",
+    "futureMainnetChainId": 8453
+  },
+  "asset": {
+    "name": "200 Token",
+    "symbol": "200",
+    "standard": [
+      "ERC-20",
+      "ERC-2612"
+    ],
+    "currentTestnetContract": "0x47a369B53D0b4Df514F82507a73E4546563e0CD5",
+    "currentTestnetCAIP19": "eip155:84532/erc20:0x47a369B53D0b4Df514F82507a73E4546563e0CD5",
+    "productionContract": null,
+    "productionCAIP19": null
+  },
+  "workflow": [
+    "DECLARE",
+    "VERIFY",
+    "EVALUATE",
+    "ACT"
+  ],
+  "endpoints": {
+    "manifest": "/200.json",
+    "status": "/status.json",
+    "verificationSummary": "/verification-summary.json",
+    "llmContext": "/llms.txt",
+    "specification": "/spec/200-1.json",
+    "discoverySchema": "/spec/200-discovery-v1.schema.json",
+    "agentCard": "/.well-known/agent-card.json",
+    "verifier": "/verify.html",
+    "assessmentExample": "/examples/assessment-200.json",
+    "mainnetConfig": "/mainnet-config.json",
+    "mainnetLaunchRecord": "/mainnet-launch-record.json"
+  },
+  "capabilities": [
+    "asset-discovery",
+    "canonical-asset-identity",
+    "on-chain-verification",
+    "policy-evaluation",
+    "machine-readable-evidence",
+    "human-authority-controls"
+  ],
+  "evidencePolicy": {
+    "principle": "Prefer independently verifiable on-chain facts and scoped behavioral evidence over unsupported declarations.",
+    "testnetCoreValidation": {
+      "status": "COMPLETE",
+      "pass": 11,
+      "fail": 0,
+      "pendingCoreChecks": 0
+    }
+  },
+  "trustBoundaries": {
+    "currentTestnetEvidenceIsNotMainnetEvidence": true,
+    "mainnetClaimsRequireNewMainnetEvidence": true,
+    "sourceVerificationOnCurrentTestnet": false
+  },
+  "contentTypes": {
+    "discovery": "application/json",
+    "manifest": "application/json",
+    "verificationSummary": "application/json",
+    "status": "application/json",
+    "llmContext": "text/plain"
+  },
+  "updated": "2026-09-19"
+}
