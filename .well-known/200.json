@@ -47,7 +47,8 @@
     "mainnetLaunchRecord": "/mainnet-launch-record.json",
     "futureCompatibility": "/future-compatibility.json",
     "integrity": "/integrity.json",
-    "erc8004RegistrationTemplate": "/spec/erc8004-registration-template.json"
+    "erc8004RegistrationTemplate": "/spec/erc8004-registration-template.json",
+    "machineMark": "/machine-mark.json"
   },
   "capabilities": [
     "asset-discovery",
@@ -106,5 +107,11 @@
   "regulatoryReadiness": {
     "status": "STRUCTURE_PREPARED_LEGAL_REVIEW_REQUIRED",
     "endpoint": "/future-compatibility.json"
+  },
+  "machineMark": {
+    "status": "LIVE",
+    "manifest": "/machine-mark.json",
+    "qrAsset": "/assets/200-machine-mark-qr.png",
+    "qrTarget": "https://juhastar-dev.github.io/200-protocol/.well-known/200.json"
   }
 }
