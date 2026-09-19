@@ -1,0 +1,37 @@
+{
+  "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+  "name": "200 Protocol",
+  "description": "Machine-readable economic policy verification and asset assessment for autonomous AI agents.",
+  "image": "https://juhastar-dev.github.io/200-protocol/200-icon.svg",
+  "services": [
+    {
+      "name": "web",
+      "endpoint": "https://juhastar-dev.github.io/200-protocol/"
+    },
+    {
+      "name": "A2A",
+      "endpoint": "https://juhastar-dev.github.io/200-protocol/.well-known/agent-card.json",
+      "version": null
+    },
+    {
+      "name": "MCP",
+      "endpoint": null,
+      "version": "2026-07-28"
+    },
+    {
+      "name": "200-discovery",
+      "endpoint": "https://juhastar-dev.github.io/200-protocol/.well-known/200.json",
+      "version": "1.0"
+    }
+  ],
+  "x402Support": false,
+  "active": false,
+  "registrations": [],
+  "supportedTrust": [
+    "reputation",
+    "validation",
+    "crypto-economic",
+    "tee-attestation"
+  ],
+  "preparationNote": "TEMPLATE ONLY. active=false and registrations=[] because 200 Protocol has not yet been registered on-chain under ERC-8004."
+}
