@@ -1,7 +1,7 @@
 {
   "schema": "200-protocol/mainnet-configuration-freeze/v1",
   "date": "2026-09-19",
-  "status": "DRAFT_REAL_MONEY_BUDGET_FROZEN_V3_PARAMETERS_PENDING",
+  "status": "DRAFT_CORE_MAINNET_CONFIG_FROZEN_FINAL_LAUNCH_AMOUNTS_PENDING",
   "network": {
     "name": "Base Mainnet",
     "chainId": 8453,
@@ -53,7 +53,12 @@
     "initialLiquidity200": "500000",
     "initialLiquidityETH": null,
     "initialLiquidityETHPolicy": "Calculated at launch from live ETH/EUR rate and the EUR 200 total launch cap.",
-    "initialSupplyPercent": "0.5"
+    "initialSupplyPercent": "0.5",
+    "preferredDexVersion": "PancakeSwap V3",
+    "v3FeeTierPercent": "0.25",
+    "v3PriceRange": "FULL_RANGE",
+    "v3RangeRationale": "Full Range selected for launch simplicity and continuous in-range liquidity because 200 has no established mainnet market price at launch. A narrower range can be reviewed later.",
+    "v3FeeRationale": "0.25% selected as a moderate EVM V3 fee tier and continuity point with the V2 test environment; 1% was not selected to avoid imposing the highest standard V3 fee on initial trading."
   },
   "userDecisionsRequired": {
     "initialLiquidity200": null,
@@ -64,7 +69,9 @@
     "maximumTotalRealMoneyBudgetEUR": null,
     "v3FeeTier": null,
     "v3PriceRange": null,
-    "finalLaunchEthAmount": "CALCULATE_AT_LAUNCH_UNDER_EUR_200_CAP"
+    "finalLaunchEthAmount": "CALCULATE_AT_LAUNCH_UNDER_EUR_200_CAP",
+    "firstRealBuyPolicy": null,
+    "firstRealSellPolicy": null
   },
   "derivedAfterDecision": {
     "initial200PerETH": null,
@@ -79,7 +86,7 @@
     "sourceVerificationMainnet": "REQUIRED_WHERE_SUPPORTED",
     "productionDexAddressReverification": "REQUIRED"
   },
-  "nextAction": "SELECT_V3_FEE_TIER_AND_PRICE_RANGE; THEN CALCULATE FINAL ETH AMOUNT UNDER EUR_200_CAP IMMEDIATELY BEFORE LAUNCH",
+  "nextAction": "FREEZE_VALIDATION_TRADE_POLICY_AND_GAS_RESERVE; THEN FINAL_PREDEPLOYMENT CHECKLIST",
   "liquidityModel": {
     "status": "ILLUSTRATIVE_NOT_FROZEN",
     "calculator": "/mainnet-liquidity-model.html",
