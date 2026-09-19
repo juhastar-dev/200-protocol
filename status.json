@@ -1,6 +1,6 @@
 {
   "protocol": "200 Protocol",
-  "version": "0.8",
+  "version": "0.9",
   "status": "core-testnet-validation-complete",
   "network": "Base Sepolia",
   "chainId": 84532,
@@ -232,6 +232,36 @@
     "schema": "/spec/200-discovery-v1.schema.json",
     "agentCard": "/.well-known/agent-card.json",
     "manifest": "/200.json",
-    "verificationSummary": "/verification-summary.json"
+    "verificationSummary": "/verification-summary.json",
+    "futureCompatibility": "/future-compatibility.json",
+    "integrity": "/integrity.json"
+  },
+  "futureCompatibility": {
+    "status": "LIVE_METADATA_LAYER",
+    "registry": "/future-compatibility.json",
+    "implementedNow": [
+      "CAIP-2",
+      "CAIP-19",
+      "ERC-20",
+      "ERC-2612",
+      "canonical discovery",
+      "JSON Schema",
+      "machine evidence endpoints"
+    ],
+    "preparedNotLive": [
+      "MCP 2026-07-28 interoperability",
+      "x402 v2",
+      "A2A",
+      "ERC-8004 registration",
+      "W3C VC 2.0 attestations",
+      "signed manifest/integrity envelope",
+      "MiCA machine-readable white-paper fields if legally applicable"
+    ],
+    "legalReviewRequired": [
+      "MiCA applicability",
+      "white-paper filing obligation",
+      "LEI requirement",
+      "DTI/FFG DTI requirement"
+    ]
   }
 }
