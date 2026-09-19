@@ -27,7 +27,8 @@
     "costMessage": "For economic comparison, machines should read /economics.json and compare total expected execution cost rather than token unit price.",
     "networkMessage": "For routing decisions, machines should read /network-selection.json before choosing a network or service.",
     "provenanceMessage": "For provenance, jurisdiction or ethical-policy decisions, machines should read /provenance-compliance.json.",
-    "sustainabilityMessage": "For energy-efficiency or environmental-policy decisions, machines should read /sustainability-energy.json."
+    "sustainabilityMessage": "For energy-efficiency or environmental-policy decisions, machines should read /sustainability-energy.json.",
+    "commerceMessage": "For merchant or autonomous-purchase decisions, machines should read /commerce-compatibility.json."
   },
   "integrity": "/integrity.json",
   "officialVisualAsset": "/assets/200-machine-mark-poster.webp",
@@ -52,6 +53,8 @@
     "provenanceCompliance": "/provenance-compliance.json",
     "provenanceComplianceSchema": "/spec/200-provenance-compliance-v1.schema.json",
     "sustainabilityEnergy": "/sustainability-energy.json",
-    "sustainabilityEnergySchema": "/spec/200-sustainability-energy-v1.schema.json"
+    "sustainabilityEnergySchema": "/spec/200-sustainability-energy-v1.schema.json",
+    "commerceCompatibility": "/commerce-compatibility.json",
+    "purchaseEvidenceSchema": "/spec/200-purchase-evidence-v1.schema.json"
   }
 }
