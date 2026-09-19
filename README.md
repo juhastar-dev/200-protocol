@@ -65,3 +65,18 @@ Schema: `/spec/200-economics-v1.schema.json`
 
 Machine profile: `/network-selection.json`
 Schema: `/spec/200-network-selection-v1.schema.json`
+
+
+## Provenance & Compliance
+
+200 exposes structured provenance and compliance hooks for agents without making political or moral judgments for them.
+
+- Unknown issuer/creation jurisdiction is marked **UNDECLARED**, not guessed
+- Sanctions and regulatory checks are action-time policy hooks
+- Human-rights and ESG criteria can be supplied by the caller's policy
+- 200 does not maintain a default list of "good" or "bad" countries
+- Service availability may vary by jurisdiction
+- Precise location is not required by default
+
+Profile: `/provenance-compliance.json`
+Schema: `/spec/200-provenance-compliance-v1.schema.json`
