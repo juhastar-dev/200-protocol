@@ -77,3 +77,18 @@ For transaction hashes and machine-readable fields, fetch /verification-summary.
 - Current status: /status.json
 - Direct verifier: /verify.html
 - Semantic meaning: 200 = OK_TO_ACT only when the configured policy checks pass; it is not an investment rating or guarantee.
+
+
+## Future Compatibility Layer
+- Registry: /future-compatibility.json
+- Integrity/signature envelope: /integrity.json
+- ERC-8004 registration template: /spec/erc8004-registration-template.json
+- MCP target: 2026-07-28 (planned interoperability; no live MCP endpoint claimed)
+- x402 target: protocol v2 (planned interoperability; no live payment endpoint claimed)
+- ERC-8004: planned registration; no agentId/registry claimed yet
+- W3C Verifiable Credentials 2.0: planned attestation layer; no VC issued yet
+- CAIP-2 / CAIP-19: supported for chain and asset identity
+- Extensions are independently versioned; unknown extensions should be ignored unless caller policy requires them
+- Freshness fields: protocolVersion, schemaVersion, generatedAt, validUntil, supersedes, canonical
+- Integrity fields are explicit; current state is UNSIGNED
+- EU/MiCA metadata fields are reserved for machine-readable compliance workflows if legally applicable; applicability/compliance is NOT claimed and requires legal review
