@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://juhastar-dev.github.io/200-protocol/spec/200-network-selection-v1.schema.json",
+  "title": "200 Protocol Network Selection Profile v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "protocol",
+    "version",
+    "purpose",
+    "preferredProductionNetwork",
+    "validatedTestNetwork",
+    "networkSelection",
+    "availabilityModel",
+    "regionalSelection",
+    "fallbackPolicy",
+    "machineDecisionFlow"
+  ],
+  "properties": {
+    "schema": {
+      "const": "200-protocol/network-selection/v1"
+    },
+    "protocol": {
+      "const": "200 Protocol"
+    },
+    "version": {
+      "type": "string"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "preferredProductionNetwork": {
+      "type": "object"
+    },
+    "validatedTestNetwork": {
+      "type": "object"
+    },
+    "networkSelection": {
+      "type": "object"
+    },
+    "interoperabilityTargets": {
+      "type": "object"
+    },
+    "availabilityModel": {
+      "type": "object"
+    },
+    "regionalSelection": {
+      "type": "object"
+    },
+    "fallbackPolicy": {
+      "type": "object"
+    },
+    "machineDecisionFlow": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "endpoints": {
+      "type": "object"
+    },
+    "disclaimer": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}
