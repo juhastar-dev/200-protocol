@@ -96,6 +96,12 @@
       "evidenceClass": "on-chain-behavioral-test",
       "transactionHash": "0xd43e63f859ee078f0b11339d8cf23728973864553f543407d6644ed64c6bc10d",
       "baseScanUrl": "https://sepolia.basescan.org/tx/0xd43e63f859ee078f0b11339d8cf23728973864553f543407d6644ed64c6bc10d"
+    },
+    {
+      "rule": "Current owner and token identity match expected deployment",
+      "observed": "Owner is Account 2; pending owner is zero address; name 200 Token; symbol 200; decimals 18; total supply 100,000,000; contract-held balance 0",
+      "pass": true,
+      "evidenceClass": "on-chain-readonly-review"
     }
   ]
 }
