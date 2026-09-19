@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>200 Permit Test v2</title><style>
+body{margin:0;background:#06100c;color:#eaf7ef;font-family:system-ui,sans-serif;line-height:1.5}main{max-width:800px;margin:auto;padding:32px 20px}
+.card{background:#0d1d16;border:1px solid #1e3e2d;border-radius:18px;padding:22px;margin:18px 0}
+button{background:#76f3a5;color:#06100c;border:0;border-radius:12px;padding:15px 20px;font-weight:800;font-size:16px;cursor:pointer;margin:5px}
+button.secondary{background:#183426;color:#eaf7ef;border:1px solid #31513e}.mono{font-family:monospace;word-break:break-all;color:#c8edd3}.ok{color:#76f3a5;font-weight:800}.bad{color:#ff7373;font-weight:800}a{color:#76f3a5}
+</style></head><body><main>
+<p><a href="index.html">← 200 Protocol</a></p><h1>200 Permit Test v2</h1>
+<p>This first screen tests only the MetaMask connection. No token approval, signature, or transfer is performed here.</p>
+<div class="card">
+<h2>Step 1 — MetaMask connection</h2>
+<button type="button" id="connect">Connect MetaMask</button>
+<button type="button" id="switch" class="secondary">Switch to Base Sepolia</button>
+<p id="status">Ready. Click Connect MetaMask.</p>
+<p id="wallet" class="mono">Wallet: —</p>
+<p id="chain" class="mono">Chain: —</p>
+</div>
+<div class="card"><strong>Expected result:</strong> Account 3 and chain ID 84532 appear above. Once that works, the ERC-2612 test will be enabled in the next step.</div>
+<script>
+var statusEl=document.getElementById('status');
+var walletEl=document.getElementById('wallet');
+var chainEl=document.getElementById('chain');
+function errText(e){return (e&&e.message)?e.message:String(e)}
+async function refresh(){
+ if(typeof window.ethereum==='undefined'){
+   statusEl.innerHTML='<span class="bad">MetaMask not detected on this page.</span>';
+   return;
+ }
+ try{
+   var accounts=await window.ethereum.request({method:'eth_accounts'});
+   var chain=await window.ethereum.request({method:'eth_chainId'});
+   walletEl.textContent='Wallet: '+(accounts.length?accounts[0]:'not connected');
+   chainEl.textContent='Chain: '+parseInt(chain,16)+' ('+chain+')';
+   if(accounts.length && chain.toLowerCase()==='0x14a34') statusEl.innerHTML='<span class="ok">CONNECTED — Base Sepolia ready.</span>';
+   else if(accounts.length) statusEl.textContent='Wallet connected. Switch to Base Sepolia.';
+ }catch(e){statusEl.innerHTML='<span class="bad">Check failed: '+errText(e).replace(/[<>]/g,'')+'</span>'}
+}
+document.getElementById('connect').onclick=async function(){
+ statusEl.textContent='Requesting MetaMask connection…';
+ if(typeof window.ethereum==='undefined'){
+   statusEl.innerHTML='<span class="bad">MetaMask not detected. Make sure the MetaMask extension is enabled for this site.</span>'; return;
+ }
+ try{
+   await window.ethereum.request({method:'eth_requestAccounts'});
+   await refresh();
+ }catch(e){statusEl.innerHTML='<span class="bad">Connection error: '+errText(e).replace(/[<>]/g,'')+'</span>'}
+};
+document.getElementById('switch').onclick=async function(){
+ if(typeof window.ethereum==='undefined'){statusEl.innerHTML='<span class="bad">MetaMask not detected.</span>';return}
+ try{
+   await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:'0x14a34'}]});
+   await refresh();
+ }catch(e){statusEl.innerHTML='<span class="bad">Network error: '+errText(e).replace(/[<>]/g,'')+'</span>'}
+};
+refresh();
+</script></main></body></html>
