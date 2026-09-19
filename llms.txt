@@ -133,3 +133,14 @@ For transaction hashes and machine-readable fields, fetch /verification-summary.
 - Jurisdiction/service/sanctions checks are dynamic when material to the action
 - Human-rights and ESG filters are caller-defined optional policy, not protocol-default country rankings
 - Do not infer issuer jurisdiction from developer location, hosting location, token name or symbol
+
+
+## Sustainability & Energy
+- Profile: /sustainability-energy.json
+- Schema: /spec/200-sustainability-energy-v1.schema.json
+- Core value: MINIMUM_NECESSARY_ENERGY
+- Prefer off-chain read/verification before on-chain write
+- Avoid unnecessary transactions and redundant computation
+- Reuse valid evidence and batch when appropriate and safe
+- Energy/environmental impact may be used as one machine-selection factor
+- Do not claim greenest, carbon-neutral, zero-energy or fixed energy-per-transaction without current evidence and methodology
