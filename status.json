@@ -23,7 +23,8 @@
     "pancakeSwapV2Buy": true,
     "pancakeSwapV2Sell": true,
     "erc2612Permit": true,
-    "transferFromPermitConsumption": true
+    "transferFromPermitConsumption": true,
+    "tokenRecovery": true
   },
   "verification": {
     "onChainVerifier": "/verify.html",
@@ -109,6 +110,24 @@
       "baseScanUrl": "https://sepolia.basescan.org/tx/0xcb45319d1f01f776856a18177f787bceaf7bc3df549816c1bc04a86e0c25d811",
       "result": "PASS",
       "scope": "One Base Sepolia transferFrom call consuming part of an ERC-2612-created allowance."
+    },
+    "tokenRecoveryTest": {
+      "date": "2026-09-19",
+      "owner": "0x64d6719831414f883aA51CB59584D7B4F4066E08",
+      "amount200": "5",
+      "contractBalanceBefore200": "0",
+      "contractBalanceAfterDeposit200": "5",
+      "contractBalanceFinal200": "0",
+      "ownerBalanceBefore200": "94899010",
+      "ownerBalanceAfterDeposit200": "94899005",
+      "ownerBalanceFinal200": "94899010",
+      "depositTransactionHash": "0xf5bb35d99edd60f65a6f2cb397e4f5741b5600ff36c24dfbdbaaf79316890d62",
+      "depositBaseScanUrl": "https://sepolia.basescan.org/tx/0xf5bb35d99edd60f65a6f2cb397e4f5741b5600ff36c24dfbdbaaf79316890d62",
+      "recoveryTransactionHash": "0xd43e63f859ee078f0b11339d8cf23728973864553f543407d6644ed64c6bc10d",
+      "recoveryBaseScanUrl": "https://sepolia.basescan.org/tx/0xd43e63f859ee078f0b11339d8cf23728973864553f543407d6644ed64c6bc10d",
+      "result": "PASS",
+      "scope": "One controlled Base Sepolia test of recovery of the token's own 200 balance.",
+      "note": "Fresh post-confirmation read was used for final state because the immediate UI read was stale."
     }
   },
   "nextMilestones": [
