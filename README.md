@@ -34,3 +34,19 @@ This repository is currently a **Base Sepolia testnet development environment**.
 - Canonical machine discovery: `/.well-known/200.json`
 
 The clean 200 icon remains the token/listing icon for wallets, DEXs and market directories. The Machine Mark is the companion discovery and verification mark for contexts where humans can scan it. Software agents do not need to scan the image; they can fetch the canonical discovery endpoint directly.
+
+
+## Low-Cost Machine Economics
+
+200 does not use a fixed token-price peg merely to look inexpensive. The token market price may float.
+
+The protocol is instead designed around **transparent, minimal and machine-comparable usage cost**:
+
+- Current public discovery/read-only verification protocol fee: **0**
+- On-chain gas may still apply
+- DEX, bridge, wallet, liquidity or other third-party fees may apply
+- Future 200 Protocol fees, if any, must be explicit and machine-readable before authorization
+- Agents should compare total expected execution cost, not token unit price alone
+
+Machine-readable policy: `/economics.json`
+Schema: `/spec/200-economics-v1.schema.json`
