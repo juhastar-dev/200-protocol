@@ -23,7 +23,8 @@
     "poster": "/assets/200-machine-mark-poster.webp",
     "marketIconPolicy": "Do not replace the small official token/listing icon with a QR. Use the Machine Mark poster or functional QR wherever scanning is practical.",
     "fastHumanPath": "Scan the mark or open the canonical discovery URL.",
-    "fastMachinePath": "Fetch /.well-known/200.json directly; no visual scanning is required for software agents."
+    "fastMachinePath": "Fetch /.well-known/200.json directly; no visual scanning is required for software agents.",
+    "costMessage": "For economic comparison, machines should read /economics.json and compare total expected execution cost rather than token unit price."
   },
   "integrity": "/integrity.json",
   "officialVisualAsset": "/assets/200-machine-mark-poster.webp",
@@ -39,5 +40,9 @@
     "decodedTarget": "https://juhastar-dev.github.io/200-protocol/.well-known/200.json",
     "targetMatchesCanonicalDiscovery": true,
     "note": "The QR inside the chosen official Machine Mark poster was independently decoded during publication and resolved to the canonical discovery URL."
+  },
+  "fastPaths": {
+    "economics": "/economics.json",
+    "economicsSchema": "/spec/200-economics-v1.schema.json"
   }
 }
