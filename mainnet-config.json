@@ -1,0 +1,72 @@
+{
+  "schema": "200-protocol/mainnet-configuration-freeze/v1",
+  "date": "2026-09-19",
+  "status": "DRAFT_FUNDAMENTALS_FROZEN_LAUNCH_ECONOMICS_PENDING",
+  "network": {
+    "name": "Base Mainnet",
+    "chainId": 8453,
+    "productionContract": null,
+    "caip19": null
+  },
+  "token": {
+    "name": "200 Token",
+    "symbol": "200",
+    "contractName": "TwoHundredToken",
+    "decimals": 18,
+    "initialSupply200": "100000000",
+    "maximumSupply200": "100000000",
+    "mintable": false,
+    "permitERC2612": true,
+    "tokenRecovery": true
+  },
+  "controls": {
+    "transferTaxPercent": 0,
+    "buyTaxPercent": 0,
+    "sellTaxPercent": 0,
+    "blacklist": false,
+    "pausable": false,
+    "maxWallet": false,
+    "maxTransaction": false,
+    "antiBotCooldown": false,
+    "enableTradingGate": false,
+    "dividendTax": false,
+    "walletTax": false,
+    "liquidityTax": false,
+    "autoBurnTax": false
+  },
+  "ownership": {
+    "launchOwner": "Account 2 / deployment wallet",
+    "renounceAtLaunch": false,
+    "transferAtLaunch": false,
+    "postLaunchReview": "optional safer custody / multisig review after stable operation"
+  },
+  "liquidity": {
+    "targetDex": "PancakeSwap on Base Mainnet",
+    "pair": "200/WETH",
+    "productionRouter": null,
+    "productionFactory": null,
+    "productionPair": null,
+    "addressPolicy": "verify current official production addresses immediately before launch; never copy Sepolia addresses",
+    "lpBurnAtLaunch": false,
+    "irreversibleLpLockAtLaunch": false
+  },
+  "userDecisionsRequired": {
+    "initialLiquidity200": null,
+    "initialLiquidityETH": null,
+    "maximumSetupSlippagePercent": null,
+    "firstRealBuyETH": null,
+    "firstRealSell200": null
+  },
+  "derivedAfterDecision": {
+    "initial200PerETH": null,
+    "initialETHPer200": null,
+    "impliedFDVInETH": null
+  },
+  "prerequisites": {
+    "baseSepoliaCoreValidation": "COMPLETE_11_PASS_0_FAIL",
+    "formalTestnetReport": "/reports/base-sepolia-testnet-verification-report.md",
+    "sourceVerificationMainnet": "REQUIRED_WHERE_SUPPORTED",
+    "productionDexAddressReverification": "REQUIRED"
+  },
+  "nextAction": "CHOOSE_INITIAL_LIQUIDITY_200_AND_ETH"
+}
