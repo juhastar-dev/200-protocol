@@ -1,0 +1,223 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://juhastar-dev.github.io/200-protocol/spec/200-purchase-evidence-v1.schema.json",
+  "title": "200 Purchase Evidence v1",
+  "description": "Machine-readable evidence package for an authorized purchase, settlement, receipt and refund state.",
+  "type": "object",
+  "required": [
+    "schema",
+    "purchaseId",
+    "merchant",
+    "itemOrService",
+    "quote",
+    "authorization",
+    "payment",
+    "evidence"
+  ],
+  "properties": {
+    "schema": {
+      "const": "200-protocol/purchase-evidence/v1"
+    },
+    "purchaseId": {
+      "type": "string"
+    },
+    "merchant": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "merchantId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "jurisdiction": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "endpoint": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "itemOrService": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "quote": {
+      "type": "object",
+      "required": [
+        "amount",
+        "assetOrCurrency",
+        "timestamp"
+      ],
+      "properties": {
+        "amount": {
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "assetOrCurrency": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        },
+        "expiresAt": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "authorization": {
+      "type": "object",
+      "required": [
+        "decision",
+        "policyReference",
+        "timestamp"
+      ],
+      "properties": {
+        "decision": {
+          "enum": [
+            "OK_TO_ACT",
+            "DO_NOT_ACT"
+          ]
+        },
+        "policyReference": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        },
+        "humanConfirmation": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "payment": {
+      "type": "object",
+      "required": [
+        "status",
+        "rail",
+        "settledAmount",
+        "assetOrCurrency"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "PENDING",
+            "SETTLED",
+            "FAILED",
+            "REFUNDED",
+            "PARTIALLY_REFUNDED",
+            "DISPUTED"
+          ]
+        },
+        "rail": {
+          "type": "string"
+        },
+        "network": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "settledAmount": {
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "assetOrCurrency": {
+          "type": "string"
+        },
+        "transactionReference": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "receipt": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": true
+    },
+    "invoice": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": true
+    },
+    "tax": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": true
+    },
+    "fulfilment": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": true
+    },
+    "refund": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": true
+    },
+    "evidence": {
+      "type": "object",
+      "required": [
+        "integrityStatus"
+      ],
+      "properties": {
+        "integrityStatus": {
+          "type": "string"
+        },
+        "signature": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "hash": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}
