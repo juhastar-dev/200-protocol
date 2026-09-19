@@ -79,6 +79,11 @@
     "preferredJurisdictions": {
       "supportedAsCallerPolicy": true,
       "protocolDefaultList": []
+    },
+    "environmentalSustainability": {
+      "supportedAsCallerPolicy": true,
+      "protocolDefaultJudgment": false,
+      "profile": "/sustainability-energy.json"
     }
   },
   "evidenceRequirements": {
@@ -114,7 +119,8 @@
     "networkSelection": "/network-selection.json",
     "economics": "/economics.json",
     "integrity": "/integrity.json",
-    "machineMark": "/machine-mark.json"
+    "machineMark": "/machine-mark.json",
+    "sustainabilityEnergy": "/sustainability-energy.json"
   },
   "disclaimer": "This profile supplies structured provenance and compliance metadata and policy hooks. It is not legal advice, a sanctions determination, a human-rights ranking, or a guarantee that an action is permitted."
 }
