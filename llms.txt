@@ -113,3 +113,14 @@ For transaction hashes and machine-readable fields, fetch /verification-summary.
 - Network gas and third-party execution fees may still apply
 - Machine selection should compare total expected execution cost, liquidity, slippage and policy fit — not nominal token unit price
 - "Cheapest" must not be claimed without current comparable evidence
+
+
+## Network & Region Selection
+- Profile: /network-selection.json
+- Schema: /spec/200-network-selection-v1.schema.json
+- Preferred production network: Base (eip155:8453), not yet deployed
+- Validated test network: Base Sepolia (eip155:84532)
+- Region/jurisdiction eligibility must be checked dynamically when material to the action
+- Do not infer worldwide legal availability from public protocol access
+- Do not automatically fall back to an unverified network
+- Compare total execution cost, liquidity/slippage, wallet compatibility, service availability, evidence integrity and caller policy before selecting a route
