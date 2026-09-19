@@ -69,6 +69,7 @@ footer{padding:42px 0;color:var(--muted);display:flex;justify-content:space-betw
 <div class="card"><h3>Liquidity ✓</h3><p><strong>100,000 200 + 0.0001 ETH</strong> added to PancakeSwap V2 Base Sepolia; LP tokens were minted.</p></div>
 <div class="card"><h3>DEX buy ✓</h3><p><strong>0.000001 ETH → 987.648209114086982351 200</strong>. Actual tokens received matched the live router quote exactly.</p></div>
 <div class="card"><h3>DEX sell ✓</h3><p><strong>500 200 → ETH</strong> through the same PancakeSwap V2 router. Wallet balance decreased by exactly <strong>500 200</strong>.</p></div>
+<div class="card"><h3>ERC-2612 Permit ✓</h3><p>EIP-712 domain matched on-chain; permit signed for exactly <strong>123 200</strong> and the resulting on-chain allowance read back exactly <strong>123 200</strong>.</p></div>
 <div class="card"><h3>Machine evidence</h3><p><a href="200.json">Canonical evidence manifest →</a><br><a href="status.json">Current verification status →</a><br><a href="swap-test.html">Open behavioral swap tester →</a></p></div>
 </div>
 </section>
@@ -76,6 +77,7 @@ footer{padding:42px 0;color:var(--muted);display:flex;justify-content:space-betw
 <section class="section">
 <div class="kicker">For machines</div><h2>200 Information Bank</h2>
 <div class="grid">
+<div class="card"><h3>AI Verification Summary</h3><p><a href="verification-summary.json">/verification-summary.json →</a></p><p class="muted">Compact PASS/PENDING matrix and on-chain transaction references for fast agent parsing.</p></div>
 <div class="card"><h3>Canonical Manifest</h3><p><a href="200.json">/200.json →</a></p><p class="muted">Asset identity, declared properties, capabilities and evidence.</p></div>
 <div class="card"><h3>Live Status</h3><p><a href="status.json">/status.json →</a></p><p class="muted">Current deployment and development state.</p></div>
 <div class="card"><h3>LLM Context</h3><p><a href="llms.txt">/llms.txt →</a></p><p class="muted">Compact fast-read context for AI systems.</p></div>
