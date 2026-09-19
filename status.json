@@ -225,5 +225,13 @@
     "fundingRequiredForNextOnChainWrite": true,
     "launchControl": "/mainnet-launch-control.html",
     "currentGate": "FUNDING_OPTIONAL_UNTIL_USER_CHOOSES_LAUNCH"
+  },
+  "machineDiscovery": {
+    "status": "LIVE",
+    "canonical": "/.well-known/200.json",
+    "schema": "/spec/200-discovery-v1.schema.json",
+    "agentCard": "/.well-known/agent-card.json",
+    "manifest": "/200.json",
+    "verificationSummary": "/verification-summary.json"
   }
 }
