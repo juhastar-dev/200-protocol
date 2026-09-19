@@ -44,7 +44,8 @@
       "environmentalDataTimestamp"
     ],
     "rule": "Energy and environmental impact may be considered alongside security, cost, liquidity, reliability, jurisdiction and caller policy.",
-    "noSingleMetricWinnerClaim": true
+    "noSingleMetricWinnerClaim": true,
+    "commerceRouteSelection": "/commerce-compatibility.json"
   },
   "renewableEnergy": {
     "protocolRequirement": false,
@@ -88,7 +89,8 @@
     "economics": "/economics.json",
     "provenanceCompliance": "/provenance-compliance.json",
     "integrity": "/integrity.json",
-    "machineMark": "/machine-mark.json"
+    "machineMark": "/machine-mark.json",
+    "commerceCompatibility": "/commerce-compatibility.json"
   },
   "disclaimer": "This profile describes sustainability design intent and machine-selection policy. It is not a carbon-neutrality certification, environmental rating, lifecycle assessment or guarantee of lower energy use than every alternative."
 }
