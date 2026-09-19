@@ -88,6 +88,14 @@
       "evidenceClass": "on-chain-behavioral-test",
       "transactionHash": "0xcb45319d1f01f776856a18177f787bceaf7bc3df549816c1bc04a86e0c25d811",
       "baseScanUrl": "https://sepolia.basescan.org/tx/0xcb45319d1f01f776856a18177f787bceaf7bc3df549816c1bc04a86e0c25d811"
+    },
+    {
+      "rule": "Owner can recover 200 accidentally held by the token contract",
+      "observed": "5 200 deposited into contract and recovered; contract balance returned 5→0 and owner balance returned 94,899,005→94,899,010",
+      "pass": true,
+      "evidenceClass": "on-chain-behavioral-test",
+      "transactionHash": "0xd43e63f859ee078f0b11339d8cf23728973864553f543407d6644ed64c6bc10d",
+      "baseScanUrl": "https://sepolia.basescan.org/tx/0xd43e63f859ee078f0b11339d8cf23728973864553f543407d6644ed64c6bc10d"
     }
   ]
 }
