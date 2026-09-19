@@ -329,6 +329,15 @@
     "spec": "/spec/200-1.json",
     "policyExample": "/policy/default-policy.json",
     "verifier": "/verify.html",
-    "assessmentExample": "/examples/assessment-200.json"
+    "assessmentExample": "/examples/assessment-200.json",
+    "discovery": "/.well-known/200.json",
+    "discoverySchema": "/spec/200-discovery-v1.schema.json"
+  },
+  "machineDiscovery": {
+    "canonical": "/.well-known/200.json",
+    "schema": "/spec/200-discovery-v1.schema.json",
+    "agentCard": "/.well-known/agent-card.json",
+    "verificationSummary": "/verification-summary.json",
+    "status": "/status.json"
   }
 }
