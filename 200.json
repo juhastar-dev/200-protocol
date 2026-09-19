@@ -226,6 +226,22 @@
         "result": "PASS",
         "observedResult": "ERC-2612 EIP-712 domain separator matched the computed domain; Account 3 signed a permit for exactly 123 200 to Account 2; the permit was submitted on-chain and allowance(owner, spender) read back exactly 123 200.",
         "evidenceMeaning": "Behavioral evidence that the deployed 200 Token supports ERC-2612 permit signing and on-chain allowance authorization for the tested owner/spender pair."
+      },
+      {
+        "type": "erc20-transferfrom-permit-consumption",
+        "network": "Base Sepolia",
+        "date": "2026-09-19",
+        "status": "passed",
+        "owner": "0x1fDe29f8fD7Dca926954eF5F142c86FdCC6752Db",
+        "spenderAndRecipient": "0x64d6719831414f883aA51CB59584D7B4F4066E08",
+        "transferFromAmount200": "10",
+        "allowanceBefore200": "123",
+        "allowanceAfter200": "113",
+        "transactionHash": "0xcb45319d1f01f776856a18177f787bceaf7bc3df549816c1bc04a86e0c25d811",
+        "baseScanUrl": "https://sepolia.basescan.org/tx/0xcb45319d1f01f776856a18177f787bceaf7bc3df549816c1bc04a86e0c25d811",
+        "result": "PASS",
+        "observedResult": "Account 2 successfully called transferFrom for exactly 10 200 from Account 3 using the ERC-2612-created allowance. The allowance decreased exactly from 123 200 to 113 200.",
+        "evidenceMeaning": "Behavioral evidence that the tested ERC-2612-created allowance can be consumed through standard ERC-20 transferFrom semantics."
       }
     ]
   },
