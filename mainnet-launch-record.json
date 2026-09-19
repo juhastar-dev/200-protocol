@@ -1,0 +1,96 @@
+{
+  "schema": "200-protocol/mainnet-launch-record/v1",
+  "status": "PREPARED_NOT_DEPLOYED",
+  "network": {
+    "name": "Base Mainnet",
+    "chainId": 8453,
+    "chainIdHex": "0x2105"
+  },
+  "expectedToken": {
+    "name": "200 Token",
+    "symbol": "200",
+    "decimals": 18,
+    "totalSupply200": "100000000",
+    "mintable": false,
+    "permitERC2612": true,
+    "tokenRecovery": true
+  },
+  "intendedOwner": "0x64d6719831414f883aA51CB59584D7B4F4066E08",
+  "budget": {
+    "absoluteMaxEUR": "200",
+    "initialLiquidityMaxEUR": "120",
+    "deployAndLiquidityGasMaxEUR": "40",
+    "firstBuyMaxEUR": "10",
+    "firstSellMaxEUR": "10",
+    "contingencyEUR": "20"
+  },
+  "deployment": {
+    "contractAddress": null,
+    "transactionHash": null,
+    "blockNumber": null,
+    "timestamp": null,
+    "sourceVerification": "PENDING_DEPLOYMENT",
+    "identityVerification": "PENDING_DEPLOYMENT"
+  },
+  "postDeploymentChecks": [
+    {
+      "id": "chain-id",
+      "expected": "8453",
+      "status": "PENDING_DEPLOYMENT"
+    },
+    {
+      "id": "bytecode-present",
+      "expected": true,
+      "status": "PENDING_DEPLOYMENT"
+    },
+    {
+      "id": "name",
+      "expected": "200 Token",
+      "status": "PENDING_DEPLOYMENT"
+    },
+    {
+      "id": "symbol",
+      "expected": "200",
+      "status": "PENDING_DEPLOYMENT"
+    },
+    {
+      "id": "decimals",
+      "expected": 18,
+      "status": "PENDING_DEPLOYMENT"
+    },
+    {
+      "id": "total-supply",
+      "expected": "100000000",
+      "status": "PENDING_DEPLOYMENT"
+    },
+    {
+      "id": "owner",
+      "expected": "0x64d6719831414f883aA51CB59584D7B4F4066E08",
+      "status": "PENDING_DEPLOYMENT"
+    },
+    {
+      "id": "pending-owner",
+      "expected": "0x0000000000000000000000000000000000000000",
+      "status": "PENDING_DEPLOYMENT"
+    },
+    {
+      "id": "erc2612-domain",
+      "expected": "readable and consistent with deployed token",
+      "status": "PENDING_DEPLOYMENT"
+    }
+  ],
+  "liquidity": {
+    "status": "BLOCKED_UNTIL_DEPLOYMENT_IDENTITY_PASS",
+    "tokenSide200": "500000",
+    "ethSide": "CALCULATE_AT_LAUNCH_UNDER_EUR_120_LIQUIDITY_CAP",
+    "totalRealMoneyCapEUR": "200",
+    "target": "PancakeSwap Base production path; reverify official contracts before action"
+  },
+  "evidence": {
+    "liquidityTx": null,
+    "positionOrPool": null,
+    "firstBuyTx": null,
+    "firstSellTx": null
+  },
+  "warning": "This record is a prepared template. Null/PENDING fields are not evidence and must never be presented as completed mainnet verification."
+}
