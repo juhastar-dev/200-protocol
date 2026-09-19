@@ -199,14 +199,24 @@
     "maximumValidationSlippagePercent": "1.0",
     "predeploymentChecklist": "/MAINNET-PREDEPLOYMENT-CHECKLIST.md",
     "transactionAuthorization": "NONE",
-    "nextStep": "Open read-only mainnet preflight and run RPC checks; inspect Account 2 Base-mainnet ETH balance.",
+    "nextStep": "Prepare controlled Account 2 Base Mainnet funding; calculate exact ETH amount from live ETH/EUR immediately before funding.",
     "launchDayPreflight": {
       "status": "READ_ONLY_PAGE_READY",
       "page": "/mainnet-preflight.html",
       "snapshotDate": "2026-09-19",
       "ethEurSnapshot": "2301.88",
       "liquidityCeilingEthAtSnapshot": "0.05213130",
-      "note": "ETH/EUR is a snapshot only. Live rate must be re-entered immediately before any real transaction."
+      "note": "Read-only Base Mainnet checks passed. Account 2 has zero ETH, so no production transaction can be submitted until the wallet is intentionally funded within the EUR 200 total launch cap.",
+      "lastRun": "2026-09-19",
+      "chainId": 8453,
+      "chainIdHex": "0x2105",
+      "account2EthBalance": "0.00000000",
+      "rpcGasPriceGwei": "0.006000",
+      "v3FactoryBytecode": "PASS",
+      "v3SwapRouterBytecode": "PASS",
+      "v3PositionManagerBytecode": "PASS",
+      "rpcResult": "PASS",
+      "deploymentFundingStatus": "BLOCKED_UNTIL_ACCOUNT2_FUNDED"
     }
   }
 }
