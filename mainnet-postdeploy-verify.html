@@ -1,0 +1,57 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>200 Mainnet Post-Deployment Verifier</title>
+<style>body{margin:0;background:#07100c;color:#eef8f1;font-family:system-ui,sans-serif;line-height:1.5}main{max-width:900px;margin:auto;padding:30px 20px}.card{background:#0e1d16;border:1px solid #274936;border-radius:18px;padding:22px;margin:18px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.k{font-size:13px;color:#a9c7b5}.v{font-size:16px;font-weight:750;word-break:break-all}.ok{color:#7ef2a8}.bad{color:#ff8c8c}.warn{color:#ffd166}input{width:100%;box-sizing:border-box;padding:12px;border-radius:9px;border:1px solid #31513e;background:#08130e;color:white;font-size:16px}button{padding:13px 18px;border:0;border-radius:11px;background:#7ef2a8;color:#06100c;font-weight:800;cursor:pointer}a{color:#7ef2a8}</style>
+</head><body><main><p><a href="index.html">← 200 Protocol</a></p>
+<h1>200 Mainnet Post-Deployment Verifier</h1>
+<p class="warn"><strong>Prepared in advance.</strong> No Base-mainnet 200 contract address exists yet. This page is read-only and cannot deploy, approve, transfer or spend funds.</p>
+<div class="card"><h2>Future contract address</h2><input id="addr" placeholder="0x… future Base Mainnet 200 contract"><p><button id="run">Verify deployed identity</button></p><p id="summary" class="warn">Waiting for a future deployed address.</p></div>
+<div class="card"><h2>Expected production identity</h2><div class="grid">
+<div><div class="k">Name</div><div class="v">200 Token</div></div>
+<div><div class="k">Symbol</div><div class="v">200</div></div>
+<div><div class="k">Decimals</div><div class="v">18</div></div>
+<div><div class="k">Supply</div><div class="v">100,000,000 200</div></div>
+<div><div class="k">Expected owner</div><div class="v">0x64d6719831414f883aA51CB59584D7B4F4066E08</div></div>
+<div><div class="k">Network</div><div class="v">Base Mainnet · 8453</div></div>
+</div></div>
+<div class="card"><h2>Read-only results</h2><div class="grid">
+<div><div class="k">Chain</div><div id="chain" class="v">—</div></div>
+<div><div class="k">Bytecode</div><div id="code" class="v">—</div></div>
+<div><div class="k">Name</div><div id="name" class="v">—</div></div>
+<div><div class="k">Symbol</div><div id="symbol" class="v">—</div></div>
+<div><div class="k">Decimals</div><div id="decimals" class="v">—</div></div>
+<div><div class="k">Total supply</div><div id="supply" class="v">—</div></div>
+<div><div class="k">Owner</div><div id="owner" class="v">—</div></div>
+<div><div class="k">Pending owner</div><div id="pending" class="v">—</div></div>
+<div><div class="k">DOMAIN_SEPARATOR</div><div id="domain" class="v">—</div></div>
+</div></div>
+<script>
+const RPC='https://mainnet.base.org';
+const EXPECT_OWNER='0x64d6719831414f883aA51CB59584D7B4F4066E08'.toLowerCase();
+async function rpc(method,params=[]){const r=await fetch(RPC,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method,params})});const j=await r.json();if(j.error)throw Error(j.error.message);return j.result}
+async function call(to,data){return rpc('eth_call',[{to,data},'latest'])}
+function str(hex){if(!hex||hex==='0x')return null;try{let h=hex.slice(2);if(h.length>=128){let off=Number(BigInt('0x'+h.slice(0,64)))*2;let len=Number(BigInt('0x'+h.slice(off,off+64)))*2;let b=h.slice(off+64,off+64+len);return new TextDecoder().decode(new Uint8Array(b.match(/.{2}/g).map(x=>parseInt(x,16))))}return null}catch{return null}}
+function uint(hex){return BigInt(hex||'0x0')}
+function addr(hex){return hex&&hex.length>=42?'0x'+hex.slice(-40):null}
+function set(id,text,pass){let e=document.getElementById(id);e.textContent=text;e.className='v '+(pass===true?'ok':pass===false?'bad':'')}
+document.getElementById('run').onclick=async()=>{
+ const a=document.getElementById('addr').value.trim(), s=document.getElementById('summary');
+ if(!/^0x[0-9a-fA-F]{40}$/.test(a)){s.textContent='STOP — enter a valid future Base Mainnet contract address.';s.className='bad';return}
+ s.textContent='Reading Base Mainnet…';s.className='warn';
+ try{
+  const chain=await rpc('eth_chainId'); const cid=parseInt(chain,16);
+  const [code,nm,sy,de,ts,ow,pw,ds]=await Promise.all([
+   rpc('eth_getCode',[a,'latest']),call(a,'0x06fdde03'),call(a,'0x95d89b41'),call(a,'0x313ce567'),
+   call(a,'0x18160ddd'),call(a,'0x8da5cb5b').catch(()=>null),call(a,'0xe30c3978').catch(()=>null),call(a,'0x3644e515').catch(()=>null)
+  ]);
+  const name=str(nm), symbol=str(sy), decimals=Number(uint(de)), supply=Number(uint(ts))/1e18, owner=ow?addr(ow):null, pending=pw?addr(pw):null;
+  set('chain',cid+' ('+chain+')',cid===8453); set('code',code&&code!=='0x'?'PASS — bytecode present':'FAIL — no bytecode',code&&code!=='0x');
+  set('name',name||'unreadable',name==='200 Token'); set('symbol',symbol||'unreadable',symbol==='200'); set('decimals',String(decimals),decimals===18);
+  set('supply',supply.toLocaleString('en-US',{maximumFractionDigits:8})+' 200',supply===100000000);
+  set('owner',owner||'not exposed',owner?owner.toLowerCase()===EXPECT_OWNER:null); set('pending',pending||'not exposed',pending?pending.toLowerCase()==='0x0000000000000000000000000000000000000000':null);
+  set('domain',ds&&ds!=='0x'?'PASS — readable':'not readable',ds&&ds!=='0x');
+  const core=cid===8453&&code!=='0x'&&name==='200 Token'&&symbol==='200'&&decimals===18&&supply===100000000&&owner&&owner.toLowerCase()===EXPECT_OWNER;
+  s.textContent=core?'CORE IDENTITY PASS — do not create liquidity until source/configuration review also passes.':'STOP — core deployed identity does not match the frozen configuration.';
+  s.className=core?'ok':'bad';
+ }catch(e){s.textContent='STOP — read failed: '+e.message;s.className='bad'}
+};
+</script></main></body></html>
