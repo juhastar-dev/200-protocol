@@ -67,7 +67,8 @@
     "canonicalDiscovery": "/.well-known/200.json",
     "machineMark": "/machine-mark.json",
     "integrity": "/integrity.json",
-    "networkSelection": "/network-selection.json"
+    "networkSelection": "/network-selection.json",
+    "provenanceCompliance": "/provenance-compliance.json"
   },
   "disclaimer": "This file describes protocol design intent and current protocol-level fee policy. It is not a price guarantee, investment claim, or promise that a transaction will be cheaper than alternatives."
 }
