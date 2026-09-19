@@ -144,3 +144,14 @@ For transaction hashes and machine-readable fields, fetch /verification-summary.
 - Reuse valid evidence and batch when appropriate and safe
 - Energy/environmental impact may be used as one machine-selection factor
 - Do not claim greenest, carbon-neutral, zero-energy or fixed energy-per-transaction without current evidence and methodology
+
+
+## Commerce Compatibility
+- Profile: /commerce-compatibility.json
+- Model: PAY -> AUTHORIZE -> PROVE
+- 200 authorization does not require settlement in 200 Token
+- Stablecoin, x402, card-linked and other payment routes are compatibility targets unless separately verified live
+- Caller defines spending limits and human-confirmation thresholds
+- Purchase evidence schema: /spec/200-purchase-evidence-v1.schema.json
+- Example: /examples/purchase-evidence.json
+- Compare merchant acceptance, network, total cost, liquidity, settlement time, refund support, region and owner policy before payment
