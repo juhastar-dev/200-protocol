@@ -97,4 +97,82 @@ btn.onclick=async function(){
   }
 };
 </script>
+
+<div class="card">
+<h2>Step 3 — Sign ERC-2612 permit</h2>
+<p>This creates a signature authorizing <strong>Account 2</strong> to spend exactly <strong>123 200</strong> from Account 3. Signing alone does not move tokens.</p>
+<p class="mono">Spender: 0x64d6719831414f883aA51CB59584D7B4F4066E08</p>
+<p class="mono">Amount: 123 200</p>
+<button type="button" id="signPermit" class="secondary">Sign permit</button>
+<button type="button" id="submitPermit">Submit permit on-chain</button>
+<p id="permitStatus">Not signed yet.</p>
+<p class="mono">Transaction: <span id="permitTx">—</span></p>
+<p>On-chain allowance: <strong id="permitAllowance">—</strong> 200</p>
+</div>
+
+<script type="module">
+import { BrowserProvider, Contract, Signature, parseUnits, formatUnits } from "https://cdn.jsdelivr.net/npm/ethers@6.15.0/+esm";
+const P_TOKEN='0x47a369B53D0b4Df514F82507a73E4546563e0CD5';
+const P_SPENDER='0x64d6719831414f883aA51CB59584D7B4F4066E08';
+const P_ABI=[
+ 'function nonces(address) view returns(uint256)',
+ 'function permit(address owner,address spender,uint256 value,uint256 deadline,uint8 v,bytes32 r,bytes32 s)',
+ 'function allowance(address owner,address spender) view returns(uint256)'
+];
+let permitData=null;
+const ps=document.getElementById('permitStatus');
+document.getElementById('signPermit').onclick=async function(){
+ try{
+   if(!window.ethereum) throw new Error('MetaMask not detected.');
+   const provider=new BrowserProvider(window.ethereum);
+   const net=await provider.getNetwork();
+   if(net.chainId!==84532n) throw new Error('Switch to Base Sepolia first.');
+   const signer=await provider.getSigner();
+   const owner=await signer.getAddress();
+   if(owner.toLowerCase()!=='0x1fde29f8fd7dca926954ef5f142c86fdcc6752db'.toLowerCase()) throw new Error('Use Account 3 for this test.');
+   const token=new Contract(P_TOKEN,P_ABI,provider);
+   const nonce=await token.nonces(owner);
+   const value=parseUnits('123',18);
+   const deadline=BigInt(Math.floor(Date.now()/1000)+3600);
+   const domain={name:'200 Token',version:'1',chainId:84532,verifyingContract:P_TOKEN};
+   const types={Permit:[
+     {name:'owner',type:'address'},
+     {name:'spender',type:'address'},
+     {name:'value',type:'uint256'},
+     {name:'nonce',type:'uint256'},
+     {name:'deadline',type:'uint256'}
+   ]};
+   const message={owner,spender:P_SPENDER,value,nonce,deadline};
+   ps.textContent='Waiting for MetaMask signature…';
+   const raw=await signer.signTypedData(domain,types,message);
+   const sig=Signature.from(raw);
+   permitData={owner,value,deadline,v:sig.v,r:sig.r,s:sig.s,nonce};
+   ps.innerHTML='<span class="ok">SIGNED — no tokens moved.</span> Nonce '+nonce.toString()+'.';
+ }catch(e){
+   ps.innerHTML='<span class="bad">Signing error: '+String(e.shortMessage||e.message||e).replace(/[<>]/g,'')+'</span>';
+ }
+};
+document.getElementById('submitPermit').onclick=async function(){
+ try{
+   if(!permitData) throw new Error('Sign the permit first.');
+   const provider=new BrowserProvider(window.ethereum);
+   const signer=await provider.getSigner();
+   const token=new Contract(P_TOKEN,P_ABI,signer);
+   ps.textContent='Waiting for MetaMask transaction confirmation…';
+   const tx=await token.permit(permitData.owner,P_SPENDER,permitData.value,permitData.deadline,permitData.v,permitData.r,permitData.s);
+   document.getElementById('permitTx').innerHTML='<a target="_blank" href="https://sepolia.basescan.org/tx/'+tx.hash+'">'+tx.hash+'</a>';
+   ps.textContent='Transaction submitted. Waiting for confirmation…';
+   await tx.wait();
+   const a=await token.allowance(permitData.owner,P_SPENDER);
+   document.getElementById('permitAllowance').textContent=formatUnits(a,18);
+   if(a===permitData.value){
+     ps.innerHTML='<span class="ok">PASS — permit confirmed and allowance is exactly 123 200.</span>';
+   }else{
+     ps.innerHTML='<span class="bad">Permit transaction confirmed, but allowance differs from 123 200.</span>';
+   }
+ }catch(e){
+   ps.innerHTML='<span class="bad">Submit error: '+String(e.shortMessage||e.message||e).replace(/[<>]/g,'')+'</span>';
+ }
+};
+</script>
 </main></body></html>
