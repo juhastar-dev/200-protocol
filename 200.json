@@ -211,6 +211,21 @@
         "routerAddress": "0x8cFe327CEc66d1C090Dd72bd0FF11d690C33a2Eb",
         "observedResult": "BaseScan confirms 100,000 200 and 0.0001 ETH were supplied to the PancakeSwap V2 Base Sepolia pool, and 3.162277660168378331 Cake-LP tokens were minted to Account 2.",
         "evidenceMeaning": "On-chain evidence that the configured 200/WETH PancakeSwap V2 liquidity pool was successfully initialized and funded."
+      },
+      {
+        "type": "erc2612-permit-test",
+        "network": "Base Sepolia",
+        "status": "passed",
+        "date": "2026-09-19",
+        "owner": "0x1fDe29f8fD7Dca926954eF5F142c86FdCC6752Db",
+        "spender": "0x64d6719831414f883aA51CB59584D7B4F4066E08",
+        "amount200": "123",
+        "nonce": "0",
+        "transactionHash": "0x28bbd6226a7bc21aaddd45c1fb6fa2b95f803f560d1465ee48f9155445a0481f",
+        "baseScanUrl": "https://sepolia.basescan.org/tx/0x28bbd6226a7bc21aaddd45c1fb6fa2b95f803f560d1465ee48f9155445a0481f",
+        "result": "PASS",
+        "observedResult": "ERC-2612 EIP-712 domain separator matched the computed domain; Account 3 signed a permit for exactly 123 200 to Account 2; the permit was submitted on-chain and allowance(owner, spender) read back exactly 123 200.",
+        "evidenceMeaning": "Behavioral evidence that the deployed 200 Token supports ERC-2612 permit signing and on-chain allowance authorization for the tested owner/spender pair."
       }
     ]
   },
