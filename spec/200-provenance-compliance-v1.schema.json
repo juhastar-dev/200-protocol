@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://juhastar-dev.github.io/200-protocol/spec/200-provenance-compliance-v1.schema.json",
+  "title": "200 Protocol Provenance & Compliance Profile v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "protocol",
+    "version",
+    "purpose",
+    "principles",
+    "provenance",
+    "complianceHooks",
+    "ethicalPolicyHooks",
+    "evidenceRequirements",
+    "machineDecisionFlow",
+    "privacy"
+  ],
+  "properties": {
+    "schema": {
+      "const": "200-protocol/provenance-compliance/v1"
+    },
+    "protocol": {
+      "const": "200 Protocol"
+    },
+    "version": {
+      "type": "string"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "principles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "provenance": {
+      "type": "object"
+    },
+    "complianceHooks": {
+      "type": "object"
+    },
+    "ethicalPolicyHooks": {
+      "type": "object"
+    },
+    "evidenceRequirements": {
+      "type": "object"
+    },
+    "machineDecisionFlow": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "privacy": {
+      "type": "object"
+    },
+    "endpoints": {
+      "type": "object"
+    },
+    "disclaimer": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}
