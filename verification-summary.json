@@ -78,6 +78,15 @@
       "contractBalanceFinal200": "0",
       "depositTx": "0xf5bb35d99edd60f65a6f2cb397e4f5741b5600ff36c24dfbdbaaf79316890d62",
       "recoveryTx": "0xd43e63f859ee078f0b11339d8cf23728973864553f543407d6644ed64c6bc10d"
+    },
+    {
+      "id": "admin-control-review",
+      "status": "PASS",
+      "owner": "0x64d6719831414f883aA51CB59584D7B4F4066E08",
+      "pendingOwner": "0x0000000000000000000000000000000000000000",
+      "tokenIdentityMatches": true,
+      "totalSupply200": "100000000",
+      "contractHeld200": "0"
     }
   ],
   "canonical": {
