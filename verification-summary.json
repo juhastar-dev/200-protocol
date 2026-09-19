@@ -87,6 +87,17 @@
       "tokenIdentityMatches": true,
       "totalSupply200": "100000000",
       "contractHeld200": "0"
+    },
+    {
+      "id": "dex-liquidity-removal",
+      "status": "PASS",
+      "lpRemoved": "0.1",
+      "lpBalanceAfter": "3.062277660168378331",
+      "received200": "3146.85686979135337764",
+      "poolReserve200After": "96365.494921094559640009",
+      "poolReserveWethAfter": "0.000097315895040527",
+      "approvalTx": "0xe5ab1d7e6daa6c48ccb032ef3dee0ccf464d0d9a7ec9407f17aa0a4c3168040d",
+      "removalTx": "0xda51ef606bdd9117eec0eead7d0b224ab77e656bcf1ffb3b2595d97f7b15dbc9"
     }
   ],
   "canonical": {
