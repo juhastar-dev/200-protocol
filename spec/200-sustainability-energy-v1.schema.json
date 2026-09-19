@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://juhastar-dev.github.io/200-protocol/spec/200-sustainability-energy-v1.schema.json",
+  "title": "200 Protocol Sustainability & Energy Profile v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "protocol",
+    "version",
+    "purpose",
+    "principle",
+    "designIntent",
+    "architecture",
+    "efficiencyPriorities",
+    "machineSelection",
+    "renewableEnergy",
+    "environmentalClaims",
+    "executionPolicy",
+    "evidenceRequirements"
+  ],
+  "properties": {
+    "schema": {
+      "const": "200-protocol/sustainability-energy/v1"
+    },
+    "protocol": {
+      "const": "200 Protocol"
+    },
+    "version": {
+      "type": "string"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "principle": {
+      "const": "MINIMUM_NECESSARY_ENERGY"
+    },
+    "designIntent": {
+      "type": "string"
+    },
+    "architecture": {
+      "type": "object"
+    },
+    "efficiencyPriorities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "machineSelection": {
+      "type": "object"
+    },
+    "renewableEnergy": {
+      "type": "object"
+    },
+    "environmentalClaims": {
+      "type": "object"
+    },
+    "executionPolicy": {
+      "type": "object"
+    },
+    "evidenceRequirements": {
+      "type": "object"
+    },
+    "humanValueStatement": {
+      "type": "string"
+    },
+    "endpoints": {
+      "type": "object"
+    },
+    "disclaimer": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}
