@@ -1,0 +1,180 @@
+{
+  "schema": "200-protocol/commerce-compatibility/v1",
+  "protocol": "200 Protocol",
+  "version": "1.0",
+  "purpose": "Machine-readable commerce compatibility, authorization and purchase-proof profile for autonomous agents.",
+  "model": "PAY_AUTHORIZE_PROVE",
+  "principles": [
+    "200 may authorize and verify commerce without requiring the merchant to settle in 200 Token.",
+    "Settlement asset and transport rail are separate from 200 policy authorization.",
+    "Agents should choose a permitted payment route using total cost, availability, liquidity, reliability, jurisdiction and owner policy.",
+    "No payment integration is claimed live unless independently implemented and verified."
+  ],
+  "pay": {
+    "role": "Discover and compare permitted settlement methods and rails.",
+    "direct200Token": {
+      "status": "OPTIONAL_FUTURE_MERCHANT_ACCEPTANCE",
+      "requiredFor200ProtocolUse": false
+    },
+    "stablecoinSettlement": {
+      "status": "TARGET_COMPATIBILITY",
+      "preferredUseCase": "merchant settlement where supported",
+      "examples": [
+        "USDC"
+      ],
+      "liveIntegrationClaim": false
+    },
+    "x402": {
+      "status": "PLANNED_INTEROPERABILITY",
+      "role": "machine-native payment transport and payment discovery",
+      "liveEndpointClaim": false
+    },
+    "cardLinkedOrCardRail": {
+      "status": "COMPATIBILITY_TARGET",
+      "role": "possible bridge between digital-asset balances and conventional merchant acceptance",
+      "liveIntegrationClaim": false
+    },
+    "fiatOrOtherSettlement": {
+      "status": "COMPATIBILITY_TARGET",
+      "rule": "200 authorization may remain useful even when settlement occurs in a non-200 asset."
+    },
+    "routeComparisonFields": [
+      "merchantAcceptedAssets",
+      "merchantAcceptedRails",
+      "network",
+      "totalExpectedCost",
+      "networkGas",
+      "protocolFee",
+      "processorOrFacilitatorFee",
+      "slippage",
+      "liquidity",
+      "settlementTime",
+      "quoteTimestamp",
+      "quoteExpiry",
+      "refundCapability",
+      "jurisdictionEligibility"
+    ]
+  },
+  "authorize": {
+    "role": "Determine whether an autonomous purchase is within explicit owner or organization policy.",
+    "checks": [
+      "merchant-allowed",
+      "category-allowed",
+      "item-or-service-allowed",
+      "amount-within-budget",
+      "daily-or-periodic-limit-not-exceeded",
+      "network-and-payment-route-allowed",
+      "region-and-service-eligibility-passed",
+      "provenance-and-compliance-policy-passed",
+      "sustainability-policy-passed-if-configured",
+      "quote-not-expired",
+      "human-confirmation-rule-satisfied"
+    ],
+    "defaultPolicy": {
+      "autonomousSpendingEnabled": false,
+      "perTransactionLimit": null,
+      "dailyLimit": null,
+      "merchantAllowlist": [],
+      "merchantDenylist": [],
+      "categoryRules": [],
+      "humanConfirmationAbove": null,
+      "note": "Limits are caller-defined. 200 does not invent spending authority."
+    },
+    "decisionVocabulary": {
+      "code200": "OK_TO_ACT when all required authorization and verification conditions pass",
+      "failureBehavior": "DO_NOT_ACT"
+    }
+  },
+  "prove": {
+    "role": "Create or verify machine-readable evidence of what was authorized, paid, received and later refunded or disputed.",
+    "purchaseEvidenceFields": [
+      "purchaseId",
+      "merchant",
+      "merchantIdentifier",
+      "itemOrService",
+      "quantity",
+      "currencyOrAsset",
+      "quotedAmount",
+      "authorizedAmount",
+      "settledAmount",
+      "paymentRail",
+      "network",
+      "transactionReference",
+      "authorizationPolicyReference",
+      "authorizationTimestamp",
+      "settlementTimestamp",
+      "receiptReference",
+      "invoiceReference",
+      "taxOrVatMetadata",
+      "deliveryOrFulfilmentStatus",
+      "refundStatus",
+      "refundReference",
+      "evidenceIntegrity"
+    ],
+    "receiptRequiredWhenAvailable": true,
+    "preserveOriginalMerchantEvidence": true,
+    "tamperEvidenceTarget": true
+  },
+  "merchantCompatibility": {
+    "machineReadableMerchantProfileTarget": true,
+    "fields": [
+      "merchantId",
+      "acceptedAssets",
+      "acceptedRails",
+      "acceptedNetworks",
+      "minimumAmount",
+      "maximumAmount",
+      "refundPolicy",
+      "receiptFormat",
+      "taxMetadataAvailable",
+      "regionRestrictions",
+      "humanSupportAvailable"
+    ]
+  },
+  "micropayments": {
+    "supportedAsDesignTarget": true,
+    "rule": "Do not force card-style economics onto machine payments when a lower-cost permitted rail is available.",
+    "batchingTarget": true
+  },
+  "securityAndSafety": {
+    "neverSignUnknownPayment": true,
+    "exactOrBoundedApprovalPreferred": true,
+    "quoteExpiryRequiredWhenApplicable": true,
+    "verifyMerchantAndRecipient": true,
+    "verifyNetworkBeforePayment": true,
+    "stopOnUnexpectedRouteChange": true,
+    "noAutomaticRetryAfterUncertainSettlement": true
+  },
+  "machineDecisionFlow": [
+    "DISCOVER_MERCHANT",
+    "DISCOVER_PAYMENT_OPTIONS",
+    "CHECK_OWNER_POLICY",
+    "CHECK_REGION_AND_COMPLIANCE",
+    "COMPARE_TOTAL_COST_AND_RELIABILITY",
+    "CHECK_SUSTAINABILITY_POLICY_IF_CONFIGURED",
+    "SELECT_PERMITTED_ROUTE",
+    "AUTHORIZE",
+    "PAY",
+    "VERIFY_SETTLEMENT",
+    "CAPTURE_RECEIPT_AND_EVIDENCE",
+    "PROVE"
+  ],
+  "endpoints": {
+    "canonicalDiscovery": "/.well-known/200.json",
+    "economics": "/economics.json",
+    "networkSelection": "/network-selection.json",
+    "provenanceCompliance": "/provenance-compliance.json",
+    "sustainabilityEnergy": "/sustainability-energy.json",
+    "purchaseEvidenceSchema": "/spec/200-purchase-evidence-v1.schema.json",
+    "machineMark": "/machine-mark.json",
+    "integrity": "/integrity.json"
+  },
+  "status": {
+    "commerceLayer": "STRUCTURE_PREPARED",
+    "liveMerchantIntegration": false,
+    "liveCardIntegration": false,
+    "liveX402Integration": false,
+    "liveStablecoinMerchantIntegration": false
+  },
+  "disclaimer": "This profile describes interoperability and authorization structure. It does not claim live merchant, card, stablecoin, x402 or payment-processor integrations unless separately verified."
+}
