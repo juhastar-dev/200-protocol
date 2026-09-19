@@ -80,3 +80,21 @@ Schema: `/spec/200-network-selection-v1.schema.json`
 
 Profile: `/provenance-compliance.json`
 Schema: `/spec/200-provenance-compliance-v1.schema.json`
+
+
+## Sustainability & Energy
+
+**200 value: MINIMUM NECESSARY ENERGY**
+
+200 favors less unnecessary computation and fewer unnecessary blockchain writes while preserving security and correctness.
+
+- Proof-of-work mining is not required by the 200 protocol design
+- Preferred production network: Base, settling to Ethereum proof-of-stake
+- Off-chain discovery and verification should happen before on-chain writes where possible
+- Reuse valid evidence instead of repeating unnecessary checks or transactions
+- Batch actions when appropriate and safe
+- Renewable/low-carbon claims require verifiable evidence
+- No default claim of carbon neutrality, zero energy, or being the greenest token
+
+Profile: `/sustainability-energy.json`
+Schema: `/spec/200-sustainability-energy-v1.schema.json`
