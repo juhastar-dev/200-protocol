@@ -1,0 +1,152 @@
+{
+  "schema": "200-protocol/future-compatibility/v1",
+  "protocol": "200 Protocol",
+  "protocolVersion": "0.9",
+  "schemaVersion": "1.0",
+  "generatedAt": "2026-09-19T00:00:00Z",
+  "validUntil": null,
+  "supersedes": null,
+  "canonical": "/.well-known/200.json",
+  "purpose": "Forward-compatible interoperability registry for machine clients and autonomous agents.",
+  "compatibilityPrinciple": "Core discovery remains stable while optional protocols are versioned independently. Unknown extensions should be ignored safely unless a policy explicitly requires them.",
+  "standards": {
+    "caip2": {
+      "status": "SUPPORTED",
+      "purpose": "Chain identity",
+      "currentTestnet": "eip155:84532",
+      "plannedMainnet": "eip155:8453"
+    },
+    "caip19": {
+      "status": "SUPPORTED",
+      "purpose": "Canonical crypto-asset identity",
+      "currentTestnet": "eip155:84532/erc20:0x47a369B53D0b4Df514F82507a73E4546563e0CD5",
+      "plannedMainnet": null
+    },
+    "erc20": {
+      "status": "SUPPORTED",
+      "version": "ERC-20"
+    },
+    "erc2612": {
+      "status": "SUPPORTED",
+      "purpose": "Permit approvals"
+    },
+    "mcp": {
+      "status": "PLANNED_INTEROPERABILITY",
+      "targetSpecVersion": "2026-07-28",
+      "statelessCoreReady": true,
+      "serverDiscoverReady": true,
+      "versionNegotiation": true,
+      "extensionNegotiation": true,
+      "endpoint": null,
+      "note": "No MCP server is claimed as live. Fields reserve compatibility with the current stateless/extension-oriented MCP architecture."
+    },
+    "a2a": {
+      "status": "PLANNED_INTEROPERABILITY",
+      "version": null,
+      "endpoint": null,
+      "agentCard": "/.well-known/agent-card.json"
+    },
+    "x402": {
+      "status": "PLANNED_INTEROPERABILITY",
+      "targetProtocolVersion": 2,
+      "paymentRole": "Settlement/payment layer orthogonal to 200 policy authorization",
+      "supportedSchemeTargets": [
+        "exact",
+        "upto",
+        "batch-settlement"
+      ],
+      "networkIdentityFormat": "CAIP-2",
+      "endpoint": null,
+      "extensions": {}
+    },
+    "erc8004": {
+      "status": "PLANNED_REGISTRATION",
+      "role": "Agent identity/reputation/validation interoperability",
+      "registrationType": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "registrationTemplate": "/spec/erc8004-registration-template.json",
+      "identityRegistry": null,
+      "agentId": null,
+      "supportedTrustTargets": [
+        "reputation",
+        "validation",
+        "crypto-economic",
+        "tee-attestation"
+      ],
+      "note": "No ERC-8004 on-chain registration is claimed yet."
+    },
+    "w3cVerifiableCredentials": {
+      "status": "PLANNED_ATTESTATION_LAYER",
+      "target": "W3C Verifiable Credentials Data Model 2.0",
+      "context": "https://www.w3.org/ns/credentials/v2",
+      "credentialEndpoint": null,
+      "note": "Prepared for future signed/machine-verifiable claims; no VC is currently issued."
+    },
+    "erc4337": {
+      "status": "COMPATIBILITY_TARGET",
+      "claim": "No ERC-4337 integration is currently asserted."
+    },
+    "eip7702": {
+      "status": "COMPATIBILITY_TARGET",
+      "claim": "No EIP-7702 dependency is required by the 200 discovery layer."
+    }
+  },
+  "extensions": {},
+  "extensionRules": {
+    "format": {
+      "version": "string",
+      "status": "SUPPORTED|PLANNED|EXPERIMENTAL|DEPRECATED",
+      "endpoint": "string|null",
+      "capabilities": "array|null"
+    },
+    "unknownExtensions": "IGNORE_UNLESS_REQUIRED_BY_CALLER_POLICY",
+    "independentVersioning": true
+  },
+  "freshness": {
+    "requiredFields": [
+      "protocolVersion",
+      "schemaVersion",
+      "generatedAt",
+      "canonical"
+    ],
+    "validUntilPolicy": "May be added for time-sensitive assertions; null means no blanket expiry and callers must inspect evidence timestamps.",
+    "cachePolicy": "Machine clients should prefer canonical endpoints and inspect timestamps/status before economic action."
+  },
+  "integrity": {
+    "contentHashAlgorithm": "sha-256",
+    "contentHash": null,
+    "signature": null,
+    "signer": null,
+    "verificationMethod": null,
+    "status": "UNSIGNED",
+    "plannedSignedManifest": true,
+    "note": "Null signature fields are explicit; they MUST NOT be interpreted as signed evidence."
+  },
+  "regulatoryReadiness": {
+    "status": "STRUCTURE_PREPARED_LEGAL_REVIEW_REQUIRED",
+    "legalConclusion": null,
+    "jurisdictionClaims": [],
+    "euMica": {
+      "applicability": "UNDETERMINED_LEGAL_REVIEW_REQUIRED",
+      "whitePaperFormatIfApplicable": "XHTML with Inline XBRL 1.1",
+      "machineReadableTemplateStatus": "FIELDS_RESERVED",
+      "legalEntityIdentifier": {
+        "standard": "ISO 17442",
+        "value": null
+      },
+      "digitalTokenIdentifier": {
+        "standard": "ISO 24165",
+        "value": null
+      },
+      "functionallyFungibleGroupDTI": {
+        "standard": "ISO 24165 type 3",
+        "value": null
+      },
+      "note": "These fields prepare machine-readable metadata and do not state that MiCA applies, that a filing is required, or that 200 is compliant."
+    }
+  },
+  "governance": {
+    "compatibilityChanges": "Add or update registry/extension entries without changing the ERC-20 contract.",
+    "immutableTokenContractNotRequiredForMetadataUpdates": true,
+    "breakingDiscoveryChanges": "Require a new discoveryVersion/schema rather than silently changing semantics."
+  }
+}
