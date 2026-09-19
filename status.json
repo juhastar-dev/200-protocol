@@ -235,9 +235,12 @@
     "verificationSummary": "/verification-summary.json",
     "futureCompatibility": "/future-compatibility.json",
     "integrity": "/integrity.json",
-    "integrityStatus": "AWAITING_WALLET_SIGNATURE",
+    "integrityStatus": "SIGNED_VERIFIED",
     "signingPayload": "/signing-payload.json",
-    "signingPage": "/sign-canonical-evidence.html"
+    "signingPage": "/sign-canonical-evidence.html",
+    "integritySigner": "0x64d6719831414f883aA51CB59584D7B4F4066E08",
+    "integrityPayloadSha256": "0x64fae78db37d5e9d91259d1aae1876937d5835fe55f263a907be221368c9e0cc",
+    "signatureVerification": "PASS"
   },
   "futureCompatibility": {
     "status": "LIVE_METADATA_LAYER",
