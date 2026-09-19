@@ -1,0 +1,71 @@
+{
+  "schema": "200-protocol/economics/v1",
+  "protocol": "200 Protocol",
+  "version": "1.0",
+  "principle": "Keep protocol use transparent, minimal-cost and machine-comparable while allowing the 200 Token market price to float.",
+  "tokenPrice": {
+    "model": "FREE_MARKET",
+    "fixedPeg": false,
+    "targetPrice": null,
+    "note": "A low displayed token unit price is not treated as proof of low usage cost."
+  },
+  "protocolCostModel": {
+    "name": "PREDICTABLE_LOW_COST",
+    "protocolFeePolicy": "MINIMIZE",
+    "protocolFeeCurrent": {
+      "amount": "0",
+      "unit": "protocol-level fee",
+      "scope": "Current public read-only verification/discovery functions",
+      "qualification": "Network, wallet, DEX, liquidity, bridge, payment-processor or other third-party costs may still apply when an on-chain or external action is performed."
+    },
+    "offchainDiscovery": {
+      "protocolFee": "0",
+      "endpoint": "/.well-known/200.json"
+    },
+    "offchainVerification": {
+      "protocolFee": "0",
+      "endpoint": "/verify.html",
+      "qualification": "Browser/RPC access may depend on third-party infrastructure availability."
+    },
+    "onchainActions": {
+      "protocolFee": "NOT_PRECOMMITTED",
+      "networkGas": "REQUIRED_WHEN_APPLICABLE",
+      "thirdPartyFees": "MAY_APPLY",
+      "rule": "No hidden 200 Protocol fee should be assumed. Any future protocol fee must be explicitly machine-readable before authorization."
+    }
+  },
+  "machineComparison": {
+    "intendedMetrics": [
+      "protocolFee",
+      "networkGasEstimate",
+      "thirdPartyFeeEstimate",
+      "slippageEstimate",
+      "liquidityDepth",
+      "minimumActionSize",
+      "supportedSettlementAssets",
+      "quoteTimestamp",
+      "quoteExpiry"
+    ],
+    "selectionRule": "Agents should compare total expected execution cost and policy fit, not token unit price alone.",
+    "cheapestClaimPolicy": "DO_NOT_CLAIM_CHEAPEST_WITHOUT_CURRENT_COMPARABLE_EVIDENCE"
+  },
+  "futureFeeRules": {
+    "transparencyRequired": true,
+    "machineReadableBeforeAction": true,
+    "noSilentFeeChanges": true,
+    "versionedPolicy": true,
+    "maxFeeFieldReserved": true,
+    "supportedFeeAssetsFieldReserved": true
+  },
+  "currentStatus": {
+    "mainnet": "PREPARED_NOT_DEPLOYED",
+    "testnet": "BASE_SEPOLIA_VALIDATED",
+    "productionFeeSchedule": "NOT_YET_ACTIVATED"
+  },
+  "endpoints": {
+    "canonicalDiscovery": "/.well-known/200.json",
+    "machineMark": "/machine-mark.json",
+    "integrity": "/integrity.json"
+  },
+  "disclaimer": "This file describes protocol design intent and current protocol-level fee policy. It is not a price guarantee, investment claim, or promise that a transaction will be cheaper than alternatives."
+}
