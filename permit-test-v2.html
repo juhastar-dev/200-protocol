@@ -54,4 +54,47 @@ document.getElementById('switch').onclick=async function(){
  }catch(e){statusEl.innerHTML='<span class="bad">Network error: '+errText(e).replace(/[<>]/g,'')+'</span>'}
 };
 refresh();
-</script></main></body></html>
+</script>
+<div class="card">
+<h2>Step 2 — Verify ERC-2612 domain</h2>
+<p>This reads the token's on-chain <code>DOMAIN_SEPARATOR()</code> and compares it with the standard EIP-712 domain for <strong>200 Token</strong>, version <strong>1</strong>, Base Sepolia chain <strong>84532</strong>, and the deployed 200 contract.</p>
+<button type="button" id="verifyDomain" class="secondary">Verify domain separator</button>
+<p id="domainStatus">Not checked yet.</p>
+<p class="mono">On-chain: <span id="onchainDomain">—</span></p>
+<p class="mono">Computed: <span id="computedDomain">—</span></p>
+</div>
+
+<script type="module">
+import { BrowserProvider, Contract, TypedDataEncoder } from "https://cdn.jsdelivr.net/npm/ethers@6.15.0/+esm";
+const TOKEN='0x47a369B53D0b4Df514F82507a73E4546563e0CD5';
+const ABI=['function DOMAIN_SEPARATOR() view returns(bytes32)'];
+const btn=document.getElementById('verifyDomain');
+const ds=document.getElementById('domainStatus');
+btn.onclick=async function(){
+  try{
+    if(!window.ethereum) throw new Error('MetaMask not detected.');
+    const provider=new BrowserProvider(window.ethereum);
+    const net=await provider.getNetwork();
+    if(net.chainId!==84532n) throw new Error('Switch MetaMask to Base Sepolia first.');
+    ds.textContent='Reading domain separator from the 200 Token contract…';
+    const token=new Contract(TOKEN,ABI,provider);
+    const onchain=await token.DOMAIN_SEPARATOR();
+    const computed=TypedDataEncoder.hashDomain({
+      name:'200 Token',
+      version:'1',
+      chainId:84532,
+      verifyingContract:TOKEN
+    });
+    document.getElementById('onchainDomain').textContent=onchain;
+    document.getElementById('computedDomain').textContent=computed;
+    if(onchain.toLowerCase()===computed.toLowerCase()){
+      ds.innerHTML='<span class="ok">MATCH — ERC-2612 / EIP-712 domain verified.</span>';
+    } else {
+      ds.innerHTML='<span class="bad">MISMATCH — stop here. Do not sign a permit yet.</span>';
+    }
+  }catch(e){
+    ds.innerHTML='<span class="bad">Verification error: '+String(e.shortMessage||e.message||e).replace(/[<>]/g,'')+'</span>';
+  }
+};
+</script>
+</main></body></html>
