@@ -98,3 +98,22 @@ Schema: `/spec/200-provenance-compliance-v1.schema.json`
 
 Profile: `/sustainability-energy.json`
 Schema: `/spec/200-sustainability-energy-v1.schema.json`
+
+
+## Commerce Compatibility
+
+**PAY -> AUTHORIZE -> PROVE**
+
+200 is designed to sit above multiple payment methods rather than forcing every merchant to accept 200 Token directly.
+
+- PAY: discover and compare merchant-supported assets and payment rails
+- AUTHORIZE: check budget, merchant/category rules, region/compliance, sustainability and human-confirmation policy
+- PROVE: preserve settlement, receipt, invoice, fulfilment and refund evidence
+- Stablecoin, x402 and card-linked routes are compatibility targets, not claimed live integrations
+- Agents should compare total expected cost and reliability, not nominal token price
+- Autonomous spending authority is caller-defined; 200 does not invent a budget or permission
+
+Commerce profile: `/commerce-compatibility.json`
+Commerce schema: `/spec/200-commerce-compatibility-v1.schema.json`
+Purchase evidence schema: `/spec/200-purchase-evidence-v1.schema.json`
+Example evidence package: `/examples/purchase-evidence.json`
