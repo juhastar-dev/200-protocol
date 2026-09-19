@@ -1,7 +1,7 @@
 {
   "schema": "200-protocol/mainnet-configuration-freeze/v1",
   "date": "2026-09-19",
-  "status": "DRAFT_CORE_MAINNET_CONFIG_FROZEN_FINAL_LAUNCH_AMOUNTS_PENDING",
+  "status": "PREDEPLOYMENT_CHECKLIST_READY_LAUNCH_DAY_VALUES_PENDING",
   "network": {
     "name": "Base Mainnet",
     "chainId": 8453,
@@ -86,7 +86,7 @@
     "sourceVerificationMainnet": "REQUIRED_WHERE_SUPPORTED",
     "productionDexAddressReverification": "REQUIRED"
   },
-  "nextAction": "BUILD_FINAL_PREDEPLOYMENT_CHECKLIST_AND_LAUNCH_BUDGET_PREFLIGHT",
+  "nextAction": "LAUNCH_DAY_PREFLIGHT: LIVE ETH_EUR + GAS + PANCAKESWAP REVERIFICATION; NO TRANSACTION UNTIL USER EXPLICITLY APPROVES",
   "liquidityModel": {
     "status": "ILLUSTRATIVE_NOT_FROZEN",
     "calculator": "/mainnet-liquidity-model.html",
@@ -156,11 +156,69 @@
       "maxEUR": "10",
       "preferredPolicy": "Sell only a small amount acquired/allocated for validation, with value not exceeding EUR 10 at the pre-trade reference; record quote, minimum received, actual received, tx hash and balances."
     },
-    "repeatProtection": "Do not repeat a failed or apparently stale transaction until its on-chain status and wallet state are checked."
+    "repeatProtection": "Do not repeat a failed or apparently stale transaction until its on-chain status and wallet state are checked.",
+    "maximumSlippagePercent": "1.0",
+    "slippageRule": "1.0% is an absolute validation-trade ceiling, not a target. Stop if the live quote, route or pool state is unexpected."
   },
   "gasPolicy": {
     "combinedDeploymentAndLiquidityReserveMaxEUR": "40",
     "preflightRequired": true,
     "rule": "Estimate gas immediately before each transaction. If cumulative projected spend breaches any allocation or the EUR 200 overall cap, stop."
+  },
+  "approvalPolicy": {
+    "rule": "Prefer exact/minimum necessary approvals. Do not approve unlimited spend when an exact amount is sufficient.",
+    "verifySpenderBeforeApproval": true
+  },
+  "launchDayReverification": {
+    "baseChainIdDecimal": 8453,
+    "baseChainIdHex": "0x2105",
+    "pancakeSwapContracts": "REVERIFY_OFFICIAL_CURRENT_DOCS",
+    "dexVersion": "RECONFIRM_CURRENT_PRODUCTION_PATH",
+    "ethEurRate": "FETCH_LIVE",
+    "gasEstimates": "FETCH_LIVE",
+    "walletAddress": "VERIFY_IN_WALLET",
+    "contractArtifact": "COMPARE_TO_FROZEN_CONFIGURATION"
+  },
+  "hardStops": [
+    "Wallet chain ID is not 8453 / 0x2105.",
+    "Projected cumulative real-money launch spend exceeds EUR 200.",
+    "Initial ETH liquidity value exceeds EUR 120.",
+    "Projected deployment + liquidity gas exceeds EUR 40.",
+    "First buy or sell validation exceeds EUR 10.",
+    "Token name, symbol, decimals, supply, mintability or enabled controls differ from frozen configuration.",
+    "Deployer/owner wallet differs from the approved launch wallet.",
+    "Current PancakeSwap production contract addresses cannot be confirmed from official sources.",
+    "Approval spender address differs from the independently confirmed contract.",
+    "Unexpected unlimited approval is requested where an exact approval is sufficient.",
+    "Liquidity ratio, quote, range, fee tier or recipient differs from the reviewed transaction.",
+    "Transaction status is uncertain, stale or pending from a prior attempt.",
+    "Source verification does not match the deployed contract artifact where verification is available.",
+    "First mainnet buy or sell shows an unexplained token deduction or output outside the slippage guard."
+  ],
+  "predeploymentChecklist": {
+    "status": "READY",
+    "items": [
+      "Confirm hardware/browser/MetaMask environment is stable and no unexpected wallet popups are present.",
+      "Confirm selected MetaMask account is the approved deployer/owner.",
+      "Confirm Base Mainnet chain ID 8453 / 0x2105.",
+      "Fetch live ETH/EUR price.",
+      "Calculate ETH liquidity amount under EUR 120 allocation and EUR 200 total cap.",
+      "Fetch/estimate deployment and liquidity gas; stop if combined projection exceeds EUR 40.",
+      "Re-verify current official PancakeSwap Base production contracts and preferred production path.",
+      "Review exact final token configuration against frozen mainnet-config.json.",
+      "Deploy once; do not retry until transaction status is known.",
+      "Record deployment transaction and production contract address.",
+      "Verify/publish source on BaseScan where supported and compare deployed runtime/configuration.",
+      "Read back name, symbol, decimals, totalSupply, owner, pending owner and ERC-2612 domain.",
+      "Update canonical public records with mainnet identity only after identity checks pass.",
+      "Create 200/WETH liquidity with approved fee tier/range or reviewed current equivalent.",
+      "Use exact/minimum approvals and verify spender address.",
+      "Record pool/position identity and resulting balances.",
+      "Execute first tiny buy at <= EUR 10 with <=1% slippage ceiling.",
+      "Verify on-chain receipt and balances before any next transaction.",
+      "Execute first tiny sell at <= EUR 10 with <=1% slippage ceiling.",
+      "Verify outputs and absence of unexplained token deductions.",
+      "Publish mainnet evidence and switch public status to production-live only if all launch checks pass."
+    ]
   }
 }
