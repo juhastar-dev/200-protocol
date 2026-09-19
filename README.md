@@ -50,3 +50,18 @@ The protocol is instead designed around **transparent, minimal and machine-compa
 
 Machine-readable policy: `/economics.json`
 Schema: `/spec/200-economics-v1.schema.json`
+
+
+## Network & Region Selection
+
+200 publishes a machine-readable network selection profile so agents can compare network suitability before acting.
+
+- Preferred production network: **Base** (eip155:8453)
+- Validated test network: **Base Sepolia** (eip155:84532)
+- Automatic unverified cross-chain fallback: **disabled**
+- Region/jurisdiction eligibility: **dynamic action-time check**
+- Precise location is not required by default
+- Agents should compare wallet support, service availability, total execution cost, liquidity/slippage, evidence freshness and owner policy
+
+Machine profile: `/network-selection.json`
+Schema: `/spec/200-network-selection-v1.schema.json`
