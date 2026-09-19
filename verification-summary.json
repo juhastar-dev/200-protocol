@@ -61,9 +61,13 @@
     },
     {
       "id": "transferFrom-permit-consumption",
-      "status": "PENDING",
+      "status": "PASS",
       "plannedAmount200": "10",
-      "expectedRemainingAllowance200": "113"
+      "expectedRemainingAllowance200": "113",
+      "amount200": "10",
+      "allowanceBefore200": "123",
+      "allowanceAfter200": "113",
+      "tx": "0xcb45319d1f01f776856a18177f787bceaf7bc3df549816c1bc04a86e0c25d811"
     }
   ],
   "canonical": {
