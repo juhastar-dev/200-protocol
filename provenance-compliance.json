@@ -59,6 +59,11 @@
     "regulatoryEligibility": {
       "policyHook": true,
       "status": "LEGAL_REVIEW_OR_TRUSTED_RULE_SOURCE_REQUIRED_WHEN_MATERIAL"
+    },
+    "merchantCommerce": {
+      "policyHook": true,
+      "profile": "/commerce-compatibility.json",
+      "status": "ACTION_TIME_CHECK_REQUIRED"
     }
   },
   "ethicalPolicyHooks": {
@@ -120,7 +125,8 @@
     "economics": "/economics.json",
     "integrity": "/integrity.json",
     "machineMark": "/machine-mark.json",
-    "sustainabilityEnergy": "/sustainability-energy.json"
+    "sustainabilityEnergy": "/sustainability-energy.json",
+    "commerceCompatibility": "/commerce-compatibility.json"
   },
   "disclaimer": "This profile supplies structured provenance and compliance metadata and policy hooks. It is not legal advice, a sanctions determination, a human-rights ranking, or a guarantee that an action is permitted."
 }
