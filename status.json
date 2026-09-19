@@ -170,15 +170,19 @@
     "coreTokenTestCount": 11,
     "coreTokenPassCount": 11,
     "blockingCoreTokenTests": [],
-    "mainnetConfigFreeze": "DRAFT_FUNDAMENTALS_FROZEN_LAUNCH_ECONOMICS_PENDING",
+    "mainnetConfigFreeze": "DRAFT_EUR_200_HARD_CAP_V3_PARAMETERS_PENDING",
     "futureProtocolMilestones": [
       "signed-manifest",
       "x402-adapter",
       "ERC-8004-integration"
     ],
     "note": "Future protocol integrations are tracked separately and are not failures of the completed Base Sepolia core token validation.",
-    "nextDecision": "initialLiquidity200 + initialLiquidityETH",
+    "nextDecision": "PancakeSwap V3 fee tier + price range",
     "mainnetConfig": "/mainnet-config.json",
-    "mainnetFreezeDocument": "/mainnet-configuration-freeze.md"
+    "mainnetFreezeDocument": "/mainnet-configuration-freeze.md",
+    "maximumTotalRealMoneyBudgetEUR": "200",
+    "initialLiquidity200": "500000",
+    "initialLiquidityETH": "DYNAMIC_AT_LAUNCH",
+    "budgetRule": "Total launch real-money spending must not exceed EUR 200."
   }
 }
