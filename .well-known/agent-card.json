@@ -59,5 +59,34 @@
     "verifier": "/verify.html"
   },
   "machineReadable": true,
-  "semanticResult": "200 = OK_TO_ACT when configured policy checks pass"
+  "semanticResult": "200 = OK_TO_ACT when configured policy checks pass",
+  "protocolVersion": "0.9",
+  "futureCompatibility": "/future-compatibility.json",
+  "integrity": "/integrity.json",
+  "services": [
+    {
+      "name": "200-discovery",
+      "endpoint": "/.well-known/200.json",
+      "version": "1.0",
+      "status": "live"
+    },
+    {
+      "name": "MCP",
+      "endpoint": null,
+      "version": "2026-07-28",
+      "status": "planned"
+    },
+    {
+      "name": "x402",
+      "endpoint": null,
+      "version": "2",
+      "status": "planned"
+    },
+    {
+      "name": "ERC-8004",
+      "endpoint": "/spec/erc8004-registration-template.json",
+      "version": "registration-v1",
+      "status": "planned"
+    }
+  ]
 }
