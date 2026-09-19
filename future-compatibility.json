@@ -112,14 +112,12 @@
     "cachePolicy": "Machine clients should prefer canonical endpoints and inspect timestamps/status before economic action."
   },
   "integrity": {
-    "contentHashAlgorithm": "sha-256",
-    "contentHash": null,
-    "signature": null,
-    "signer": null,
-    "verificationMethod": null,
-    "status": "UNSIGNED",
-    "plannedSignedManifest": true,
-    "note": "Null signature fields are explicit; they MUST NOT be interpreted as signed evidence."
+    "status": "SIGNED_VERIFIED",
+    "endpoint": "/integrity.json",
+    "signer": "0x64d6719831414f883aA51CB59584D7B4F4066E08",
+    "method": "EIP-191 personal_sign",
+    "payloadSha256": "0x64fae78db37d5e9d91259d1aae1876937d5835fe55f263a907be221368c9e0cc",
+    "note": "Canonical evidence signing is now live. Future versions may add additional credential/attestation formats without replacing this EIP-191 proof."
   },
   "regulatoryReadiness": {
     "status": "STRUCTURE_PREPARED_LEGAL_REVIEW_REQUIRED",
