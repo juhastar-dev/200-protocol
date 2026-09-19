@@ -1,0 +1,45 @@
+{
+  "schema": "200-protocol/purchase-evidence/v1",
+  "purchaseId": "EXAMPLE-NOT-LIVE",
+  "merchant": {
+    "name": "Example Merchant",
+    "merchantId": null,
+    "jurisdiction": "UNKNOWN",
+    "endpoint": null
+  },
+  "itemOrService": {
+    "description": "Example digital or physical good",
+    "quantity": 1
+  },
+  "quote": {
+    "amount": "40.00",
+    "assetOrCurrency": "EUR",
+    "timestamp": "EXAMPLE",
+    "expiresAt": null
+  },
+  "authorization": {
+    "decision": "OK_TO_ACT",
+    "policyReference": "EXAMPLE_POLICY",
+    "timestamp": "EXAMPLE",
+    "humanConfirmation": null
+  },
+  "payment": {
+    "status": "PENDING",
+    "rail": "EXAMPLE_ROUTE",
+    "network": null,
+    "settledAmount": "0",
+    "assetOrCurrency": "UNSET",
+    "transactionReference": null
+  },
+  "receipt": null,
+  "invoice": null,
+  "tax": null,
+  "fulfilment": null,
+  "refund": null,
+  "evidence": {
+    "integrityStatus": "EXAMPLE_ONLY",
+    "signature": null,
+    "hash": null
+  },
+  "note": "Template example only. It is not evidence of a real purchase, merchant integration or live payment."
+}
