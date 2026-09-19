@@ -1,7 +1,7 @@
 {
   "spec": {
     "name": "200 Protocol",
-    "version": "0.8",
+    "version": "0.9",
     "status": "core-testnet-validation-complete"
   },
   "purpose": "Machine-readable economic compatibility and policy-based asset selection for autonomous AI agents",
@@ -56,19 +56,33 @@
   "interfaces": [
     {
       "protocol": "x402",
-      "status": "planned-adapter"
+      "status": "planned-v2-interoperability",
+      "targetVersion": 2
     },
     {
       "protocol": "A2A",
-      "status": "planned-adapter"
+      "status": "planned-interoperability"
     },
     {
       "protocol": "ERC-8004",
-      "status": "planned-adapter"
+      "status": "planned-registration"
     },
     {
       "protocol": "CAIP-19",
       "status": "required-for-canonical-asset-identity"
+    },
+    {
+      "protocol": "MCP",
+      "status": "planned-interoperability",
+      "targetVersion": "2026-07-28"
+    },
+    {
+      "protocol": "CAIP-2",
+      "status": "supported"
+    },
+    {
+      "protocol": "W3C-VC-2.0",
+      "status": "planned-attestation-layer"
     }
   ],
   "capabilities": [
@@ -339,5 +353,20 @@
     "agentCard": "/.well-known/agent-card.json",
     "verificationSummary": "/verification-summary.json",
     "status": "/status.json"
+  },
+  "futureCompatibility": {
+    "registry": "/future-compatibility.json",
+    "integrity": "/integrity.json",
+    "erc8004RegistrationTemplate": "/spec/erc8004-registration-template.json",
+    "extensionModel": "independently-versioned optional extensions",
+    "unknownExtensionPolicy": "ignore unless caller policy requires the extension",
+    "machineFreshnessFields": [
+      "protocolVersion",
+      "schemaVersion",
+      "generatedAt",
+      "validUntil",
+      "supersedes",
+      "canonical"
+    ]
   }
 }
