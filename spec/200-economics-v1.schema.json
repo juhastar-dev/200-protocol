@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://juhastar-dev.github.io/200-protocol/spec/200-economics-v1.schema.json",
+  "title": "200 Protocol Economics v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "protocol",
+    "version",
+    "principle",
+    "tokenPrice",
+    "protocolCostModel",
+    "machineComparison",
+    "futureFeeRules",
+    "currentStatus"
+  ],
+  "properties": {
+    "schema": {
+      "const": "200-protocol/economics/v1"
+    },
+    "protocol": {
+      "const": "200 Protocol"
+    },
+    "version": {
+      "type": "string"
+    },
+    "principle": {
+      "type": "string"
+    },
+    "tokenPrice": {
+      "type": "object"
+    },
+    "protocolCostModel": {
+      "type": "object"
+    },
+    "machineComparison": {
+      "type": "object"
+    },
+    "futureFeeRules": {
+      "type": "object"
+    },
+    "currentStatus": {
+      "type": "object"
+    },
+    "endpoints": {
+      "type": "object"
+    },
+    "disclaimer": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}
