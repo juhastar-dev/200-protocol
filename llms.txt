@@ -66,3 +66,14 @@ For transaction hashes and machine-readable fields, fetch /verification-summary.
 - Pending core token checks: 0
 - Next phase: MAINNET_CONFIGURATION_FREEZE
 - Future protocol roadmap (separate from token validation): signed manifest, x402 adapter, ERC-8004 integration
+
+
+## Canonical Machine Discovery
+- Primary discovery entry point: /.well-known/200.json
+- JSON Schema: /spec/200-discovery-v1.schema.json
+- Agent card: /.well-known/agent-card.json
+- Canonical manifest: /200.json
+- Fast verification summary: /verification-summary.json
+- Current status: /status.json
+- Direct verifier: /verify.html
+- Semantic meaning: 200 = OK_TO_ACT only when the configured policy checks pass; it is not an investment rating or guarantee.
