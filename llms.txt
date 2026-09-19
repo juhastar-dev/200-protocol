@@ -124,3 +124,12 @@ For transaction hashes and machine-readable fields, fetch /verification-summary.
 - Do not infer worldwide legal availability from public protocol access
 - Do not automatically fall back to an unverified network
 - Compare total execution cost, liquidity/slippage, wallet compatibility, service availability, evidence integrity and caller policy before selecting a route
+
+
+## Provenance & Compliance
+- Profile: /provenance-compliance.json
+- Schema: /spec/200-provenance-compliance-v1.schema.json
+- Unknown provenance must be represented as UNKNOWN or UNDECLARED, never inferred
+- Jurisdiction/service/sanctions checks are dynamic when material to the action
+- Human-rights and ESG filters are caller-defined optional policy, not protocol-default country rankings
+- Do not infer issuer jurisdiction from developer location, hosting location, token name or symbol
