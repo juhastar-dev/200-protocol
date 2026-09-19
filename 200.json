@@ -263,6 +263,22 @@
         "observedResult": "Account 2, verified as on-chain owner, sent exactly 5 200 to the 200 Token contract. The owner-restricted recovery transaction was confirmed. A fresh on-chain read after confirmation showed the contract balance returned from 5 200 to 0 and Account 2 returned from 94,899,005 200 to its pre-test 94,899,010 200.",
         "evidenceMeaning": "Behavioral evidence that the deployed token recovery function can return the token's own accidentally-held 200 balance to the on-chain owner in the tested scenario.",
         "note": "The immediate post-transaction UI initially displayed stale pre-refresh balances; a fresh RPC read confirmed the final recovered state."
+      },
+      {
+        "type": "admin-control-readonly-review",
+        "network": "Base Sepolia",
+        "date": "2026-09-19",
+        "status": "passed",
+        "owner": "0x64d6719831414f883aA51CB59584D7B4F4066E08",
+        "pendingOwner": "0x0000000000000000000000000000000000000000",
+        "name": "200 Token",
+        "symbol": "200",
+        "decimals": 18,
+        "totalSupply200": "100000000",
+        "contractHeld200": "0",
+        "result": "PASS",
+        "observedResult": "Read-only on-chain review confirmed Account 2 as owner, zero-address pending owner, expected token identity, 18 decimals, total supply of 100,000,000 200, and zero contract-held 200.",
+        "evidenceMeaning": "Current Base Sepolia administrative ownership and core token identity match the expected deployment state; no ownership transfer is pending."
       }
     ]
   },
