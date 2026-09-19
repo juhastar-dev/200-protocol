@@ -37,7 +37,8 @@
       "total-expected-execution-cost",
       "liquidity-and-slippage",
       "settlement-reliability",
-      "evidence-freshness-and-integrity"
+      "evidence-freshness-and-integrity",
+      "energy-and-environmental-policy"
     ],
     "compareFields": [
       "caip2",
@@ -50,7 +51,8 @@
       "quoteTimestamp",
       "quoteExpiry",
       "serviceAvailability",
-      "jurisdictionEligibility"
+      "jurisdictionEligibility",
+      "sustainabilityProfile"
     ],
     "rule": "Do not select a network or asset solely because its token unit price is numerically low."
   },
@@ -117,7 +119,8 @@
     "economics": "/economics.json",
     "integrity": "/integrity.json",
     "machineMark": "/machine-mark.json",
-    "provenanceCompliance": "/provenance-compliance.json"
+    "provenanceCompliance": "/provenance-compliance.json",
+    "sustainabilityEnergy": "/sustainability-energy.json"
   },
   "disclaimer": "This profile is machine-selection metadata, not a guarantee of availability, legal eligibility, liquidity, execution cost or transaction success."
 }
