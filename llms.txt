@@ -53,3 +53,5 @@ Agents are expected to act only within owner- or organization-defined economic p
 For transaction hashes and machine-readable fields, fetch /verification-summary.json or /status.json.
 
 - Token recovery: PASS (5 200 deposited into contract, recovered by owner, contract balance 5 -> 0)
+
+- Admin control review: PASS (owner Account 2; pending owner zero address; token identity and supply match expected deployment)
