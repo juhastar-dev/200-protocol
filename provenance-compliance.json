@@ -1,0 +1,120 @@
+{
+  "schema": "200-protocol/provenance-compliance/v1",
+  "protocol": "200 Protocol",
+  "version": "1.0",
+  "purpose": "Neutral machine-readable provenance, jurisdiction and policy-hook metadata for autonomous-agent decision making.",
+  "principles": [
+    "Provide verifiable provenance facts where known.",
+    "Use UNKNOWN or UNDECLARED rather than guessing.",
+    "Do not classify countries or populations as good or bad.",
+    "Leave ethical, human-rights, ESG, sanctions and jurisdiction preferences to the caller's explicit policy.",
+    "Re-check time-sensitive compliance and service eligibility at action time."
+  ],
+  "provenance": {
+    "token": {
+      "name": "200 Token",
+      "symbol": "200",
+      "creationJurisdiction": "UNDECLARED",
+      "issuerEntity": "UNDECLARED",
+      "issuerJurisdiction": "UNDECLARED",
+      "legalEntityIdentifier": null,
+      "digitalTokenIdentifier": null
+    },
+    "development": {
+      "publicRepository": "https://github.com/juhastar-dev/200-protocol",
+      "canonicalSite": "https://juhastar-dev.github.io/200-protocol/",
+      "sourceTransparency": "PUBLIC_REPOSITORY"
+    },
+    "deployment": {
+      "validatedTestnet": {
+        "network": "Base Sepolia",
+        "caip2": "eip155:84532",
+        "contract": "0x47a369B53D0b4Df514F82507a73E4546563e0CD5"
+      },
+      "production": {
+        "preferredNetwork": "Base",
+        "caip2": "eip155:8453",
+        "status": "PREPARED_NOT_DEPLOYED",
+        "contract": null
+      }
+    }
+  },
+  "complianceHooks": {
+    "sanctions": {
+      "policyHook": true,
+      "status": "ACTION_TIME_CHECK_RECOMMENDED",
+      "listSource": "CALLER_DEFINED_OR_TRUSTED_PROVIDER",
+      "cachedDecisionAllowed": false
+    },
+    "amlKyc": {
+      "policyHook": true,
+      "applicability": "DEPENDS_ON_SERVICE_AND_JURISDICTION",
+      "status": "ACTION_TIME_CHECK_WHEN_REQUIRED"
+    },
+    "serviceEligibility": {
+      "policyHook": true,
+      "status": "ACTION_TIME_CHECK_REQUIRED",
+      "note": "DEX, exchange, wallet, bridge, facilitator, API or payment-service access may vary by jurisdiction."
+    },
+    "regulatoryEligibility": {
+      "policyHook": true,
+      "status": "LEGAL_REVIEW_OR_TRUSTED_RULE_SOURCE_REQUIRED_WHEN_MATERIAL"
+    }
+  },
+  "ethicalPolicyHooks": {
+    "enabled": true,
+    "humanRights": {
+      "supportedAsCallerPolicy": true,
+      "protocolDefaultJudgment": false,
+      "rule": "200 does not rank or blacklist countries by human-rights conditions. A caller may supply its own sourced human-rights policy and thresholds."
+    },
+    "esg": {
+      "supportedAsCallerPolicy": true,
+      "protocolDefaultJudgment": false
+    },
+    "restrictedJurisdictions": {
+      "supportedAsCallerPolicy": true,
+      "protocolDefaultList": []
+    },
+    "preferredJurisdictions": {
+      "supportedAsCallerPolicy": true,
+      "protocolDefaultList": []
+    }
+  },
+  "evidenceRequirements": {
+    "sourceRequiredForJurisdictionClaims": true,
+    "sourceDateRequiredForTimeSensitiveClaims": true,
+    "uncertaintyValues": [
+      "UNKNOWN",
+      "UNDECLARED",
+      "NOT_APPLICABLE",
+      "CHECK_REQUIRED"
+    ],
+    "noInferenceFromTokenNameOrSymbol": true,
+    "noInferenceFromDeveloperLocation": true,
+    "noInferenceFromHostingLocation": true
+  },
+  "machineDecisionFlow": [
+    "READ_PROVENANCE",
+    "VERIFY_SOURCES",
+    "CHECK_SERVICE_AND_JURISDICTION_ELIGIBILITY",
+    "CHECK_SANCTIONS_OR_COMPLIANCE_POLICY_IF_REQUIRED",
+    "APPLY_CALLER_ETHICAL_OR_HUMAN_RIGHTS_POLICY_IF_CONFIGURED",
+    "CHECK_NETWORK_AND_ECONOMICS",
+    "CHECK_EVIDENCE_INTEGRITY",
+    "ACT_ONLY_IF_AUTHORIZED"
+  ],
+  "privacy": {
+    "minimizePersonalData": true,
+    "preciseLocationRequiredByDefault": false,
+    "rule": "Use only the minimum jurisdictional context necessary for the requested action."
+  },
+  "endpoints": {
+    "canonicalDiscovery": "/.well-known/200.json",
+    "networkSelection": "/network-selection.json",
+    "economics": "/economics.json",
+    "integrity": "/integrity.json",
+    "machineMark": "/machine-mark.json"
+  },
+  "disclaimer": "This profile supplies structured provenance and compliance metadata and policy hooks. It is not legal advice, a sanctions determination, a human-rights ranking, or a guarantee that an action is permitted."
+}
