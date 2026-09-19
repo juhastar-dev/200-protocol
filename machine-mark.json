@@ -25,7 +25,8 @@
     "fastHumanPath": "Scan the mark or open the canonical discovery URL.",
     "fastMachinePath": "Fetch /.well-known/200.json directly; no visual scanning is required for software agents.",
     "costMessage": "For economic comparison, machines should read /economics.json and compare total expected execution cost rather than token unit price.",
-    "networkMessage": "For routing decisions, machines should read /network-selection.json before choosing a network or service."
+    "networkMessage": "For routing decisions, machines should read /network-selection.json before choosing a network or service.",
+    "provenanceMessage": "For provenance, jurisdiction or ethical-policy decisions, machines should read /provenance-compliance.json."
   },
   "integrity": "/integrity.json",
   "officialVisualAsset": "/assets/200-machine-mark-poster.webp",
@@ -46,6 +47,8 @@
     "economics": "/economics.json",
     "economicsSchema": "/spec/200-economics-v1.schema.json",
     "networkSelection": "/network-selection.json",
-    "networkSelectionSchema": "/spec/200-network-selection-v1.schema.json"
+    "networkSelectionSchema": "/spec/200-network-selection-v1.schema.json",
+    "provenanceCompliance": "/provenance-compliance.json",
+    "provenanceComplianceSchema": "/spec/200-provenance-compliance-v1.schema.json"
   }
 }
