@@ -199,7 +199,7 @@
     "maximumValidationSlippagePercent": "1.0",
     "predeploymentChecklist": "/MAINNET-PREDEPLOYMENT-CHECKLIST.md",
     "transactionAuthorization": "NONE",
-    "nextStep": "Optional: remain at zero ETH; when user chooses, fund Account 2 and perform fresh live preflight before deployment.",
+    "nextStep": "No further on-chain step is possible without real Base-mainnet ETH. Continue only when user chooses to fund Account 2.",
     "launchDayPreflight": {
       "status": "READ_ONLY_PAGE_READY",
       "page": "/mainnet-preflight.html",
@@ -218,10 +218,12 @@
       "rpcResult": "PASS",
       "deploymentFundingStatus": "BLOCKED_UNTIL_ACCOUNT2_FUNDED"
     },
-    "zeroCostPreparation": "COMPLETE_TO_POSTDEPLOYMENT_VERIFIER",
+    "zeroCostPreparation": "COMPLETE",
     "mainnetLaunchRecord": "/mainnet-launch-record.json",
     "postDeploymentVerifier": "/mainnet-postdeploy-verify.html",
     "fundingRequiredNow": false,
-    "fundingRequiredForNextOnChainWrite": true
+    "fundingRequiredForNextOnChainWrite": true,
+    "launchControl": "/mainnet-launch-control.html",
+    "currentGate": "FUNDING_OPTIONAL_UNTIL_USER_CHOOSES_LAUNCH"
   }
 }
