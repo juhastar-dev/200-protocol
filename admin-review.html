@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>200 Admin Control Review</title>
+<style>
+body{margin:0;background:#06100c;color:#eaf7ef;font-family:system-ui,sans-serif;line-height:1.5}main{max-width:900px;margin:auto;padding:32px 20px}
+.card{background:#0d1d16;border:1px solid #1e3e2d;border-radius:18px;padding:22px;margin:18px 0}
+button{background:#76f3a5;color:#06100c;border:0;border-radius:12px;padding:15px 20px;font-weight:800;font-size:16px;cursor:pointer;margin:5px}
+.secondary{background:#183426;color:#eaf7ef;border:1px solid #31513e}.mono{font-family:monospace;word-break:break-all;color:#c8edd3}.ok{color:#76f3a5;font-weight:800}.bad{color:#ff7373;font-weight:800}.warn{color:#ffd166;font-weight:800}a{color:#76f3a5}.grid{display:grid;grid-template-columns:220px 1fr;gap:9px 15px}
+</style></head><body><main>
+<p><a href="index.html">← 200 Protocol</a></p>
+<h1>200 Admin Control Review</h1>
+<p>Read-only Base Sepolia review. This page does <strong>not</strong> transfer ownership, renounce ownership, approve tokens, or submit transactions.</p>
+
+<div class="card">
+<h2>Step 1 — Connect Account 2</h2>
+<button id="connect">Connect MetaMask</button>
+<button id="switch" class="secondary">Switch to Base Sepolia</button>
+<p id="connection">Ready.</p>
+<p id="wallet" class="mono">Wallet: —</p>
+</div>
+
+<div class="card">
+<h2>Step 2 — Run read-only admin review</h2>
+<button id="review" class="secondary">Run admin review</button>
+<div class="grid">
+<div>Owner</div><div id="owner" class="mono">—</div>
+<div>Pending owner</div><div id="pending" class="mono">—</div>
+<div>Name</div><div id="name">—</div>
+<div>Symbol</div><div id="symbol">—</div>
+<div>Decimals</div><div id="decimals">—</div>
+<div>Total supply</div><div id="supply">—</div>
+<div>Contract-held 200</div><div id="held">—</div>
+</div>
+<p id="reviewStatus">Not checked yet.</p>
+</div>
+
+<div class="card">
+<h2>Already behaviorally verified owner power</h2>
+<p><span class="ok">✓ Token recovery</span> — Account 2 recovered exactly 5 200 from the token contract in the controlled Base Sepolia test.</p>
+<p class="mono">Recovery tx: 0xd43e63f859ee078f0b11339d8cf23728973864553f543407d6644ed64c6bc10d</p>
+</div>
+
+<div class="card">
+<h2>Configuration classification</h2>
+<p><strong>Immutable configuration:</strong> network, token name, symbol, contract name and decimals are intended to be immutable after creation. The 200 deployment was configured without Mintable, so its initial supply is intended to be its fixed total supply.</p>
+<p><strong>Enabled owner feature:</strong> Token Recovery.</p>
+<p><strong>Enabled holder feature:</strong> ERC-2612 Permit; Permit does not give the owner control over holder balances.</p>
+<p class="warn">Final mainnet ownership policy is not decided by this test. No ownership change or renunciation should be performed during this review.</p>
+</div>
+
+<script type="module">
+import {BrowserProvider,Contract,formatUnits} from "https://cdn.jsdelivr.net/npm/ethers@6.15.0/+esm";
+const TOKEN='0x47a369B53D0b4Df514F82507a73E4546563e0CD5';
+const EXPECTED='0x64d6719831414f883aA51CB59584D7B4F4066E08';
+const ZERO='0x0000000000000000000000000000000000000000';
+const ABI=[
+ 'function owner() view returns(address)',
+ 'function pendingOwner() view returns(address)',
+ 'function name() view returns(string)',
+ 'function symbol() view returns(string)',
+ 'function decimals() view returns(uint8)',
+ 'function totalSupply() view returns(uint256)',
+ 'function balanceOf(address) view returns(uint256)'
+];
+function err(e){return String(e.shortMessage||e.message||e).replace(/[<>]/g,'')}
+async function ctx(){
+ if(!window.ethereum) throw new Error('MetaMask not detected.');
+ const provider=new BrowserProvider(window.ethereum);
+ const net=await provider.getNetwork();
+ if(net.chainId!==84532n) throw new Error('Switch to Base Sepolia first.');
+ const signer=await provider.getSigner();
+ const account=await signer.getAddress();
+ document.getElementById('wallet').textContent='Wallet: '+account;
+ return {provider,account};
+}
+document.getElementById('connect').onclick=async()=>{try{
+ await window.ethereum.request({method:'eth_requestAccounts'});const {account}=await ctx();
+ document.getElementById('connection').innerHTML=account.toLowerCase()===EXPECTED.toLowerCase()?'<span class="ok">CONNECTED — Account 2 on Base Sepolia.</span>':'<span class="bad">Connected account is not Account 2.</span>';
+}catch(e){document.getElementById('connection').innerHTML='<span class="bad">'+err(e)+'</span>'}};
+document.getElementById('switch').onclick=async()=>{try{
+ await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:'0x14a34'}]});await ctx();
+ document.getElementById('connection').innerHTML='<span class="ok">Base Sepolia ready.</span>';
+}catch(e){document.getElementById('connection').innerHTML='<span class="bad">'+err(e)+'</span>'}};
+document.getElementById('review').onclick=async()=>{const out=document.getElementById('reviewStatus');try{
+ const {provider}=await ctx();const t=new Contract(TOKEN,ABI,provider);
+ const [owner,name,symbol,decimals,supply,held]=await Promise.all([t.owner(),t.name(),t.symbol(),t.decimals(),t.totalSupply(),t.balanceOf(TOKEN)]);
+ let pending='UNAVAILABLE';
+ try{pending=await t.pendingOwner()}catch(e){pending='pendingOwner() not exposed / call unavailable'}
+ document.getElementById('owner').textContent=owner;
+ document.getElementById('pending').textContent=pending;
+ document.getElementById('name').textContent=name;
+ document.getElementById('symbol').textContent=symbol;
+ document.getElementById('decimals').textContent=decimals.toString();
+ document.getElementById('supply').textContent=formatUnits(supply,decimals)+' '+symbol;
+ document.getElementById('held').textContent=formatUnits(held,decimals)+' '+symbol;
+ const idOK=name==='200 Token'&&symbol==='200'&&decimals===18n&&formatUnits(supply,18)==='100000000.0';
+ const ownerOK=owner.toLowerCase()===EXPECTED.toLowerCase();
+ const pendingOK=(typeof pending==='string'&&pending.toLowerCase()===ZERO)||String(pending).includes('not exposed');
+ out.innerHTML=(ownerOK&&idOK&&pendingOK)
+ ?'<span class="ok">PASS — owner and immutable token identity match the expected 200 deployment; no unexpected pending owner was detected.</span>'
+ :'<span class="bad">REVIEW REQUIRED — one or more values differ from the expected deployment.</span>';
+}catch(e){out.innerHTML='<span class="bad">'+err(e)+'</span>'}};
+</script></main></body></html>
