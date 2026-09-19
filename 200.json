@@ -279,6 +279,26 @@
         "result": "PASS",
         "observedResult": "Read-only on-chain review confirmed Account 2 as owner, zero-address pending owner, expected token identity, 18 decimals, total supply of 100,000,000 200, and zero contract-held 200.",
         "evidenceMeaning": "Current Base Sepolia administrative ownership and core token identity match the expected deployment state; no ownership transfer is pending."
+      },
+      {
+        "type": "pancakeswap-v2-liquidity-removal",
+        "network": "Base Sepolia",
+        "date": "2026-09-19",
+        "status": "passed",
+        "lpApproved": "0.1",
+        "lpRemoved": "0.1",
+        "lpBalanceAfter": "3.062277660168378331",
+        "received200": "3146.85686979135337764",
+        "poolReserve200After": "96365.494921094559640009",
+        "poolReserveWethAfter": "0.000097315895040527",
+        "slippageGuardPercent": "0.5",
+        "approvalTransactionHash": "0xe5ab1d7e6daa6c48ccb032ef3dee0ccf464d0d9a7ec9407f17aa0a4c3168040d",
+        "approvalBaseScanUrl": "https://sepolia.basescan.org/tx/0xe5ab1d7e6daa6c48ccb032ef3dee0ccf464d0d9a7ec9407f17aa0a4c3168040d",
+        "removalTransactionHash": "0xda51ef606bdd9117eec0eead7d0b224ab77e656bcf1ffb3b2595d97f7b15dbc9",
+        "removalBaseScanUrl": "https://sepolia.basescan.org/tx/0xda51ef606bdd9117eec0eead7d0b224ab77e656bcf1ffb3b2595d97f7b15dbc9",
+        "result": "PASS",
+        "observedResult": "Exactly 0.1 LP was approved and removed through PancakeSwap V2. Account 2 received 3146.85686979135337764 200, the minimum-output guard was satisfied, 3.062277660168378331 LP remained, and the pool retained nonzero 200/WETH reserves.",
+        "evidenceMeaning": "Behavioral evidence that the Base Sepolia 200/WETH LP position can be partially withdrawn through the configured PancakeSwap V2 router while leaving the pool active."
       }
     ]
   },
