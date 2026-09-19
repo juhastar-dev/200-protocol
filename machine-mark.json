@@ -1,7 +1,7 @@
 {
   "schema": "200-protocol/machine-mark/v1",
   "name": "200 Machine Mark",
-  "version": "1.0",
+  "version": "1.1",
   "meaning": "Machine-readable entry point to the canonical 200 Protocol discovery layer",
   "qrTarget": "https://juhastar-dev.github.io/200-protocol/.well-known/200.json",
   "qrAsset": "/assets/200-machine-mark-qr.png",
@@ -19,7 +19,25 @@
       "developer-discovery"
     ],
     "stableTarget": true,
-    "note": "The QR encodes only the canonical discovery URL. Underlying protocol data may evolve without changing the QR target."
+    "note": "The QR encodes only the canonical discovery URL. Underlying protocol data may evolve without changing the QR target.",
+    "poster": "/assets/200-machine-mark-poster.webp",
+    "marketIconPolicy": "Do not replace the small official token/listing icon with a QR. Use the Machine Mark poster or functional QR wherever scanning is practical.",
+    "fastHumanPath": "Scan the mark or open the canonical discovery URL.",
+    "fastMachinePath": "Fetch /.well-known/200.json directly; no visual scanning is required for software agents."
   },
-  "integrity": "/integrity.json"
+  "integrity": "/integrity.json",
+  "officialVisualAsset": "/assets/200-machine-mark-poster.webp",
+  "functionalQrAsset": "/assets/200-machine-mark-qr.png",
+  "tokenMarketIcon": "/200-icon.svg",
+  "visualRoles": {
+    "tokenMarketIcon": "Clean 200 token icon for wallets, DEXs, listings and very small display sizes.",
+    "machineMarkPoster": "Official Scan to Verify 200 human-and-machine discovery graphic.",
+    "functionalQr": "High-contrast QR asset for reliable camera scanning."
+  },
+  "scanVerification": {
+    "tested": true,
+    "decodedTarget": "https://juhastar-dev.github.io/200-protocol/.well-known/200.json",
+    "targetMatchesCanonicalDiscovery": true,
+    "note": "The QR inside the chosen official Machine Mark poster was independently decoded during publication and resolved to the canonical discovery URL."
+  }
 }
