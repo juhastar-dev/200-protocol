@@ -55,3 +55,5 @@ For transaction hashes and machine-readable fields, fetch /verification-summary.
 - Token recovery: PASS (5 200 deposited into contract, recovered by owner, contract balance 5 -> 0)
 
 - Admin control review: PASS (owner Account 2; pending owner zero address; token identity and supply match expected deployment)
+
+- Liquidity removal: PASS (0.1 LP removed; 3,146.85686979135337764 200 received; pool remained active)
