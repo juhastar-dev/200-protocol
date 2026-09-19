@@ -1,8 +1,8 @@
 {
   "spec": {
     "name": "200 Protocol",
-    "version": "0.6",
-    "status": "live-testnet-onchain-verifier"
+    "version": "0.8",
+    "status": "core-testnet-validation-complete"
   },
   "purpose": "Machine-readable economic compatibility and policy-based asset selection for autonomous AI agents",
   "meaning": {
@@ -300,7 +300,16 @@
         "observedResult": "Exactly 0.1 LP was approved and removed through PancakeSwap V2. Account 2 received 3146.85686979135337764 200, the minimum-output guard was satisfied, 3.062277660168378331 LP remained, and the pool retained nonzero 200/WETH reserves.",
         "evidenceMeaning": "Behavioral evidence that the Base Sepolia 200/WETH LP position can be partially withdrawn through the configured PancakeSwap V2 router while leaving the pool active."
       }
-    ]
+    ],
+    "coreTestnetValidation": {
+      "status": "COMPLETE",
+      "completedDate": "2026-09-19",
+      "passCount": 11,
+      "failCount": 0,
+      "pendingCoreChecks": 0,
+      "nextPhase": "MAINNET_CONFIGURATION_FREEZE",
+      "caveat": "Base Sepolia evidence is scoped testnet evidence and does not by itself guarantee Base mainnet behavior."
+    }
   },
   "humanAuthority": {
     "principle": "Agents operate within owner-defined economic limits",
