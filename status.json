@@ -22,7 +22,8 @@
     "pancakeSwapV2Liquidity": true,
     "pancakeSwapV2Buy": true,
     "pancakeSwapV2Sell": true,
-    "erc2612Permit": true
+    "erc2612Permit": true,
+    "transferFromPermitConsumption": true
   },
   "verification": {
     "onChainVerifier": "/verify.html",
@@ -96,6 +97,18 @@
       "baseScanUrl": "https://sepolia.basescan.org/tx/0x28bbd6226a7bc21aaddd45c1fb6fa2b95f803f560d1465ee48f9155445a0481f",
       "result": "PASS",
       "scope": "Base Sepolia ERC-2612 typed-data signature plus on-chain permit/allowance verification."
+    },
+    "transferFromPermitConsumptionTest": {
+      "date": "2026-09-19",
+      "owner": "0x1fDe29f8fD7Dca926954eF5F142c86FdCC6752Db",
+      "spenderAndRecipient": "0x64d6719831414f883aA51CB59584D7B4F4066E08",
+      "amount200": "10",
+      "allowanceBefore200": "123",
+      "allowanceAfter200": "113",
+      "transactionHash": "0xcb45319d1f01f776856a18177f787bceaf7bc3df549816c1bc04a86e0c25d811",
+      "baseScanUrl": "https://sepolia.basescan.org/tx/0xcb45319d1f01f776856a18177f787bceaf7bc3df549816c1bc04a86e0c25d811",
+      "result": "PASS",
+      "scope": "One Base Sepolia transferFrom call consuming part of an ERC-2612-created allowance."
     }
   },
   "nextMilestones": [
