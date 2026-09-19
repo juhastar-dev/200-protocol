@@ -120,7 +120,8 @@
     "integrity": "/integrity.json",
     "machineMark": "/machine-mark.json",
     "provenanceCompliance": "/provenance-compliance.json",
-    "sustainabilityEnergy": "/sustainability-energy.json"
+    "sustainabilityEnergy": "/sustainability-energy.json",
+    "commerceCompatibility": "/commerce-compatibility.json"
   },
   "disclaimer": "This profile is machine-selection metadata, not a guarantee of availability, legal eligibility, liquidity, execution cost or transaction success."
 }
