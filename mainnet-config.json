@@ -68,5 +68,47 @@
     "sourceVerificationMainnet": "REQUIRED_WHERE_SUPPORTED",
     "productionDexAddressReverification": "REQUIRED"
   },
-  "nextAction": "CHOOSE_INITIAL_LIQUIDITY_200_AND_ETH"
+  "nextAction": "SELECT_PRICE_RATIO_AND_LIQUIDITY_BUDGET; THEN FINALIZE_DEX_VERSION_AND_RANGE",
+  "liquidityModel": {
+    "status": "ILLUSTRATIVE_NOT_FROZEN",
+    "calculator": "/mainnet-liquidity-model.html",
+    "referencePriceTrack": {
+      "ethPer200": "0.0000001",
+      "tokensPerEth": "10000000",
+      "impliedFDV_ETH": "10",
+      "note": "Illustrative only; not a selected launch valuation."
+    },
+    "scenarios": [
+      {
+        "id": "A",
+        "tokens200": "500000",
+        "eth": "0.05",
+        "supplyPercent": "0.5",
+        "initialPoolNotionalETH": "0.10"
+      },
+      {
+        "id": "B",
+        "tokens200": "1000000",
+        "eth": "0.10",
+        "supplyPercent": "1.0",
+        "initialPoolNotionalETH": "0.20"
+      },
+      {
+        "id": "C",
+        "tokens200": "2500000",
+        "eth": "0.25",
+        "supplyPercent": "2.5",
+        "initialPoolNotionalETH": "0.50"
+      },
+      {
+        "id": "D",
+        "tokens200": "5000000",
+        "eth": "0.50",
+        "supplyPercent": "5.0",
+        "initialPoolNotionalETH": "1.00"
+      }
+    ],
+    "dexImplementation": "PENDING_CURRENT_MAINNET_REVERIFICATION",
+    "note": "Mainnet DEX version/range must be selected after checking current PancakeSwap Base production deployment. V2 price-impact examples are reference-only."
+  }
 }
