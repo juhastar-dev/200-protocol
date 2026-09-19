@@ -87,6 +87,28 @@ The exact ETH amount will be calculated immediately before launch using the then
 
 Because the exact ETH amount is dynamic, the initial 200/ETH ratio, initial ETH price per 200, and mathematical implied FDV will also be recalculated immediately before launch. They are not frozen yet and are not market-value predictions.
 
+### EUR 200 launch budget allocation — FROZEN
+
+The EUR 200 total is a **hard ceiling, not a spending target**.
+
+- Initial ETH liquidity: **maximum EUR 120**
+- Deployment + liquidity-creation gas reserve: **maximum EUR 40**
+- First real buy validation: **maximum EUR 10**
+- First real sell validation: **maximum EUR 10**
+- Untouched contingency: **EUR 20**
+- Absolute cumulative launch maximum: **EUR 200**
+
+Rules:
+
+- The exact ETH liquidity amount is calculated immediately before launch using the live ETH/EUR price.
+- Gas is estimated immediately before each transaction.
+- If deployment + liquidity gas is projected to exceed EUR 40, stop and reassess.
+- Buy and sell validation transactions may be smaller than EUR 10 and should use the smallest practical amount.
+- The EUR 20 contingency is not automatically spent.
+- Savings in one category are not automatically transferred to another category.
+- Before every mainnet signature, calculate projected cumulative real-money spending. If it would exceed EUR 200, do not sign.
+- A failed or apparently stale transaction must be checked on-chain before any retry.
+
 ### V3 launch-position rationale
 
 - **0.25% fee tier** is selected for the initial 200/WETH pool.
@@ -164,7 +186,7 @@ STOP immediately if any of the following occurs:
 **STILL REQUIRED**
 - exact ETH liquidity amount calculated at launch under the EUR 200 total cap
 - resulting launch price calculation from that exact ETH amount
-- launch slippage/test trade sizes
+- launch slippage limit (test trade euro caps are now frozen)
 - live verification of current PancakeSwap Base Mainnet deployment addresses
 
 Once those values are approved, this document advances from **DRAFT** to **FINAL FROZEN**.
