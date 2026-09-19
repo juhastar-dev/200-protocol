@@ -47,7 +47,8 @@
       "quoteExpiry"
     ],
     "selectionRule": "Agents should compare total expected execution cost and policy fit, not token unit price alone.",
-    "cheapestClaimPolicy": "DO_NOT_CLAIM_CHEAPEST_WITHOUT_CURRENT_COMPARABLE_EVIDENCE"
+    "cheapestClaimPolicy": "DO_NOT_CLAIM_CHEAPEST_WITHOUT_CURRENT_COMPARABLE_EVIDENCE",
+    "networkSelectionProfile": "/network-selection.json"
   },
   "futureFeeRules": {
     "transparencyRequired": true,
@@ -65,7 +66,8 @@
   "endpoints": {
     "canonicalDiscovery": "/.well-known/200.json",
     "machineMark": "/machine-mark.json",
-    "integrity": "/integrity.json"
+    "integrity": "/integrity.json",
+    "networkSelection": "/network-selection.json"
   },
   "disclaimer": "This file describes protocol design intent and current protocol-level fee policy. It is not a price guarantee, investment claim, or promise that a transaction will be cheaper than alternatives."
 }
