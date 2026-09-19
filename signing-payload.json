@@ -1,0 +1,41 @@
+{
+  "schema": "200-protocol/signing-payload/v1",
+  "protocol": "200 Protocol",
+  "purpose": "Cryptographic integrity signature for canonical machine-readable 200 Protocol evidence",
+  "generatedAt": "2026-09-19T00:00:00Z",
+  "signerExpected": "0x64d6719831414f883aA51CB59584D7B4F4066E08",
+  "signatureMethod": "EIP-191 personal_sign",
+  "chainContext": "eip155:8453",
+  "canonicalDiscovery": "https://juhastar-dev.github.io/200-protocol/.well-known/200.json",
+  "artifacts": [
+    {
+      "path": ".well-known/200.json",
+      "sha256": "0x8ba0c73d802f069eff3aa6b8e3d0e8e118f34ed6120cf7aeb17d5c2a258defe0"
+    },
+    {
+      "path": "200.json",
+      "sha256": "0x4b379b523acbc11b659ca482921a5e2eb456a920887d5f518d1544e6186a6db3"
+    },
+    {
+      "path": "verification-summary.json",
+      "sha256": "0x1d96d612ce26d15e493b3e2d14722c516c2fb9d58da1c256d81e5b39d9bce4fa"
+    },
+    {
+      "path": "status.json",
+      "sha256": "0x684468d3127ed658d04b8f27c3ced7316b65d2715e50d41161f459700c827391"
+    },
+    {
+      "path": "spec/200-1.json",
+      "sha256": "0xf8bff83a9865fac0a8f960a2407284669106f797a9d3c016dfe26a183309425e"
+    },
+    {
+      "path": "future-compatibility.json",
+      "sha256": "0x972a4f2fc39612ca85564db13885874dbc82a4d112a717b682ae07a6c8b43222"
+    },
+    {
+      "path": ".well-known/agent-card.json",
+      "sha256": "0x796cfdd97fb5f28f9a7a46127950dc298b5b4824a617bd47416e96c382221c71"
+    }
+  ],
+  "payloadSha256": "0x64fae78db37d5e9d91259d1aae1876937d5835fe55f263a907be221368c9e0cc"
+}
