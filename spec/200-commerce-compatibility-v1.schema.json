@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://juhastar-dev.github.io/200-protocol/spec/200-commerce-compatibility-v1.schema.json",
+  "title": "200 Protocol Commerce Compatibility v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "protocol",
+    "version",
+    "purpose",
+    "model",
+    "principles",
+    "pay",
+    "authorize",
+    "prove",
+    "merchantCompatibility",
+    "securityAndSafety",
+    "machineDecisionFlow",
+    "status"
+  ],
+  "properties": {
+    "schema": {
+      "const": "200-protocol/commerce-compatibility/v1"
+    },
+    "protocol": {
+      "const": "200 Protocol"
+    },
+    "version": {
+      "type": "string"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "model": {
+      "const": "PAY_AUTHORIZE_PROVE"
+    },
+    "principles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "pay": {
+      "type": "object"
+    },
+    "authorize": {
+      "type": "object"
+    },
+    "prove": {
+      "type": "object"
+    },
+    "merchantCompatibility": {
+      "type": "object"
+    },
+    "micropayments": {
+      "type": "object"
+    },
+    "securityAndSafety": {
+      "type": "object"
+    },
+    "machineDecisionFlow": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "endpoints": {
+      "type": "object"
+    },
+    "status": {
+      "type": "object"
+    },
+    "disclaimer": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}
