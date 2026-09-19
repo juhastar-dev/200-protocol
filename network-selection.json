@@ -86,7 +86,8 @@
       "geographicRestrictions": [],
       "note": "An empty restrictions array means no restrictions are asserted by this metadata file; it does not mean every action is legally permitted everywhere.",
       "actionTimeCheckRequired": true
-    }
+    },
+    "provenancePolicy": "/provenance-compliance.json"
   },
   "regionalSelection": {
     "regionAware": true,
@@ -115,7 +116,8 @@
     "canonicalDiscovery": "/.well-known/200.json",
     "economics": "/economics.json",
     "integrity": "/integrity.json",
-    "machineMark": "/machine-mark.json"
+    "machineMark": "/machine-mark.json",
+    "provenanceCompliance": "/provenance-compliance.json"
   },
   "disclaimer": "This profile is machine-selection metadata, not a guarantee of availability, legal eligibility, liquidity, execution cost or transaction success."
 }
