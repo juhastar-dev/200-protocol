@@ -199,6 +199,14 @@
     "maximumValidationSlippagePercent": "1.0",
     "predeploymentChecklist": "/MAINNET-PREDEPLOYMENT-CHECKLIST.md",
     "transactionAuthorization": "NONE",
-    "nextStep": "launch-day read-only live preflight"
+    "nextStep": "Open read-only mainnet preflight and run RPC checks; inspect Account 2 Base-mainnet ETH balance.",
+    "launchDayPreflight": {
+      "status": "READ_ONLY_PAGE_READY",
+      "page": "/mainnet-preflight.html",
+      "snapshotDate": "2026-09-19",
+      "ethEurSnapshot": "2301.88",
+      "liquidityCeilingEthAtSnapshot": "0.05213130",
+      "note": "ETH/EUR is a snapshot only. Live rate must be re-entered immediately before any real transaction."
+    }
   }
 }
