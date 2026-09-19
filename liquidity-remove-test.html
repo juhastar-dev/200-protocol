@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>200 Liquidity Removal Test</title>
+<style>
+body{margin:0;background:#06100c;color:#eaf7ef;font-family:system-ui,sans-serif;line-height:1.5}main{max-width:900px;margin:auto;padding:32px 20px}
+.card{background:#0d1d16;border:1px solid #1e3e2d;border-radius:18px;padding:22px;margin:18px 0}
+button{background:#76f3a5;color:#06100c;border:0;border-radius:12px;padding:15px 20px;font-weight:800;font-size:16px;cursor:pointer;margin:5px}
+.secondary{background:#183426;color:#eaf7ef;border:1px solid #31513e}.mono{font-family:monospace;word-break:break-all;color:#c8edd3}.ok{color:#76f3a5;font-weight:800}.bad{color:#ff7373;font-weight:800}.warn{color:#ffd166;font-weight:800}a{color:#76f3a5}.grid{display:grid;grid-template-columns:230px 1fr;gap:9px 15px}
+</style></head><body><main>
+<p><a href="index.html">← 200 Protocol</a></p>
+<h1>200 Liquidity Removal Test</h1>
+<p>Controlled Base Sepolia test of PancakeSwap V2 LP ownership and withdrawal mechanics. Planned test amount: <strong>0.1 LP</strong>.</p>
+
+<div class="card">
+<h2>Step 1 — Connect Account 2</h2>
+<button id="connect">Connect MetaMask</button>
+<button id="switch" class="secondary">Switch to Base Sepolia</button>
+<p id="connection">Ready.</p>
+<p id="wallet" class="mono">Wallet: —</p>
+</div>
+
+<div class="card">
+<h2>Step 2 — Read-only liquidity preflight</h2>
+<p>This reads the LP balance and live pool reserves. It does not approve or remove liquidity.</p>
+<button id="preflight" class="secondary">Run liquidity preflight</button>
+<div class="grid">
+<div>LP balance</div><div id="lpBalance">—</div>
+<div>LP total supply</div><div id="lpSupply">—</div>
+<div>Pool reserve 200</div><div id="reserve200">—</div>
+<div>Pool reserve WETH</div><div id="reserveWeth">—</div>
+<div>Planned LP removal</div><div><strong>0.1 LP</strong></div>
+<div>Expected 200 out</div><div id="expected200">—</div>
+<div>Expected ETH out</div><div id="expectedEth">—</div>
+<div>Remaining LP after test</div><div id="remainingLp">—</div>
+</div>
+<p id="preflightStatus">Not checked yet.</p>
+</div>
+
+<div class="card">
+<h2>Next step after preflight</h2>
+<p class="warn">Do not approve or remove anything yet. After the preflight values are confirmed, a later step will approve exactly 0.1 LP and remove only that amount with a 0.5% minimum-output guard.</p>
+</div>
+
+<script type="module">
+import {BrowserProvider,Contract,parseUnits,formatUnits,formatEther} from "https://cdn.jsdelivr.net/npm/ethers@6.15.0/+esm";
+const ACCOUNT2='0x64d6719831414f883aA51CB59584D7B4F4066E08';
+const TOKEN='0x47a369B53D0b4Df514F82507a73E4546563e0CD5';
+const WETH='0x4200000000000000000000000000000000000006';
+const PAIR='0x769b276A04ac8Db2E3044cD12A47df9E098f2923';
+const PAIR_ABI=[
+ 'function balanceOf(address) view returns(uint256)',
+ 'function totalSupply() view returns(uint256)',
+ 'function getReserves() view returns(uint112 reserve0,uint112 reserve1,uint32 blockTimestampLast)',
+ 'function token0() view returns(address)',
+ 'function token1() view returns(address)'
+];
+function err(e){return String(e.shortMessage||e.message||e).replace(/[<>]/g,'')}
+async function ctx(){
+ if(!window.ethereum) throw new Error('MetaMask not detected.');
+ const provider=new BrowserProvider(window.ethereum);
+ const net=await provider.getNetwork();
+ if(net.chainId!==84532n) throw new Error('Switch to Base Sepolia first.');
+ const signer=await provider.getSigner();
+ const account=await signer.getAddress();
+ document.getElementById('wallet').textContent='Wallet: '+account;
+ if(account.toLowerCase()!==ACCOUNT2.toLowerCase()) throw new Error('Use Account 2 for this test.');
+ return {provider,account};
+}
+document.getElementById('connect').onclick=async()=>{try{
+ await window.ethereum.request({method:'eth_requestAccounts'});await ctx();
+ document.getElementById('connection').innerHTML='<span class="ok">CONNECTED — Account 2 on Base Sepolia.</span>';
+}catch(e){document.getElementById('connection').innerHTML='<span class="bad">'+err(e)+'</span>'}};
+document.getElementById('switch').onclick=async()=>{try{
+ await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:'0x14a34'}]});await ctx();
+ document.getElementById('connection').innerHTML='<span class="ok">Base Sepolia ready.</span>';
+}catch(e){document.getElementById('connection').innerHTML='<span class="bad">'+err(e)+'</span>'}};
+
+document.getElementById('preflight').onclick=async()=>{const out=document.getElementById('preflightStatus');try{
+ const {provider}=await ctx();
+ const p=new Contract(PAIR,PAIR_ABI,provider);
+ const [bal,supply,res,t0,t1]=await Promise.all([p.balanceOf(ACCOUNT2),p.totalSupply(),p.getReserves(),p.token0(),p.token1()]);
+ const remove=parseUnits('0.1',18);
+ if(bal<remove) throw new Error('LP balance is below 0.1 LP; stop.');
+ let r200,rweth;
+ if(t0.toLowerCase()===TOKEN.toLowerCase() && t1.toLowerCase()===WETH.toLowerCase()){r200=res.reserve0;rweth=res.reserve1;}
+ else if(t1.toLowerCase()===TOKEN.toLowerCase() && t0.toLowerCase()===WETH.toLowerCase()){r200=res.reserve1;rweth=res.reserve0;}
+ else throw new Error('Pair token addresses do not match 200/WETH.');
+ const exp200=(r200*remove)/supply;
+ const expWeth=(rweth*remove)/supply;
+ document.getElementById('lpBalance').textContent=formatUnits(bal,18)+' LP';
+ document.getElementById('lpSupply').textContent=formatUnits(supply,18)+' LP';
+ document.getElementById('reserve200').textContent=formatUnits(r200,18)+' 200';
+ document.getElementById('reserveWeth').textContent=formatEther(rweth)+' WETH';
+ document.getElementById('expected200').textContent=formatUnits(exp200,18)+' 200';
+ document.getElementById('expectedEth').textContent=formatEther(expWeth)+' ETH';
+ document.getElementById('remainingLp').textContent=formatUnits(bal-remove,18)+' LP';
+ out.innerHTML='<span class="ok">PASS — LP position and live pool reserves read successfully. No state change was made.</span>';
+}catch(e){out.innerHTML='<span class="bad">'+err(e)+'</span>'}};
+</script></main></body></html>
