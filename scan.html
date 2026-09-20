@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Scan & Verify 200</title>
+<meta name="description" content="Human-readable verification page for 200 Protocol and 200 Token.">
+<style>
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:#07090c;color:#f5f7fa;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+main{max-width:820px;margin:0 auto;padding:34px 20px 56px}
+.hero{padding:34px 0 24px;text-align:center}
+.badge{display:inline-block;padding:7px 11px;border:1px solid #28526a;border-radius:999px;color:#7fe8ff;font-size:12px;font-weight:800;letter-spacing:.08em}
+h1{font-size:48px;line-height:1;margin:18px 0 12px}
+.lead{font-size:19px;line-height:1.55;color:#c6d0d8;max-width:680px;margin:0 auto}
+.card{background:#0e1319;border:1px solid #24303b;border-radius:20px;padding:22px;margin-top:18px}
+.card h2{font-size:22px;margin:0 0 12px}
+.kv{display:grid;grid-template-columns:170px 1fr;gap:8px 18px;font-size:15px}
+.kv div:nth-child(odd){color:#8fa1af}
+.ok{color:#63ef9a;font-weight:800}
+.warn{color:#ffd27a;font-weight:800}
+a{color:#70dfff;text-decoration:none}
+a:hover{text-decoration:underline}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.btn{display:inline-block;padding:12px 15px;border-radius:12px;border:1px solid #2b4152;background:#101922;color:#fff;font-weight:700}
+.btn.primary{background:#0d5d74;border-color:#157e9c}
+.note{font-size:13px;line-height:1.5;color:#93a4b2}
+.flow{font-weight:800;letter-spacing:.02em;line-height:1.6}
+@media(max-width:650px){h1{font-size:38px}.kv{grid-template-columns:1fr}.kv div:nth-child(odd){margin-top:8px}}
+</style>
+</head>
+<body>
+<main>
+<section class="hero">
+<span class="badge">200 PROTOCOL • HUMAN VERIFICATION</span>
+<h1>Scan & Verify 200</h1>
+<p class="lead">This page is the human-readable doorway for the 200 Protocol. Software agents can read the canonical machine endpoint directly.</p>
+</section>
+
+<section class="card">
+<h2>Current status</h2>
+<div class="kv">
+<div>Protocol</div><div><strong>200 Protocol</strong></div>
+<div>Token</div><div>200 Token (200)</div>
+<div>Current validated environment</div><div>Base Sepolia testnet</div>
+<div>Production status</div><div class="warn">Prepared — not deployed on Base mainnet</div>
+<div>Semantic result</div><div><span class="ok">200 = OK TO ACT</span> when configured policy conditions pass</div>
+</div>
+</section>
+
+<section class="card">
+<h2>What 200 does</h2>
+<p class="flow">DISCOVER → VERIFY → EVALUATE → AUTHORIZE → ACT → PROVE</p>
+<p>200 is designed as a machine-readable decision, policy and authorization layer for autonomous agents and digital-asset actions.</p>
+<p class="note">A 200 result is not an investment rating, credit rating or guarantee of safety.</p>
+</section>
+
+<section class="card">
+<h2>Verified testnet evidence</h2>
+<p>Base Sepolia testing includes standard transfer, large transfer, liquidity creation, buy, sell, ERC-2612 Permit, transferFrom, token recovery, admin review and liquidity removal evidence.</p>
+<div class="cta">
+<a class="btn primary" href="verify.html">Open live verifier</a>
+<a class="btn" href="verification-summary.json">Verification summary</a>
+<a class="btn" href="200.json">200 manifest</a>
+</div>
+</section>
+
+<section class="card">
+<h2>For AI agents and software</h2>
+<p>Machines should use the canonical discovery endpoint:</p>
+<p><a href=".well-known/200.json"><strong>/.well-known/200.json</strong></a></p>
+<div class="cta">
+<a class="btn" href="economics.json">Economics</a>
+<a class="btn" href="network-selection.json">Network selection</a>
+<a class="btn" href="provenance-compliance.json">Provenance & compliance</a>
+<a class="btn" href="sustainability-energy.json">Sustainability & energy</a>
+<a class="btn" href="commerce-compatibility.json">Commerce compatibility</a>
+</div>
+</section>
+
+<section class="card">
+<h2>Important</h2>
+<p class="note">The QR code is a human shortcut to this page. It does not replace cryptographic or on-chain verification. Production mainnet information will only be shown as live after actual deployment and validation.</p>
+</section>
+</main>
+</body>
+</html>
