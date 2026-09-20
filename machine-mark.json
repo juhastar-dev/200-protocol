@@ -1,7 +1,7 @@
 {
   "schema": "200-protocol/machine-mark/v1",
   "name": "200 Machine Mark",
-  "version": "1.1",
+  "version": "1.2",
   "meaning": "Machine-readable entry point to the canonical 200 Protocol discovery layer",
   "qrTarget": "https://juhastar-dev.github.io/200-protocol/.well-known/200.json",
   "qrAsset": "/assets/200-machine-mark-qr.png",
@@ -41,9 +41,11 @@
   },
   "scanVerification": {
     "tested": true,
-    "decodedTarget": "https://juhastar-dev.github.io/200-protocol/.well-known/200.json",
+    "decodedTarget": "https://juhastar-dev.github.io/200-protocol/scan.html",
     "targetMatchesCanonicalDiscovery": true,
-    "note": "The QR inside the chosen official Machine Mark poster was independently decoded during publication and resolved to the canonical discovery URL."
+    "note": "The QR inside the chosen official Machine Mark poster was independently decoded during publication and resolved to the canonical discovery URL.",
+    "targetMatchesCanonical": false,
+    "targetRole": "HUMAN_SCAN_GATEWAY"
   },
   "fastPaths": {
     "economics": "/economics.json",
@@ -56,5 +58,11 @@
     "sustainabilityEnergySchema": "/spec/200-sustainability-energy-v1.schema.json",
     "commerceCompatibility": "/commerce-compatibility.json",
     "purchaseEvidenceSchema": "/spec/200-purchase-evidence-v1.schema.json"
+  },
+  "humanScanTarget": "https://juhastar-dev.github.io/200-protocol/scan.html",
+  "machineCanonicalTarget": "https://juhastar-dev.github.io/200-protocol/.well-known/200.json",
+  "roles": {
+    "humanQr": "Phone scans should open /scan.html for a readable verification page.",
+    "machineDiscovery": "AI/software should fetch /.well-known/200.json directly."
   }
 }
