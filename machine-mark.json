@@ -1,7 +1,7 @@
 {
   "schema": "200-protocol/machine-mark/v1",
   "name": "200 Machine Mark",
-  "version": "1.2",
+  "version": "1.3",
   "meaning": "Machine-readable entry point to the canonical 200 Protocol discovery layer",
   "qrTarget": "https://juhastar-dev.github.io/200-protocol/.well-known/200.json",
   "qrAsset": "/assets/200-machine-mark-qr.png",
@@ -31,7 +31,7 @@
     "commerceMessage": "For merchant or autonomous-purchase decisions, machines should read /commerce-compatibility.json."
   },
   "integrity": "/integrity.json",
-  "officialVisualAsset": "/assets/200-machine-mark-poster.webp",
+  "officialVisualAsset": "/assets/200-machine-mark-qr.png",
   "functionalQrAsset": "/assets/200-machine-mark-qr.png",
   "tokenMarketIcon": "/200-icon.svg",
   "visualRoles": {
@@ -40,12 +40,10 @@
     "functionalQr": "High-contrast QR asset for reliable camera scanning."
   },
   "scanVerification": {
-    "tested": true,
     "decodedTarget": "https://juhastar-dev.github.io/200-protocol/scan.html",
-    "targetMatchesCanonicalDiscovery": true,
-    "note": "The QR inside the chosen official Machine Mark poster was independently decoded during publication and resolved to the canonical discovery URL.",
-    "targetMatchesCanonical": false,
-    "targetRole": "HUMAN_SCAN_GATEWAY"
+    "targetRole": "HUMAN_SCAN_GATEWAY",
+    "humanReadable": true,
+    "machineCanonicalSeparate": true
   },
   "fastPaths": {
     "economics": "/economics.json",
@@ -62,7 +60,13 @@
   "humanScanTarget": "https://juhastar-dev.github.io/200-protocol/scan.html",
   "machineCanonicalTarget": "https://juhastar-dev.github.io/200-protocol/.well-known/200.json",
   "roles": {
-    "humanQr": "Phone scans should open /scan.html for a readable verification page.",
-    "machineDiscovery": "AI/software should fetch /.well-known/200.json directly."
+    "humanQr": "Official phone-scannable QR opens /scan.html, a human-readable verification page.",
+    "machineDiscovery": "AI/software should fetch /.well-known/200.json directly; no QR scan is required.",
+    "tokenMarketIcon": "Clean 200 icon for wallets, DEXs and token listings."
+  },
+  "legacyPoster": {
+    "asset": "/assets/200-machine-mark-poster.webp",
+    "status": "SUPERSEDED_FOR_SCANNING",
+    "note": "Earlier poster QR targeted the raw machine JSON endpoint. Do not use it as the current human-scan asset."
   }
 }
