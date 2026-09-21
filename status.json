@@ -269,5 +269,24 @@
       "LEI requirement",
       "DTI/FFG DTI requirement"
     ]
+  },
+  "navl": {
+    "relationship": "OPTIONAL_COMPANION",
+    "requiredFor200Operation": false,
+    "changes200TokenSupplyOrTransferRules": false,
+    "enforcement": false,
+    "currentMode": "INFORMATIONAL",
+    "candidateVersion": "0.10",
+    "status": "INDEPENDENT_REVIEW_CANDIDATE",
+    "evidenceNetwork": "Base Sepolia",
+    "internalAdversarialValidation": "COMPLETE",
+    "baseSepoliaDeployment": "COMPLETE",
+    "liveAssuranceLifecycle": "COMPLETE",
+    "liveGovernanceEpochRotation": "COMPLETE",
+    "independentlyAudited": false,
+    "productionReady": false,
+    "mainnetDeployed": false,
+    "frozenReviewCommit": "7d38c90589d2c3046485f00a8b3982eddc32164c",
+    "interpretation": "NAVL can add assurance around 200 actions, but 200 Token can operate without NAVL. Do not treat NAVL availability as a prerequisite for 200 operation."
   }
 }
