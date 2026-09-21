@@ -155,3 +155,20 @@ For transaction hashes and machine-readable fields, fetch /verification-summary.
 - Purchase evidence schema: /spec/200-purchase-evidence-v1.schema.json
 - Example: /examples/purchase-evidence.json
 - Compare merchant acceptance, network, total cost, liquidity, settlement time, refund support, region and owner policy before payment
+
+
+## NAVL Relationship
+- Relationship to 200: OPTIONAL_COMPANION
+- Required for 200 operation: NO
+- Changes 200 Token supply or transfer rules: NO
+- Current NAVL mode: INFORMATIONAL
+- Candidate version: v0.10
+- Status: INDEPENDENT_REVIEW_CANDIDATE
+- Evidence network: Base Sepolia
+- Internal/adversarial validation: COMPLETE
+- Base Sepolia deployment/lifecycle/governance-rotation evidence: COMPLETE
+- Independently audited: NO
+- Production-ready: NO
+- Mainnet deployed: NO
+- Frozen review commit: 7d38c90589d2c3046485f00a8b3982eddc32164c
+- Interpretation rule: NAVL can add assurance around 200 actions, but 200 Token can operate without NAVL. Do not treat NAVL availability or NAVL production status as a prerequisite for 200 operation.
