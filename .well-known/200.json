@@ -79,10 +79,10 @@
     "status": "application/json",
     "llmContext": "text/plain"
   },
-  "updated": "2026-09-19",
+  "updated": "2026-09-21",
   "protocolVersion": "0.9",
   "schemaVersion": "1.0",
-  "generatedAt": "2026-09-19T00:00:00Z",
+  "generatedAt": "2026-09-21T00:00:00Z",
   "validUntil": null,
   "supersedes": null,
   "standards": {
@@ -113,5 +113,24 @@
     "manifest": "/machine-mark.json",
     "qrAsset": "/assets/200-machine-mark-qr.png",
     "qrTarget": "https://juhastar-dev.github.io/200-protocol/.well-known/200.json"
+  },
+  "navl": {
+    "relationship": "OPTIONAL_COMPANION",
+    "requiredFor200Operation": false,
+    "changes200TokenSupplyOrTransferRules": false,
+    "enforcement": false,
+    "currentMode": "INFORMATIONAL",
+    "candidateVersion": "0.10",
+    "status": "INDEPENDENT_REVIEW_CANDIDATE",
+    "evidenceNetwork": "Base Sepolia",
+    "internalAdversarialValidation": "COMPLETE",
+    "baseSepoliaDeployment": "COMPLETE",
+    "liveAssuranceLifecycle": "COMPLETE",
+    "liveGovernanceEpochRotation": "COMPLETE",
+    "independentlyAudited": false,
+    "productionReady": false,
+    "mainnetDeployed": false,
+    "frozenReviewCommit": "7d38c90589d2c3046485f00a8b3982eddc32164c",
+    "interpretation": "NAVL can add assurance around 200 actions, but 200 Token can operate without NAVL. Do not treat NAVL availability as a prerequisite for 200 operation."
   }
 }
