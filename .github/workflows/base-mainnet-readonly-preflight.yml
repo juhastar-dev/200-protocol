@@ -1,0 +1,57 @@
+name: 200 Base Mainnet Read-Only Preflight
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Read-only Base Mainnet checks
+        env:
+          RPC_URL: https://mainnet.base.org
+          OWNER: "0x64d6719831414f883aA51CB59584D7B4F4066E08"
+          WETH: "0x4200000000000000000000000000000000000006"
+          V3_FACTORY: "0x0BFbCF9fa4f9C56B0F40a671Ad40E0805A091865"
+          V3_ROUTER: "0x1b81D678ffb9C0263b24A97847620C99d213eB14"
+          V3_POSITION_MANAGER: "0x46A15B0b27311cedF172AB29E4f4766fbE7F4364"
+        run: |
+          node <<'NODE'
+          const rpc = process.env.RPC_URL;
+          async function call(method, params=[]) {
+            const r = await fetch(rpc, {
+              method: "POST",
+              headers: {"content-type":"application/json"},
+              body: JSON.stringify({jsonrpc:"2.0", id:1, method, params})
+            });
+            const j = await r.json();
+            if (j.error) throw new Error(method + ": " + JSON.stringify(j.error));
+            return j.result;
+          }
+          const chain = await call("eth_chainId");
+          console.log("RPC chain ID:", parseInt(chain,16), "(" + chain + ")");
+          if (parseInt(chain,16) !== 8453) throw new Error("Wrong network; refusing preflight");
+
+          const bal = BigInt(await call("eth_getBalance",[process.env.OWNER,"latest"]));
+          console.log("Account 2 ETH balance:", (Number(bal)/1e18).toFixed(8), "ETH");
+
+          const gas = BigInt(await call("eth_gasPrice"));
+          console.log("RPC gas price:", (Number(gas)/1e9).toFixed(6), "Gwei");
+
+          for (const [label,address] of [
+            ["WETH",process.env.WETH],
+            ["V3 Factory",process.env.V3_FACTORY],
+            ["V3 SwapRouter",process.env.V3_ROUTER],
+            ["V3 Position Manager",process.env.V3_POSITION_MANAGER]
+          ]) {
+            const code = await call("eth_getCode",[address,"latest"]);
+            if (!code || code === "0x") throw new Error(label + " has no deployed bytecode at " + address);
+            console.log(label + " bytecode: PASS — deployed bytecode present");
+          }
+
+          console.log("PASS — read-only Base Mainnet preflight. No transaction was signed or sent.");
+          console.log("NOTE — bytecode presence does not by itself prove contract identity; official-address verification remains required before liquidity.");
+          NODE
