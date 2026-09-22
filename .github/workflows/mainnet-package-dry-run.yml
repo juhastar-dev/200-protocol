@@ -1,0 +1,64 @@
+name: 200 Mainnet Package Dry Run
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dry-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - name: Install frozen dependencies
+        run: npm ci
+      - name: Clean and compile
+        run: |
+          npm run clean
+          npm run compile
+      - name: Run frozen candidate tests
+        run: npm test
+      - name: Record candidate hashes
+        run: npm run candidate:hashes
+      - name: Verify Mainnet deployment remains locked
+        run: |
+          if CONFIRM_200_MAINNET_DEPLOY="" npx hardhat run scripts/deploy-base-mainnet.js 2>&1 | tee /tmp/lock-test.log; then
+            echo "FAIL — deployment script unexpectedly ran without explicit confirmation"
+            exit 1
+          fi
+          grep -q "Mainnet deployment is locked" /tmp/lock-test.log
+          echo "PASS — Mainnet deployment script refuses to run without explicit confirmation."
+      - name: Validate Base Mainnet RPC and estimate candidate deployment gas without signing
+        env:
+          RPC_URL: https://mainnet.base.org
+          OWNER: "0x64d6719831414f883aA51CB59584D7B4F4066E08"
+        run: |
+          node <<'NODE'
+          const fs = require("fs");
+          const { ethers } = require("ethers");
+          async function rpc(method, params=[]) {
+            const r = await fetch(process.env.RPC_URL, {
+              method:"POST", headers:{"content-type":"application/json"},
+              body:JSON.stringify({jsonrpc:"2.0",id:1,method,params})
+            });
+            const j=await r.json();
+            if(j.error) throw new Error(method+": "+JSON.stringify(j.error));
+            return j.result;
+          }
+          const chain=await rpc("eth_chainId");
+          if(parseInt(chain,16)!==8453) throw new Error("Wrong chain");
+          const artifact=JSON.parse(fs.readFileSync("artifacts/contracts/TwoHundredToken.sol/TwoHundredToken.json","utf8"));
+          const factory=new ethers.ContractFactory(artifact.abi,artifact.bytecode);
+          const tx=await factory.getDeployTransaction(process.env.OWNER);
+          const estimate=await rpc("eth_estimateGas",[{from:process.env.OWNER,data:tx.data}]);
+          const gasPrice=await rpc("eth_gasPrice");
+          console.log("Base Mainnet chain ID: 8453 — PASS");
+          console.log("Unsigned deployment gas estimate:",BigInt(estimate).toString());
+          console.log("Current RPC gas price:",ethers.formatUnits(BigInt(gasPrice),"gwei"),"Gwei");
+          console.log("PASS — estimate only. No private key loaded, no signature created, no transaction sent.");
+          NODE
