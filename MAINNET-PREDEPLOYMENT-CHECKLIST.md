@@ -1,103 +1,52 @@
 # 200 Token — Mainnet Pre-Deployment Checklist
 
-**Status:** READY FOR LAUNCH-DAY PREFLIGHT — NO MAINNET TRANSACTION AUTHORIZED  
-**Network:** Base Mainnet  
-**Required chain ID:** 8453 (`0x2105`)  
-**Absolute total real-money launch cap:** EUR 200
+**Status:** FINAL PREDEPLOYMENT CHECKLIST — NO MAINNET TRANSACTION AUTHORIZED  
+**Network:** Base Mainnet · chain ID 8453 (`0x2105`)  
+**Real-money launch ceiling:** EUR 200
 
 ## Frozen configuration
+200 Token / 200; TwoHundredToken; 18 decimals; fixed 100,000,000 supply; non-mintable; ERC-2612 Permit and Token Recovery enabled; 0% taxes; blacklist/pause/max-wallet/max-transaction/cooldown/trading-gate/tax modules disabled; owner retained through launch.
 
-- 200 Token / symbol 200
-- Contract name: TwoHundredToken
-- 18 decimals
-- Fixed supply: 100,000,000 200
-- Non-mintable
-- ERC-2612 Permit enabled
-- Token Recovery enabled
-- 0% transfer / buy / sell tax
-- blacklist disabled
-- pausable disabled
-- max-wallet disabled
-- max-transaction disabled
-- anti-bot cooldown disabled
-- trading gate disabled
-- tax modules disabled
-- owner retained through launch
-- token-side initial liquidity plan: 500,000 200
-- preferred liquidity implementation currently: PancakeSwap V3
-- currently frozen V3 fee tier: 0.25%
-- currently frozen V3 range: Full Range
-- final DEX route/contracts must be rechecked against current official PancakeSwap information on launch day
+Initial liquidity: **PancakeSwap V3 on Base Mainnet**, 200/WETH, 500,000 200 token side, 0.25% fee tier, Full Range.
 
-## Budget hard limits
+Official-address snapshot checked 2026-09-22:
+- Factory `0x0BFbCF9fa4f9C56B0F40a671Ad40E0805A091865`
+- V3 SwapRouter `0x1b81D678ffb9C0263b24A97847620C99d213eB14`
+- Position Manager `0x46A15B0b27311cedF172AB29E4f4766fbE7F4364`
+- QuoterV2 `0xB048Bbc1Ee6b733FFfCFb9e9CeF7375518e25997`
+- Smart Router (Base) `0x678Aa4bF4E210cf2166753e054d5b7c31cc7fa86`
+- Base WETH `0x4200000000000000000000000000000000000006`
 
-- Total launch: <= EUR 200
-- Initial ETH liquidity: <= EUR 120
-- Deployment + liquidity gas: <= EUR 40
-- First real buy: <= EUR 10
-- First real sell: <= EUR 10
-- Contingency: EUR 20, not automatically spendable
-- Unused allocations remain unspent
+Reverify these from current official PancakeSwap/Base information immediately before signing.
 
-## Validation transaction safeguards
+## Budget and transaction safeguards
+Total <= EUR 200; initial ETH liquidity <= EUR 120; deploy + liquidity gas <= EUR 40; first buy <= EUR 10; first sell <= EUR 10; EUR 20 contingency remains uncommitted. Validation slippage <= 1%. Prefer exact/minimum approvals. Never retry uncertain transactions until status is known.
 
-- Maximum validation-trade slippage: 1.0%
-- 1.0% is a ceiling, not a target
-- Prefer exact/minimum approvals
-- Verify every approval spender address before signing
-- Never retry an uncertain transaction until its on-chain status is checked
-- Do not continue after an unexpected quote, balance, recipient, range, fee tier, contract address or wallet/network state
+## Launch-day checklist
+1. Confirm Account 2 is selected and its displayed address matches the approved deployer.
+2. Confirm Base Mainnet 8453 / 0x2105.
+3. Fetch live ETH/EUR.
+4. Fetch deployment/liquidity gas estimates.
+5. Calculate ETH liquidity <= EUR 120 and projected cumulative spend <= EUR 200.
+6. Reverify the frozen PancakeSwap V3 addresses from official sources and confirm deployed bytecode.
+7. Compare final contract artifact/configuration field-by-field with the freeze.
+8. Review deployment transaction and obtain explicit human approval.
+9. Deploy once; wait for final status before any retry.
+10. Record deployment hash/address/block.
+11. Verify/publish source where supported.
+12. Read back bytecode, name, symbol, decimals, supply, owner, pending owner and ERC-2612 domain.
+13. Stop unless all identity/configuration checks pass.
+14. Update canonical records with production identity only after verification.
+15. Calculate final 200/ETH ratio from actual approved ETH liquidity.
+16. Review PancakeSwap V3 liquidity transaction: spender, 200 amount, WETH/ETH amount, 0.25% fee, Full Range, recipient, gas.
+17. Use exact/minimum approval where practical.
+18. Create liquidity once and record pool/position.
+19. Tiny buy <= EUR 10, <=1% slippage; verify receipt/balances.
+20. Tiny sell <= EUR 10, <=1% slippage; verify receipt/balances.
+21. Publish mainnet evidence.
+22. Only then mark production-live.
 
-## Launch-day sequence
+## STOP
+Stop on wrong network/wallet, budget breach, configuration difference, unverified DEX identity, unexpected spender/unlimited approval, unexpected liquidity parameters, uncertain prior transaction, identity/source mismatch or unexplained buy/sell behavior.
 
-1. Confirm the correct deployer/owner account in the wallet.
-2. Confirm Base Mainnet and chain ID 8453 / 0x2105.
-3. Fetch the live ETH/EUR rate.
-4. Calculate the ETH liquidity amount so liquidity remains <= EUR 120 and the complete launch remains <= EUR 200.
-5. Fetch live deployment and liquidity gas estimates.
-6. Stop if projected deployment + liquidity gas exceeds EUR 40.
-7. Re-check current official PancakeSwap Base deployment/contracts and whether V3 remains the intended production path.
-8. Compare the final contract configuration field-by-field with the frozen configuration.
-9. Present deployment transaction for human review.
-10. Deploy once.
-11. Wait for final transaction status before any retry or follow-on transaction.
-12. Record deployment hash and contract address.
-13. Verify/publish contract source on BaseScan where supported.
-14. Read back and verify name, symbol, decimals, total supply, owner, pending owner and ERC-2612 domain.
-15. Do not create liquidity unless identity checks pass.
-16. Calculate the actual 200/ETH launch ratio from the final approved ETH amount.
-17. Present liquidity transaction for human review.
-18. Verify spender, token amounts, fee tier/range, recipient and estimated gas.
-19. Create liquidity once and record the resulting pool/position.
-20. Execute a deliberately small buy, <= EUR 10, under the 1% maximum slippage rule.
-21. Verify its on-chain result before continuing.
-22. Execute a deliberately small sell, <= EUR 10, under the 1% maximum slippage rule.
-23. Verify balances/output and investigate any unexplained deduction.
-24. Update public human-readable and machine-readable evidence.
-25. Only then change project status from testnet/prelaunch to production-live.
-
-## Immediate STOP conditions
-
-STOP and do not sign if:
-
-- network is not Base Mainnet / chain 8453;
-- cumulative projected real-money spending would exceed EUR 200;
-- initial ETH liquidity would exceed EUR 120;
-- deployment + liquidity gas projection would exceed EUR 40;
-- validation trade would exceed EUR 10;
-- wallet/deployer is not the approved owner;
-- final contract settings differ from the freeze;
-- current official DEX contracts cannot be confirmed;
-- requested approval spender is unexpected;
-- an unlimited approval is requested where exact approval is sufficient;
-- liquidity parameters differ from the reviewed plan;
-- any previous transaction has uncertain status;
-- deployed identity differs from expected values;
-- source verification does not correspond to the deployed artifact where verification is available;
-- post-launch validation reveals unexplained behavior.
-
-## Authorization state
-
-This checklist does **not** authorize deployment or spending.
-
-The next phase is a launch-day read-only preflight using current ETH/EUR, current gas conditions and current official DEX deployment information. A real mainnet transaction should only be presented after those checks and after explicit user approval.
+This checklist authorizes **nothing** by itself. Real transactions require explicit user approval.
