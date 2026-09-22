@@ -109,10 +109,20 @@
   "completedChecks": 11,
   "failedChecks": 0,
   "pendingCoreChecks": 0,
-  "nextPhase": "MAINNET_CONFIGURATION_FREEZE",
+  "nextPhase": "MAINNET_PREDEPLOYMENT_FINAL_FROZEN",
   "futureProtocolMilestones": [
     "signed-manifest",
     "x402-adapter",
     "ERC-8004-integration"
-  ]
+  ],
+  "readiness": {
+    "mainnetConfiguration": "FINAL_FROZEN",
+    "dex": "PancakeSwap V3",
+    "pair": "200/WETH",
+    "feeTierPercent": "0.25",
+    "range": "FULL_RANGE",
+    "realMainnetTransactionsAuthorized": false,
+    "productionTokenDeployed": false,
+    "note": "Testnet DEX evidence used PancakeSwap V2. The frozen Base Mainnet launch implementation is PancakeSwap V3 and requires fresh production evidence."
+  }
 }
