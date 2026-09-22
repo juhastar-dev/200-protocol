@@ -1,0 +1,26 @@
+name: 200 Base Sepolia Candidate Deployment
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: base-sepolia-candidate
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: npm install --package-lock-only
+      - run: npm ci
+      - run: npm run compile
+      - run: npm test
+      - name: Deploy exact candidate to Base Sepolia
+        env:
+          BASE_SEPOLIA_RPC_URL: ${{ secrets.BASE_SEPOLIA_RPC_URL }}
+          BASE_SEPOLIA_DEPLOYER_PRIVATE_KEY: ${{ secrets.BASE_SEPOLIA_DEPLOYER_PRIVATE_KEY }}
+        run: npx hardhat run scripts/deploy-base-sepolia-candidate.js --network baseSepolia
