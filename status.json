@@ -170,14 +170,14 @@
     "coreTokenTestCount": 11,
     "coreTokenPassCount": 11,
     "blockingCoreTokenTests": [],
-    "mainnetConfigFreeze": "PREDEPLOYMENT_CHECKLIST_READY",
+    "mainnetConfigFreeze": "FINAL_FROZEN_PREDEPLOYMENT_READY",
     "futureProtocolMilestones": [
       "signed-manifest",
       "x402-adapter",
       "ERC-8004-integration"
     ],
     "note": "Future protocol integrations are tracked separately and are not failures of the completed Base Sepolia core token validation.",
-    "nextDecision": "final slippage/predeployment checklist",
+    "nextDecision": "explicit launch authorization after fresh live preflight",
     "mainnetConfig": "/mainnet-config.json",
     "mainnetFreezeDocument": "/mainnet-configuration-freeze.md",
     "maximumTotalRealMoneyBudgetEUR": "200",
@@ -199,7 +199,7 @@
     "maximumValidationSlippagePercent": "1.0",
     "predeploymentChecklist": "/MAINNET-PREDEPLOYMENT-CHECKLIST.md",
     "transactionAuthorization": "NONE",
-    "nextStep": "No further on-chain step is possible without real Base-mainnet ETH. Continue only when user chooses to fund Account 2.",
+    "nextStep": "Continue zero-cost review/preflight preparation. Real Base-mainnet ETH is required only when the user explicitly chooses to execute the first state-changing mainnet transaction.",
     "launchDayPreflight": {
       "status": "READ_ONLY_PAGE_READY",
       "page": "/mainnet-preflight.html",
@@ -218,13 +218,15 @@
       "rpcResult": "PASS",
       "deploymentFundingStatus": "BLOCKED_UNTIL_ACCOUNT2_FUNDED"
     },
-    "zeroCostPreparation": "COMPLETE",
+    "zeroCostPreparation": "COMPLETE_AND_SYNCHRONIZED",
     "mainnetLaunchRecord": "/mainnet-launch-record.json",
     "postDeploymentVerifier": "/mainnet-postdeploy-verify.html",
     "fundingRequiredNow": false,
     "fundingRequiredForNextOnChainWrite": true,
     "launchControl": "/mainnet-launch-control.html",
-    "currentGate": "FUNDING_OPTIONAL_UNTIL_USER_CHOOSES_LAUNCH"
+    "currentGate": "FINAL_ZERO_COST_REVIEW_THEN_OPTIONAL_FUNDING",
+    "dexImplementation": "PancakeSwap V3",
+    "pair": "200/WETH"
   },
   "machineDiscovery": {
     "status": "LIVE",
