@@ -27,8 +27,13 @@ jobs:
         run: npm run candidate:hashes
       - name: Verify Mainnet deployment remains locked
         run: |
-          if CONFIRM_200_MAINNET_DEPLOY="" npx hardhat run scripts/deploy-base-mainnet.js 2>&1 | tee /tmp/lock-test.log; then
-            echo "FAIL — deployment script unexpectedly ran without explicit confirmation"
+          set +e
+          CONFIRM_200_MAINNET_DEPLOY="" npx hardhat run scripts/deploy-base-mainnet.js > /tmp/lock-test.log 2>&1
+          status=$?
+          set -e
+          cat /tmp/lock-test.log
+          if [ "$status" -eq 0 ]; then
+            echo "FAIL — deployment script unexpectedly succeeded without explicit confirmation"
             exit 1
           fi
           grep -q "Mainnet deployment is locked" /tmp/lock-test.log
