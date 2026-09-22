@@ -1,0 +1,17 @@
+{
+  "name": "200-token-production-candidate",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Reproducible build and test package for the 200 Token production candidate",
+  "scripts": {
+    "clean": "hardhat clean",
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "candidate:hashes": "node scripts/candidate-hashes.js"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "5.0.0",
+    "@openzeppelin/contracts": "5.0.2",
+    "hardhat": "2.22.17"
+  }
+}
