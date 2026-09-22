@@ -1,7 +1,7 @@
 {
   "schema": "200-protocol/mainnet-configuration-freeze/v1",
-  "date": "2026-09-19",
-  "status": "PREDEPLOYMENT_CHECKLIST_READY_LAUNCH_DAY_VALUES_PENDING",
+  "date": "2026-09-22",
+  "status": "FINAL_FROZEN_PREDEPLOYMENT_READY_DYNAMIC_LAUNCH_VALUES_PENDING",
   "network": {
     "name": "Base Mainnet",
     "chainId": 8453,
@@ -43,10 +43,10 @@
   "liquidity": {
     "targetDex": "PancakeSwap on Base Mainnet",
     "pair": "200/WETH",
-    "productionRouter": null,
-    "productionFactory": null,
+    "productionRouter": "0x1b81D678ffb9C0263b24A97847620C99d213eB14",
+    "productionFactory": "0x0BFbCF9fa4f9C56B0F40a671Ad40E0805A091865",
     "productionPair": null,
-    "addressPolicy": "verify current official production addresses immediately before launch; never copy Sepolia addresses",
+    "addressPolicy": "Current Base Mainnet PancakeSwap V3 addresses recorded from official PancakeSwap developer documentation on 2026-09-22; reverify those same identities immediately before launch. Pool address is created/discovered only after the 200 production contract exists.",
     "lpBurnAtLaunch": false,
     "irreversibleLpLockAtLaunch": false,
     "selectedScenario": "A-BUDGET-CAPPED",
@@ -58,20 +58,17 @@
     "v3FeeTierPercent": "0.25",
     "v3PriceRange": "FULL_RANGE",
     "v3RangeRationale": "Full Range selected for launch simplicity and continuous in-range liquidity because 200 has no established mainnet market price at launch. A narrower range can be reviewed later.",
-    "v3FeeRationale": "0.25% selected as a moderate EVM V3 fee tier and continuity point with the V2 test environment; 1% was not selected to avoid imposing the highest standard V3 fee on initial trading."
+    "v3FeeRationale": "0.25% selected as a moderate EVM V3 fee tier and continuity point with the V2 test environment; 1% was not selected to avoid imposing the highest standard V3 fee on initial trading.",
+    "productionPositionManager": "0x46A15B0b27311cedF172AB29E4f4766fbE7F4364",
+    "productionQuoterV2": "0xB048Bbc1Ee6b733FFfCFb9e9CeF7375518e25997",
+    "productionSmartRouter": "0x678Aa4bF4E210cf2166753e054d5b7c31cc7fa86",
+    "weth": "0x4200000000000000000000000000000000000006"
   },
   "userDecisionsRequired": {
-    "initialLiquidity200": null,
-    "initialLiquidityETH": null,
-    "maximumSetupSlippagePercent": null,
-    "firstRealBuyETH": null,
-    "firstRealSell200": null,
-    "maximumTotalRealMoneyBudgetEUR": null,
-    "v3FeeTier": null,
-    "v3PriceRange": null,
-    "finalLaunchEthAmount": "CALCULATE_AT_LAUNCH_UNDER_EUR_200_CAP",
-    "firstRealBuyPolicy": null,
-    "firstRealSellPolicy": null
+    "finalLaunchEthAmount": "CALCULATE_AT_LAUNCH_UNDER_EUR_120_LIQUIDITY_CAP_AND_EUR_200_TOTAL_CAP",
+    "liveEthEurRate": "FETCH_AT_LAUNCH",
+    "liveGasEstimates": "FETCH_AT_LAUNCH",
+    "explicitMainnetTransactionAuthorization": "REQUIRED_BEFORE_EACH_REAL_TRANSACTION"
   },
   "derivedAfterDecision": {
     "initial200PerETH": null,
@@ -86,7 +83,7 @@
     "sourceVerificationMainnet": "REQUIRED_WHERE_SUPPORTED",
     "productionDexAddressReverification": "REQUIRED"
   },
-  "nextAction": "FUNDING_PREPARATION_ONLY; USER MUST EXPLICITLY AUTHORIZE ANY REAL ETH TRANSFER",
+  "nextAction": "ZERO_COST_FINAL_ARTIFACT_AND_PREFLIGHT_PREPARATION; FUNDING NOT REQUIRED UNTIL EXPLICIT MAINNET EXECUTION AUTHORIZATION",
   "liquidityModel": {
     "status": "ILLUSTRATIVE_NOT_FROZEN",
     "calculator": "/mainnet-liquidity-model.html",
@@ -126,8 +123,8 @@
         "initialPoolNotionalETH": "1.00"
       }
     ],
-    "dexImplementation": "PENDING_CURRENT_MAINNET_REVERIFICATION",
-    "note": "Mainnet DEX version/range must be selected after checking current PancakeSwap Base production deployment. V2 price-impact examples are reference-only."
+    "dexImplementation": "PANCAKESWAP_V3_BASE_MAINNET_FROZEN_REVERIFY_AT_LAUNCH",
+    "note": "PancakeSwap V3 on Base Mainnet is the frozen initial liquidity implementation. Fee tier 0.25% and Full Range are frozen. Exact ETH amount and resulting price are dynamic launch-day values. Official contract identities must be reverified immediately before signing."
   },
   "budget": {
     "currency": "EUR",
@@ -172,8 +169,8 @@
   "launchDayReverification": {
     "baseChainIdDecimal": 8453,
     "baseChainIdHex": "0x2105",
-    "pancakeSwapContracts": "REVERIFY_OFFICIAL_CURRENT_DOCS",
-    "dexVersion": "RECONFIRM_CURRENT_PRODUCTION_PATH",
+    "pancakeSwapContracts": "REVERIFY_FROZEN_OFFICIAL_ADDRESSES",
+    "dexVersion": "PANCAKESWAP_V3",
     "ethEurRate": "FETCH_LIVE",
     "gasEstimates": "FETCH_LIVE",
     "walletAddress": "VERIFY_IN_WALLET",
@@ -186,6 +183,16 @@
       "v3FactoryBytecodePresent": true,
       "v3SwapRouterBytecodePresent": true,
       "v3PositionManagerBytecodePresent": true
+    },
+    "officialAddressSnapshot": {
+      "verifiedDate": "2026-09-22",
+      "source": "Official PancakeSwap developer documentation / contracts/v3/addresses",
+      "factory": "0x0BFbCF9fa4f9C56B0F40a671Ad40E0805A091865",
+      "swapRouterV3": "0x1b81D678ffb9C0263b24A97847620C99d213eB14",
+      "nonfungiblePositionManager": "0x46A15B0b27311cedF172AB29E4f4766fbE7F4364",
+      "quoterV2": "0xB048Bbc1Ee6b733FFfCFb9e9CeF7375518e25997",
+      "smartRouter": "0x678Aa4bF4E210cf2166753e054d5b7c31cc7fa86",
+      "wethBase": "0x4200000000000000000000000000000000000006"
     }
   },
   "hardStops": [
