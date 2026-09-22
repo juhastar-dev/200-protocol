@@ -1,0 +1,40 @@
+name: 200 Base Mainnet Deployment — LOCKED
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: "Type DEPLOY-200-BASE-MAINNET exactly. This spends real ETH."
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    if: ${{ inputs.confirmation == 'DEPLOY-200-BASE-MAINNET' }}
+    runs-on: ubuntu-latest
+    environment: base-mainnet-production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - name: Install frozen dependencies
+        run: npm ci
+      - name: Clean and compile frozen candidate
+        run: |
+          npm run clean
+          npm run compile
+      - name: Run frozen candidate tests
+        run: npm test
+      - name: Record candidate hashes
+        run: npm run candidate:hashes
+      - name: Deploy frozen candidate to Base Mainnet
+        env:
+          BASE_MAINNET_RPC_URL: ${{ secrets.BASE_MAINNET_RPC_URL }}
+          BASE_MAINNET_DEPLOYER_PRIVATE_KEY: ${{ secrets.BASE_MAINNET_DEPLOYER_PRIVATE_KEY }}
+          CONFIRM_200_MAINNET_DEPLOY: I_UNDERSTAND_REAL_ETH_WILL_BE_SPENT
+        run: npx hardhat run scripts/deploy-base-mainnet.js --network baseMainnet
