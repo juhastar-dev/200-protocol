@@ -33,8 +33,8 @@ input{width:100%;padding:12px;background:#08130e;color:#eaf7ef;border:1px solid 
 <div class="card">
 <h2>Custom ratio calculator</h2>
 <div class="grid">
-<label>200 tokens seeded<input id="tokens" value="1000000"></label>
-<label>ETH seeded<input id="eth" value="0.1"></label>
+<label>200 tokens seeded<input id="tokens" value="500000"></label>
+<label>ETH seeded<input id="eth" placeholder="Enter launch-day ETH amount"></label>
 </div>
 <p><button id="calc">Calculate</button></p>
 <div class="grid">
@@ -49,7 +49,7 @@ input{width:100%;padding:12px;background:#08130e;color:#eaf7ef;border:1px solid 
 
 <div class="card">
 <h2>DEX implementation note</h2>
-<p>The Base Sepolia validation used PancakeSwap V2 because it gave us a simple, testable LP lifecycle. For Base mainnet, the final DEX version and current official deployment contracts will be re-verified immediately before launch. The initial token/ETH ratio can be chosen independently of that implementation decision.</p>
+<p>The Base Sepolia validation used PancakeSwap V2 for the test LP lifecycle. The Base Mainnet launch implementation is now frozen as PancakeSwap V3, 200/WETH, 0.25% fee tier, Full Range. The official production contract identities and bytecode must still be re-verified immediately before launch. The exact ETH side remains a launch-day value under the EUR 120 liquidity and EUR 200 total ceilings.</p>
 </div>
 
 <script>
@@ -58,7 +58,7 @@ function fmt(n,d=12){return Number(n).toLocaleString('en-US',{maximumFractionDig
 function calc(){
  const t=Number(document.getElementById('tokens').value);
  const e=Number(document.getElementById('eth').value);
- if(!(t>0&&e>0)) return;
+ if(!(t>0&&e>0)){['priceEth','perEth','pct','fdv','pool'].forEach(id=>document.getElementById(id).textContent='Enter launch-day ETH amount'); return;}
  const p=e/t, per=t/e, pct=t/TOTAL*100, fdv=p*TOTAL, pool=2*e;
  document.getElementById('priceEth').textContent=p.toPrecision(10)+' ETH';
  document.getElementById('perEth').textContent=fmt(per,6)+' 200';
