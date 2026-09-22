@@ -17,20 +17,20 @@ h1,h2,h3{line-height:1.15}
 <span class="pill">Base Mainnet 8453</span>
 <span class="pill">€200 hard cap</span>
 <span class="pill">500,000 200 planned token-side LP</span>
-<span class="pill">PancakeSwap V3 preferred</span>
+<span class="pill">PancakeSwap V3 frozen</span>
 <span class="pill">0.25% fee</span>
 <span class="pill">Full Range</span>
 </div>
 
 <div class="grid">
 <div class="card"><h3>1. Testnet evidence</h3><p class="ok"><strong>COMPLETE</strong></p><p>11 PASS · 0 FAIL · 0 pending core checks.</p><p><a href="verification-summary.json">AI verification summary →</a></p><p><a href="reports/base-sepolia-testnet-verification-report.md">Formal testnet report →</a></p></div>
-<div class="card"><h3>2. Mainnet configuration</h3><p class="ok"><strong>FROZEN CORE SETTINGS</strong></p><p><a href="mainnet-configuration-freeze.md">Configuration freeze →</a></p><p><a href="mainnet-config.json">Machine-readable config →</a></p></div>
+<div class="card"><h3>2. Mainnet configuration</h3><p class="ok"><strong>FINAL FROZEN</strong></p><p><a href="mainnet-configuration-freeze.md">Configuration freeze →</a></p><p><a href="mainnet-config.json">Machine-readable config →</a></p></div>
 <div class="card"><h3>3. Budget controls</h3><p class="ok"><strong>READY</strong></p><p>€200 absolute ceiling; spending is never automatic.</p><p><a href="mainnet-launch-budget.html">Budget calculator →</a></p></div>
-<div class="card"><h3>4. Read-only preflight</h3><p class="ok"><strong>TECHNICAL CHECKS PASSED</strong></p><p>Chain 8453 and DEX bytecode checks passed. Account 2 balance: 0 ETH.</p><p><a href="mainnet-preflight.html">Run preflight again →</a></p></div>
+<div class="card"><h3>4. Read-only preflight</h3><p class="ok"><strong>TECHNICAL CHECKS PASSED</strong></p><p>Chain 8453 and the frozen PancakeSwap V3 Factory / SwapRouter / Position Manager bytecode checks passed in the recorded preflight. Re-run immediately before launch.</p><p><a href="mainnet-preflight.html">Run preflight again →</a></p></div>
 <div class="card"><h3>5. Funding gate</h3><p class="warn"><strong>NOT FUNDED</strong></p><p>Funding is optional until you choose to launch. No ETH should be sent merely to keep preparing.</p></div>
 <div class="card"><h3>6. Deployment gate</h3><p class="warn"><strong>BLOCKED UNTIL FUNDING + FRESH PREFLIGHT</strong></p><p>Deploy once only after wallet, network, live gas, budget and final contract settings are rechecked.</p></div>
 <div class="card"><h3>7. Post-deployment identity</h3><p class="ok"><strong>TOOL PREPARED</strong></p><p>Future production address must pass identity checks before liquidity.</p><p><a href="mainnet-postdeploy-verify.html">Post-deployment verifier →</a></p></div>
-<div class="card"><h3>8. Liquidity gate</h3><p class="warn"><strong>BLOCKED UNTIL CONTRACT PASS</strong></p><p>Planned token side: 500,000 200. ETH side is calculated from live EUR/ETH under the frozen budget cap.</p></div>
+<div class="card"><h3>8. Liquidity gate</h3><p class="warn"><strong>BLOCKED UNTIL CONTRACT PASS</strong></p><p>Frozen path: PancakeSwap V3 200/WETH, 500,000 200 token side, 0.25% fee, Full Range. ETH side is calculated from live EUR/ETH under the budget cap.</p></div>
 <div class="card"><h3>9. Buy / sell validation</h3><p class="warn"><strong>BLOCKED UNTIL LIQUIDITY</strong></p><p>Each initial validation trade ≤ €10 and ≤ 1% slippage ceiling.</p></div>
 <div class="card"><h3>10. Production evidence</h3><p class="ok"><strong>EMPTY TEMPLATE READY</strong></p><p>No mainnet claims are pre-filled.</p><p><a href="mainnet-launch-record.json">Launch record →</a></p></div>
 </div>
