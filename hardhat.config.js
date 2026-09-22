@@ -1,5 +1,17 @@
 require("@nomicfoundation/hardhat-toolbox");
 
+const networks = {
+  hardhat: { chainId: 31337 }
+};
+
+if (process.env.BASE_SEPOLIA_RPC_URL && process.env.BASE_SEPOLIA_DEPLOYER_PRIVATE_KEY) {
+  networks.baseSepolia = {
+    url: process.env.BASE_SEPOLIA_RPC_URL,
+    chainId: 84532,
+    accounts: [process.env.BASE_SEPOLIA_DEPLOYER_PRIVATE_KEY]
+  };
+}
+
 module.exports = {
   solidity: {
     version: "0.8.24",
@@ -9,7 +21,5 @@ module.exports = {
       metadata: { bytecodeHash: "ipfs" }
     }
   },
-  networks: {
-    hardhat: { chainId: 31337 }
-  }
+  networks
 };
