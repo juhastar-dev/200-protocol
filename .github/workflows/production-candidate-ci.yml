@@ -38,3 +38,11 @@ jobs:
       - run: npm run compile
       - run: npm test
       - run: npm run candidate:hashes
+      - uses: actions/upload-artifact@v4
+        with:
+          name: production-candidate-reproducibility
+          path: |
+            package-lock.json
+            artifacts/contracts/TwoHundredToken.sol/TwoHundredToken.json
+          if-no-files-found: error
+          retention-days: 14
