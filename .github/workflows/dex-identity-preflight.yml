@@ -1,0 +1,57 @@
+name: 200 DEX Identity and Fee-Tier Preflight
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - name: Verify Base/Pancake V3 identities and 0.25% tier read-only
+        env:
+          RPC_URL: https://mainnet.base.org
+          WETH: "0x4200000000000000000000000000000000000006"
+          FACTORY: "0x0BFbCF9fa4f9C56B0F40a671Ad40E0805A091865"
+          ROUTER: "0x1b81D678ffb9C0263b24A97847620C99d213eB14"
+          POSITION_MANAGER: "0x46A15B0b27311cedF172AB29E4f4766fbE7F4364"
+        run: |
+          node <<'NODE'
+          const { ethers } = require("ethers");
+          (async () => {
+            const p = new ethers.JsonRpcProvider(process.env.RPC_URL);
+            const n = await p.getNetwork();
+            if (n.chainId !== 8453n) throw new Error("Wrong chain: " + n.chainId);
+            const factoryAbi=["function feeAmountTickSpacing(uint24) view returns (int24)"];
+            const peripheryAbi=["function factory() view returns (address)","function WETH9() view returns (address)"];
+            const f=new ethers.Contract(process.env.FACTORY,factoryAbi,p);
+            const r=new ethers.Contract(process.env.ROUTER,peripheryAbi,p);
+            const m=new ethers.Contract(process.env.POSITION_MANAGER,peripheryAbi,p);
+            for (const [label,a] of [["WETH",process.env.WETH],["Factory",process.env.FACTORY],["Router",process.env.ROUTER],["Position Manager",process.env.POSITION_MANAGER]]) {
+              const code=await p.getCode(a);
+              if(code==="0x") throw new Error(label+" has no code");
+              console.log(label+" bytecode: PASS");
+            }
+            const rf=await r.factory(), mf=await m.factory(), rw=await r.WETH9(), mw=await m.WETH9();
+            if(rf.toLowerCase()!==process.env.FACTORY.toLowerCase()) throw new Error("Router factory mismatch: "+rf);
+            if(mf.toLowerCase()!==process.env.FACTORY.toLowerCase()) throw new Error("Position Manager factory mismatch: "+mf);
+            if(rw.toLowerCase()!==process.env.WETH.toLowerCase()) throw new Error("Router WETH mismatch: "+rw);
+            if(mw.toLowerCase()!==process.env.WETH.toLowerCase()) throw new Error("Position Manager WETH mismatch: "+mw);
+            console.log("Router -> Factory linkage: PASS");
+            console.log("Position Manager -> Factory linkage: PASS");
+            console.log("Router -> Base WETH linkage: PASS");
+            console.log("Position Manager -> Base WETH linkage: PASS");
+            const spacing=await f.feeAmountTickSpacing(2500);
+            if(spacing===0n) throw new Error("0.25% fee tier (2500) is not enabled");
+            console.log("Pancake V3 fee tier 0.25% (2500): PASS; tick spacing =",spacing.toString());
+            console.log("PASS — DEX dependency identity/linkage preflight complete. READ ONLY; no transaction sent.");
+          })().catch(e=>{console.error(e);process.exit(1)});
+          NODE
