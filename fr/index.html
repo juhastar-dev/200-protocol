@@ -1,17 +1,188 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>200 Protocol — Préparation du lancement Mainnet vérifiée</title><style>:root{--bg:#07110d;--panel:#0d1d16;--ink:#eaf7ef;--muted:#9fc2ad;--accent:#76f3a5;--line:#1e3e2d}*{box-sizing:border-box}body{margin:0;background:#07110d;color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.55}.wrap{max-width:1120px;margin:auto;padding:26px}a{color:var(--accent);text-decoration:none}.hero{padding:45px 0}.hero h1{font-size:clamp(2.5rem,7vw,5rem);line-height:1;margin:.25em 0}.muted{color:var(--muted)}.badge{display:inline-block;border:1px solid #375c42;border-radius:999px;padding:7px 11px;color:var(--accent);font-weight:800}.section{padding:32px 0;border-top:1px solid var(--line)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px}.card h3{margin-top:0}.mono{font-family:monospace;word-break:break-all}.links a{display:inline-block;margin:4px 12px 4px 0}footer{padding:40px 0;color:var(--muted)}</style></head><body><div class="wrap">
-<div class="links"><a href="../">Home</a><a href="../es/">ES</a><a href="../de/">DE</a><a href="../fr/">FR</a><a href="../ja/">JA</a></div>
-<section class="hero"><span class="badge">PRÉPARATION VÉRIFIÉE · DÉPLOIEMENT EN ATTENTE</span><h1>200 Protocol</h1><h2>Préparation du lancement Mainnet vérifiée</h2><p>La préparation du lancement de 200 Token sur Base Mainnet est vérifiée. Le déploiement de production reste en attente.</p><p class="muted">200 = OK TO ACT only when configured policy checks pass. It is not an investment rating, credit rating or guarantee.</p></section>
-<section class="section"><h2>Vérification et preuves</h2><div class="grid"><div class="card"><h3>Production candidate</h3><p><strong>7/7 PASS</strong><br>Base Sepolia candidate deployment: PASS<br>Base Mainnet read-only preflight: PASS<br>Zero-key deployment dry run: PASS<br>Deployment safety lock: PASS</p></div><div class="card"><h3>PancakeSwap V3</h3><p>Factory / Router / Position Manager / Base WETH linkage: <strong>PASS</strong><br>Fee tier: <strong>0.25% (2500)</strong><br>Tick spacing: <strong>50</strong></p></div><div class="card"><h3>Production status</h3><p><strong>NOT YET DEPLOYED</strong></p><p class="muted">No Base Mainnet production contract address should be trusted until deployment and verification are complete.</p></div></div></section>
-<section class="section"><h2>200 Token</h2><div class="grid"><div class="card"><h3>Token</h3><p>200 Token · symbol <strong>200</strong><br>ERC-20 · 18 decimals<br>Fixed maximum supply: <strong>100,000,000</strong><br>Mintable: no · token tax: 0%</p></div><div class="card"><h3>Validated testnet</h3><p>Base Sepolia · Chain ID 84532</p><div class="mono">0x47a369B53D0b4Df514F82507a73E4546563e0CD5</div></div><div class="card"><h3>Production network</h3><p>Base Mainnet · Chain ID 8453<br><strong>Deployment pending</strong></p></div></div></section>
-<section class="section"><h2>Informations pour les machines</h2><div class="grid"><div class="card"><h3>Canonical discovery</h3><p><a href="../.well-known/200.json">/.well-known/200.json</a></p></div><div class="card"><h3>Manifest & status</h3><p><a href="../200.json">/200.json</a><br><a href="../status.json">/status.json</a><br><a href="../verification-summary.json">/verification-summary.json</a></p></div><div class="card"><h3>Specification</h3><p><a href="../spec/200-1.json">/spec/200-1.json</a><br><a href="../llms.txt">/llms.txt</a></p></div></div></section>
-<section class="section"><h2>200 Machine Mark</h2><p>QR → human-readable verification. Software and AI agents should use canonical machine discovery directly.</p><p><a href="../scan.html"><img src="https://quickchart.io/qr?text=https%3A%2F%2Fjuhastar-dev.github.io%2F200-protocol%2Fscan.html&size=320&margin=4&ecLevel=M" alt="200 Scan QR" style="display:block;width:min(320px,80vw);height:auto;background:white;padding:12px;border-radius:14px"></a></p><p><a href="../scan.html">Scan & Verify 200 →</a></p></section>
-<section class="section"><h2>Économie et sélection</h2><div class="grid"><div class="card"><h3>Low-cost machine economics</h3><p>Public discovery and read-only verification currently have a 0 protocol-level fee. Network gas and third-party execution fees can still apply.</p><p><a href="../economics.json">economics.json →</a></p></div><div class="card"><h3>Network selection</h3><p>Base is the preferred production network; Base Sepolia is the validated test network. Agents should evaluate total cost, liquidity, slippage, compatibility, evidence and caller policy.</p><p><a href="../network-selection.json">network-selection.json →</a></p></div><div class="card"><h3>Provenance & sustainability</h3><p>Unknown provenance must remain UNKNOWN/UNDECLARED. Prefer off-chain verification before unnecessary on-chain writes.</p><p><a href="../provenance-compliance.json">provenance →</a> · <a href="../sustainability-energy.json">energy →</a></p></div></div></section>
-<section class="section"><h2>Relation avec NAVL</h2><p>NAVL v0.10 is an optional, additive, non-custodial assurance companion. 200 does not depend on NAVL to operate. NAVL is an independent-review candidate with Base Sepolia evidence; it is not independently audited, production-ready or deployed to Mainnet.</p></section>
-<section class="section"><h2>Protocol logic</h2><p><strong>DECLARE → VERIFY → EVALUATE → ACT</strong></p><p>AAA = Agent Asset Assessment · ASA = Agent Selects Asset · 200 = policy requirements satisfied for the authorized action.</p></section>
-<section class="section"><h2>Preuves comportementales</h2><div class="grid"><div class="card"><p>Transfert standard, transfert de 5 000 000 200, ajout et retrait partiel de liquidité, achat et vente DEX, ERC-2612 Permit, transferFrom, récupération de jetons et revue administrative : 11/11 contrôles principaux Base Sepolia sont documentés PASS.</p></div><div class="card"><h3>Machine endpoints</h3><p><a href="../verification-summary.json">verification-summary.json →</a><br><a href="../future-compatibility.json">future-compatibility.json →</a><br><a href="../commerce-compatibility.json">commerce-compatibility.json →</a><br><a href="../sustainability-energy.json">sustainability-energy.json →</a><br><a href="../provenance-compliance.json">provenance-compliance.json →</a></p></div></div></section>
-<section class="section"><h2>Compatibilité future</h2><div class="grid"><div class="card"><p>Le point de découverte canonique reste stable tandis que MCP, x402 v2, A2A, ERC-8004, W3C Verifiable Credentials et les métadonnées réglementaires peuvent évoluer comme extensions optionnelles. Les intégrations prévues ne sont pas présentées comme actives.</p></div><div class="card"><h3>Machine endpoints</h3><p><a href="../verification-summary.json">verification-summary.json →</a><br><a href="../future-compatibility.json">future-compatibility.json →</a><br><a href="../commerce-compatibility.json">commerce-compatibility.json →</a><br><a href="../sustainability-energy.json">sustainability-energy.json →</a><br><a href="../provenance-compliance.json">provenance-compliance.json →</a></p></div></div></section>
-<section class="section"><h2>Commerce et autorité humaine</h2><div class="grid"><div class="card"><p>Modèle PAY → AUTHORIZE → PROVE. Les agents doivent agir uniquement dans les limites définies par le propriétaire ou l’organisation : actifs, réseaux, montant maximal, dépense quotidienne, slippage et seuils de confirmation.</p></div><div class="card"><h3>Machine endpoints</h3><p><a href="../verification-summary.json">verification-summary.json →</a><br><a href="../future-compatibility.json">future-compatibility.json →</a><br><a href="../commerce-compatibility.json">commerce-compatibility.json →</a><br><a href="../sustainability-energy.json">sustainability-energy.json →</a><br><a href="../provenance-compliance.json">provenance-compliance.json →</a></p></div></div></section>
-<section class="section"><h2>Durabilité et énergie</h2><div class="grid"><div class="card"><p>Principe : MINIMUM_NECESSARY_ENERGY. Privilégier lecture et vérification hors chaîne avant les écritures on-chain inutiles ; réutiliser les preuves valides et regrouper les opérations lorsque cela est sûr.</p></div><div class="card"><h3>Machine endpoints</h3><p><a href="../verification-summary.json">verification-summary.json →</a><br><a href="../future-compatibility.json">future-compatibility.json →</a><br><a href="../commerce-compatibility.json">commerce-compatibility.json →</a><br><a href="../sustainability-energy.json">sustainability-energy.json →</a><br><a href="../provenance-compliance.json">provenance-compliance.json →</a></p></div></div></section>
-<section class="section"><h2>Provenance et conformité</h2><div class="grid"><div class="card"><p>Une provenance inconnue reste UNKNOWN ou UNDECLARED. Les contrôles de juridiction, service et sanctions sont dynamiques lorsque pertinents ; aucune juridiction n’est déduite du lieu du développeur ou de l’hébergement.</p></div><div class="card"><h3>Machine endpoints</h3><p><a href="../verification-summary.json">verification-summary.json →</a><br><a href="../future-compatibility.json">future-compatibility.json →</a><br><a href="../commerce-compatibility.json">commerce-compatibility.json →</a><br><a href="../sustainability-energy.json">sustainability-energy.json →</a><br><a href="../provenance-compliance.json">provenance-compliance.json →</a></p></div></div></section>
-<section class="section"><h2>Préparation production</h2><div class="grid"><div class="card"><p>Offre fixe de 100 000 000 200, 18 décimales, aucun mint public, taxe token 0 %, sans blacklist, pause, max-wallet, max-transaction, cooldown ni trading gate. Route initiale prévue : PancakeSwap V3 200/WETH sur Base Mainnet.</p></div><div class="card"><h3>Machine endpoints</h3><p><a href="../verification-summary.json">verification-summary.json →</a><br><a href="../future-compatibility.json">future-compatibility.json →</a><br><a href="../commerce-compatibility.json">commerce-compatibility.json →</a><br><a href="../sustainability-energy.json">sustainability-energy.json →</a><br><a href="../provenance-compliance.json">provenance-compliance.json →</a></p></div></div></section>
-<footer>200 Protocol · PRÉPARATION VÉRIFIÉE · DÉPLOIEMENT EN ATTENTE · Idea Club Oy · DProf Juha Starck</footer></div></body></html>
+<!doctype html>
+<html lang="fr">
+<head>
+<base href="../">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>200 Protocol — Machine-Readable Economics for Autonomous Agents</title>
+<meta name="description" content="200 Protocol is a machine-readable economic compatibility, verification and asset-selection protocol for autonomous AI agents.">
+<meta property="og:image" content="https://juhastar-dev.github.io/200-protocol/assets/200-machine-mark-poster.webp">
+<meta property="og:image:alt" content="200 Machine Mark — Scan to Verify 200">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://juhastar-dev.github.io/200-protocol/assets/200-machine-mark-poster.webp">
+<link rel="icon" href="200-icon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="https://juhastar-dev.github.io/200-protocol/">
+<link rel="alternate" hreflang="es" href="https://juhastar-dev.github.io/200-protocol/es/">
+<link rel="alternate" hreflang="de" href="https://juhastar-dev.github.io/200-protocol/de/">
+<link rel="alternate" hreflang="fr" href="https://juhastar-dev.github.io/200-protocol/fr/">
+<link rel="alternate" hreflang="ja" href="https://juhastar-dev.github.io/200-protocol/ja/">
+<link rel="alternate" hreflang="x-default" href="https://juhastar-dev.github.io/200-protocol/">
+<style>
+:root{--bg:#07110d;--panel:#0d1d16;--ink:#eaf7ef;--muted:#9fc2ad;--accent:#76f3a5;--cyan:#36dff1;--line:#1e3e2d;--warn:#ffca6a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 70% -10%,#113425,#06100c 35%,#07110d 100%);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.55}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}.wrap{max-width:1120px;margin:auto;padding:26px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:8px 0 32px;gap:18px}.identity{display:flex;align-items:center;gap:12px}.logo{width:52px;height:52px}.brand{font-weight:900;letter-spacing:.08em;font-size:1.25rem}.tag,.muted{color:var(--muted)}
+.badge{display:inline-flex;align-items:center;gap:8px;border:1px solid #375c42;border-radius:999px;padding:7px 11px;font-size:.78rem;font-weight:800;letter-spacing:.05em}.dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+.hero{padding:50px 0 58px}.eyebrow{color:var(--accent);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:.78rem}.hero h1{font-size:clamp(3rem,8vw,6.4rem);line-height:.93;margin:.22em 0}.hero p{max-width:820px;font-size:1.2rem;color:#c8dfd1}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:27px}.btn{padding:13px 18px;border:1px solid var(--line);border-radius:12px;background:#10251a;color:var(--ink);font-weight:750}.btn.primary{background:var(--accent);color:#06100c}.btn.cyan{border-color:#245861}
+.section{padding:36px 0;border-top:1px solid var(--line)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:16px}.card{background:linear-gradient(180deg,#0e2118,#0b1912);border:1px solid var(--line);border-radius:16px;padding:20px}.card h3{margin-top:0}.mono{font-family:ui-monospace,Menlo,Consolas,monospace;word-break:break-all;color:#bfe7cb;font-size:.92rem}.flow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}.step{border:1px solid var(--line);padding:9px 13px;border-radius:999px;background:#0b1912}.arrow{color:var(--accent)}.notice{border:1px solid #65582e;background:#201d0d;border-radius:14px;padding:14px 16px;color:#f4dfad;margin-top:22px}.kicker{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+footer{padding:42px 0;color:var(--muted);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+@media(max-width:640px){nav{align-items:flex-start}.logo{width:44px;height:44px}.hero{padding-top:30px}}
+</style><link rel="alternate" type="application/json" href=".well-known/200.json" title="200 Protocol Machine Discovery">
+<link rel="alternate" type="application/json" href="200.json" title="200 Protocol Manifest">
+<link rel="alternate" type="application/json" href="verification-summary.json" title="200 Protocol Verification Summary">
+</head>
+<body><div class="wrap">
+<nav>
+<div class="identity"><img class="logo" src="200-icon.svg" alt="200 Protocol icon"><div><div class="brand">200</div><div class="tag">Protocol</div></div></div>
+<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+<details style="position:relative"><summary aria-label="Language selector" style="cursor:pointer;list-style:none;border:1px solid var(--line);border-radius:10px;padding:7px 11px">🌐 FR</summary>
+<div style="position:absolute;right:0;z-index:10;background:#0d1d16;border:1px solid var(--line);border-radius:10px;padding:9px;min-width:150px">
+<a style="display:block;padding:5px" href="./">English</a>
+<a style="display:block;padding:5px" href="es/">Español</a>
+<a style="display:block;padding:5px" href="de/">Deutsch</a>
+<a style="display:block;padding:5px" href="fr/">Français</a>
+<a style="display:block;padding:5px" href="ja/">日本語</a>
+</div></details>
+<div class="badge"><span class="dot"></span> MAINNET LAUNCH PREP · VERIFIED</div>
+</div>
+</nav>
+<p class="muted" style="margin-top:-18px">Full-content Français edition · same verification data and machine endpoints as the canonical English page.</p>
+
+<section class="hero">
+<div class="eyebrow">Économie lisible par machine pour agents autonomes</div>
+<h1>Vérifier d’abord.<br>Puis agir.</h1>
+<p>200 Protocol gives autonomous agents a structured way to identify, verify, evaluate and select economic assets and services under explicit policy. <strong>200 Token</strong> is the live Base Sepolia coordination asset used to test the architecture.</p>
+<div class="cta">
+<a class="btn primary" href="verify.html">Run 200 Verify</a>
+<a class="btn" href="agent.html">AI Agent Fast Read</a>
+<a class="btn" href="whitepaper.html">Read Whitepaper</a>
+<a class="btn" href="swap-test.html">200 Swap Test</a>
+<a class="btn cyan" href="https://sepolia.basescan.org/token/0x47a369B53D0b4Df514F82507a73E4546563e0CD5">View 200 on BaseScan</a>
+</div>
+<div class="notice"><strong>Mainnet launch preparation complete — deployment pending.</strong> The validated public asset remains the Base Sepolia test deployment. The frozen production candidate has passed 7/7 automated tests, Base Sepolia candidate deployment, Base Mainnet read-only preflight, zero-key deployment dry run, deployment-lock validation, and PancakeSwap V3 dependency/linkage plus 0.25% fee-tier checks. A Base Mainnet 200 Token has not yet been deployed; no production address should be trusted until it is published here after deployment and verification.</div>
+<div class="card" style="margin-top:16px"><h3>Core testnet validation complete ✓</h3><p>All recorded core 200 Token/Base Sepolia checks are PASS. The Base Mainnet configuration is now <strong>FINAL FROZEN — PREDEPLOYMENT READY</strong>. The controlled first-launch path uses explicit preflight, address verification, supply/permission and post-deployment evidence gates. Planned integrations such as x402 and ERC-8004 remain separate from core-token validation.</p><p><a href="verification-summary.json">AI-fast verification summary →</a></p></div>
+<div class="card" style="margin-top:16px"><h3>NAVL v0.10 · optional assurance companion</h3><p>NAVL is being developed as an <strong>additive, non-custodial verification and assurance layer</strong> that can complement 200 without changing 200 Token's fundamental supply or transfer rules. NAVL v0.10 has completed internal/adversarial validation and controlled Base Sepolia deployment, lifecycle and governance-rotation testing, and is frozen for independent security review.</p><p><strong>200 does not depend on NAVL to operate.</strong> NAVL v0.10 is not independently audited, not production-ready and not deployed to mainnet.</p></div>
+</section>
+
+<section class="section">
+<div class="kicker">Préparation du lancement en production</div><h2>Base Mainnet · préparé, non déployé</h2>
+<div class="grid">
+<div class="card"><h3>Frozen token fundamentals</h3><p><strong>100,000,000 200</strong> fixed supply · 18 decimals · non-mintable · 0% token taxes · no blacklist, pause, max-wallet, max-transaction, cooldown or trading gate.</p></div>
+<div class="card"><h3>Frozen initial liquidity path</h3><p><strong>PancakeSwap V3 on Base Mainnet</strong><br>200/WETH · 500,000 200 token side · 0.25% fee tier · Full Range.</p></div>
+<div class="card"><h3>Current production status</h3><p><strong>LAUNCH PREPARATION VERIFIED — DEPLOYMENT PENDING</strong></p><p class="muted">Production contract, CAIP-19, pool/position and transaction evidence remain intentionally empty until real deployment and verification.</p></div>
+<div class="card"><h3>Launch controls</h3><p><a href="mainnet-launch-control.html">Launch control →</a><br><a href="mainnet-config.json">Frozen machine config →</a><br><a href="mainnet-preflight.html">Read-only preflight →</a><br><a href="mainnet-postdeploy-verify.html">Post-deployment verifier →</a></p></div>
+</div>
+<p class="muted">Base Mainnet and PancakeSwap V3 dependency/linkage preflights have passed, including the planned 0.25% fee tier. They are rechecked immediately before signing. Real Mainnet transactions require explicit human authorization.</p>
+</section>
+
+<section class="section">
+<div class="kicker">Logique du protocole</div><h2>DECLARE → VERIFY → EVALUATE → ACT</h2>
+<div class="flow"><span class="step">DECLARE</span><span class="arrow">→</span><span class="step">VERIFY</span><span class="arrow">→</span><span class="step">EVALUATE</span><span class="arrow">→</span><span class="step">ACT</span></div>
+<p class="muted">A project may declare properties. 200 is designed so an agent can distinguish those declarations from facts that have been independently verified.</p>
+</section>
+
+<section class="section">
+<div class="kicker">Identité de l’actif</div><h2>200 Token (200)</h2>
+<div class="grid">
+<div class="card"><h3>Token</h3><p><strong>200 Token</strong><br>Symbol: <strong>200</strong><br>ERC-20 · 18 decimals<br>100,000,000 maximum supply</p></div>
+<div class="card"><h3>Network</h3><p><strong>Base Sepolia</strong><br>Chain ID: <strong>84532</strong></p><p class="muted">Numeric symbol 200 has been successfully recognized by 20lab, BaseScan and MetaMask.</p></div>
+<div class="card"><h3>Contract</h3><div class="mono">0x47a369B53D0b4Df514F82507a73E4546563e0CD5</div></div>
+<div class="card"><h3>CAIP-19</h3><div class="mono">eip155:84532/erc20:0x47a369B53D0b4Df514F82507a73E4546563e0CD5</div></div>
+</div>
+</section>
+
+<section class="section">
+<div class="kicker">Vocabulaire de décision machine</div><h2>Assess → Select → 200</h2>
+<div class="flow"><span class="step">AAA · Agent Asset Assessment</span><span class="arrow">→</span><span class="step">ASA · Agent Selects Asset</span><span class="arrow">→</span><span class="step">200 · OK TO ACT</span></div>
+<p>A <strong>200 result</strong> means the proposed action satisfied the verifier's defined policy requirements. It is <strong>not</strong> an investment rating, credit rating, or guarantee of safety.</p>
+</section>
+
+
+<section class="section">
+<div class="kicker">Preuves comportementales</div><h2>Testé sur Base Sepolia</h2>
+<p class="muted">These are observed test results from the deployed 200 Token and its configured PancakeSwap V2 pool. They are scoped evidence, not guarantees about every possible future route, trade size or environment.</p>
+<div class="grid">
+<div class="card"><h3>Standard transfer ✓</h3><p><strong>1,000 200</strong> sent wallet-to-wallet and exactly <strong>1,000 200</strong> received.</p></div>
+<div class="card"><h3>Large transfer ✓</h3><p><strong>5,000,000 200</strong> transferred successfully in one transaction; recipient balance rose to <strong>5,001,000 200</strong>.</p></div>
+<div class="card"><h3>Liquidity ✓</h3><p><strong>100,000 200 + 0.0001 ETH</strong> added to PancakeSwap V2 Base Sepolia; LP tokens were minted.</p></div>
+<div class="card"><h3>Liquidity removal ✓</h3><p>Exactly <strong>0.1 LP</strong> was removed with a <strong>0.5% minimum-output guard</strong>. Account 2 received <strong>3,146.85686979135337764 200</strong>; <strong>3.062277660168378331 LP</strong> remained and the pool stayed active.</p></div>
+<div class="card"><h3>DEX buy ✓</h3><p><strong>0.000001 ETH → 987.648209114086982351 200</strong>. Actual tokens received matched the live router quote exactly.</p></div>
+<div class="card"><h3>DEX sell ✓</h3><p><strong>500 200 → ETH</strong> through the same PancakeSwap V2 router. Wallet balance decreased by exactly <strong>500 200</strong>.</p></div>
+<div class="card"><h3>ERC-2612 Permit ✓</h3><p>EIP-712 domain matched on-chain; permit signed for exactly <strong>123 200</strong> and the resulting on-chain allowance read back exactly <strong>123 200</strong>.</p></div>
+<div class="card"><h3>transferFrom ✓</h3><p>Account 2 consumed exactly <strong>10 200</strong> from the Permit allowance. Remaining allowance decreased exactly from <strong>123</strong> to <strong>113 200</strong>.</p></div>
+<div class="card"><h3>Token recovery ✓</h3><p><strong>5 200</strong> was deliberately placed in the token contract and recovered by the on-chain owner. Contract balance returned exactly from <strong>5</strong> to <strong>0 200</strong>.</p></div>
+<div class="card"><h3>Admin control review ✓</h3><p>Read-only review confirmed <strong>Account 2</strong> as owner, <strong>no pending owner</strong>, expected token identity, <strong>18 decimals</strong>, <strong>100,000,000 200</strong> total supply, and <strong>0 200</strong> held by the contract.</p></div>
+<div class="card"><h3>Machine evidence</h3><p><a href="200.json">Canonical evidence manifest →</a><br><a href="status.json">Current verification status →</a><br><a href="swap-test.html">Open behavioral swap tester →</a></p></div>
+</div>
+</section>
+
+<section class="section">
+<div class="kicker">Pour les machines</div><h2>Banque d’information 200</h2>
+<div class="grid">
+<div class="card"><h3>AI Verification Summary</h3><p><a href="verification-summary.json">/verification-summary.json →</a></p><p class="muted">Compact PASS/PENDING matrix and on-chain transaction references for fast agent parsing.</p></div>
+<div class="card"><h3>Canonical Manifest</h3><p><a href="200.json">/200.json →</a></p><p class="muted">Asset identity, declared properties, capabilities and evidence.</p></div>
+<div class="card"><h3>Live Status</h3><p><a href="status.json">/status.json →</a></p><p class="muted">Current deployment and development state.</p></div>
+<div class="card"><h3>LLM Context</h3><p><a href="llms.txt">/llms.txt →</a></p><p class="muted">Compact fast-read context for AI systems.</p></div>
+<div class="card"><h3>200-1 Specification</h3><p><a href="spec/200-1.json">/spec/200-1.json →</a></p><p class="muted">Machine-readable protocol design.</p></div>
+<div class="card"><h3>A2A Agent Card</h3><p><a href=".well-known/agent-card.json">/.well-known/agent-card.json →</a></p><p class="muted">Agent discovery metadata.</p></div>
+<div class="card"><h3>Default Policy</h3><p><a href="policy/default-policy.json">/policy/default-policy.json →</a></p><p class="muted">Example explicit asset-acceptance rules.</p></div>
+</div>
+</section>
+
+<section class="section">
+<div class="kicker">Preuve de concept publique</div><h2>200 Verify</h2>
+<p>The current testnet verifier queries Base Sepolia directly and checks chain ID, deployed bytecode, ERC-20 name, numeric symbol <strong>200</strong>, decimals, total supply and ERC-2612 read-interface evidence. If required verification fails or cannot be completed, it fails closed instead of issuing a 200 result.</p>
+<div class="cta"><a class="btn primary" href="verify.html">Open 200 Verify</a><a class="btn" href="examples/assessment-200.json">Example Assessment JSON</a></div>
+</section>
+
+<footer><span>200 Protocol · Base Sepolia validation complete · Mainnet launch preparation verified · deployment pending</span><span><a href="https://github.com/juhastar-dev/200-protocol">GitHub repository</a></span></footer>
+</div><section class="card" style="margin-top:20px">
+<h3>Découverte machine canonique</h3>
+<p>AI agents and software can start at <code>/.well-known/200.json</code> to discover the 200 Protocol manifest, verification evidence, status, specification, agent card and verifier without parsing the human website.</p>
+<p><a href=".well-known/200.json">Machine discovery JSON →</a> &nbsp; <a href="spec/200-discovery-v1.schema.json">Discovery schema →</a></p>
+</section>
+<section class="card" style="margin-top:20px">
+<h3>Couche de compatibilité future</h3>
+<p>200 keeps its canonical discovery door stable while optional standards can evolve independently. Current machine metadata prepares for MCP, x402 v2, A2A, ERC-8004, W3C Verifiable Credentials, signed evidence, CAIP identity and EU machine-readable regulatory metadata without claiming integrations that are not yet live.</p>
+<p><a href="future-compatibility.json">Compatibility registry →</a> &nbsp; <a href="integrity.json">Integrity envelope →</a> &nbsp; <a href="spec/erc8004-registration-template.json">ERC-8004 template →</a></p>
+</section>
+
+<section class="card" style="margin-top:20px;text-align:center">
+<h3>200 Machine Mark · Scan to Verify 200</h3>
+<p><strong>Fast for humans. Direct for machines.</strong> A phone scan now opens a human-readable verification page. AI agents and software continue to use the canonical JSON discovery endpoint directly.</p>
+<p style="margin:18px auto;max-width:460px"><a href="scan.html" style="display:block"><img src="https://quickchart.io/qr?text=https%3A%2F%2Fjuhastar-dev.github.io%2F200-protocol%2Fscan.html&size=420&margin=4&ecLevel=M" alt="200 QR — opens the human-readable Scan & Verify page" style="display:block;width:100%;height:auto;max-width:420px;margin:0 auto;background:#fff;padding:14px;border-radius:16px"></a></p>
+<p><strong>Human scan:</strong> <code>https://juhastar-dev.github.io/200-protocol/scan.html</code></p>
+<p><strong>Machine discovery:</strong> <code>https://juhastar-dev.github.io/200-protocol/.well-known/200.json</code></p>
+<p><a href="scan.html">Open Scan & Verify 200 →</a> &nbsp; <a href="machine-mark.json">Machine Mark manifest →</a> &nbsp; <a href="assets/200-machine-mark-qr.png">QR image →</a></p>
+<p class="muted">The clean 200 token icon remains the official small-format icon for wallets, DEXs and token listings. The QR is the human shortcut; software does not need to scan it.</p>
+</section>
+<section class="card" style="margin-top:20px">
+<h3>Économie machine à faible coût</h3>
+<p><strong>Token price may float. Protocol use is designed to stay transparent and minimal-cost.</strong> AI agents should compare total expected execution cost — protocol fee, gas, third-party fees, slippage and liquidity — rather than the numerical price of one token unit.</p>
+<p>Current public 200 discovery and read-only verification carry <strong>0 protocol-level fee</strong>. On-chain network gas or third-party fees may still apply when an actual transaction is performed.</p>
+<p><a href="economics.json">Machine-readable economics →</a> &nbsp; <a href="spec/200-economics-v1.schema.json">Economics schema →</a></p>
+</section>
+<section class="card" style="margin-top:20px">
+<h3>Sélection du réseau et de la région</h3>
+<p><strong>200 gives agents explicit network-selection data instead of making them guess.</strong> Base is the preferred production network; Base Sepolia is the validated testnet. Agents should check network support, wallet compatibility, service/jurisdiction eligibility, total cost, liquidity, evidence and owner policy before acting.</p>
+<p><a href="network-selection.json">Machine-readable network profile →</a> &nbsp; <a href="spec/200-network-selection-v1.schema.json">Network schema →</a></p>
+</section>
+<section class="card" style="margin-top:20px">
+<h3>Provenance et conformité</h3>
+<p><strong>Facts first, policy second.</strong> 200 exposes provenance and jurisdiction fields for machines without declaring countries “good” or “bad.” Agents can apply their owner's sanctions, regulatory, human-rights, ESG or service-eligibility policies when those checks are relevant.</p>
+<p>Unknown provenance is marked <strong>UNKNOWN</strong> or <strong>UNDECLARED</strong> rather than guessed.</p>
+<p><a href="provenance-compliance.json">Machine-readable provenance profile →</a> &nbsp; <a href="spec/200-provenance-compliance-v1.schema.json">Profile schema →</a></p>
+</section>
+<section class="card" style="margin-top:20px">
+<h3>Durabilité et énergie</h3>
+<p><strong>MINIMUM NECESSARY ENERGY.</strong> 200 is designed to prefer off-chain reading and verification before on-chain writes, avoid unnecessary transactions, reuse valid evidence, and choose efficient supported execution paths when security and correctness are preserved.</p>
+<p>200 does not claim to be the “greenest token,” carbon neutral, zero-energy, or to have a fixed energy-per-transaction figure without evidence.</p>
+<p><a href="sustainability-energy.json">Machine-readable sustainability profile →</a> &nbsp; <a href="spec/200-sustainability-energy-v1.schema.json">Sustainability schema →</a></p>
+</section>
+<section class="card" style="margin-top:20px">
+<h3>Compatibilité commerciale</h3>
+<p><strong>PAY → AUTHORIZE → PROVE.</strong> 200 can act as a policy, authorization and verification layer around merchant payments without requiring every merchant to accept 200 Token directly.</p>
+<p>Target routes include stablecoins, x402, card-linked payment paths and other permitted settlement methods. Agents compare total cost, network, region, liquidity, reliability, refund capability and owner policy before selecting a route.</p>
+<p><a href="commerce-compatibility.json">Machine-readable commerce profile →</a> &nbsp; <a href="spec/200-commerce-compatibility-v1.schema.json">Commerce schema →</a> &nbsp; <a href="examples/purchase-evidence.json">Purchase evidence example →</a></p>
+</section>
+</body></html>
