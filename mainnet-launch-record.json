@@ -9,6 +9,7 @@
   "expectedToken": {
     "name": "200 Token",
     "symbol": "200",
+    "contractName": "TwoHundredToken",
     "decimals": 18,
     "totalSupply200": "100000000",
     "mintable": false,
@@ -24,6 +25,23 @@
     "firstSellMaxEUR": "10",
     "contingencyEUR": "20"
   },
+  "liquidityPlan": {
+    "dex": "PancakeSwap V3",
+    "network": "Base Mainnet",
+    "pair": "200/WETH",
+    "tokenSide200": "500000",
+    "ethSide": "CALCULATE_AT_LAUNCH_UNDER_EUR_120_LIQUIDITY_CAP",
+    "feeTierPercent": "0.25",
+    "range": "FULL_RANGE",
+    "factory": "0x0BFbCF9fa4f9C56B0F40a671Ad40E0805A091865",
+    "swapRouterV3": "0x1b81D678ffb9C0263b24A97847620C99d213eB14",
+    "nonfungiblePositionManager": "0x46A15B0b27311cedF172AB29E4f4766fbE7F4364",
+    "quoterV2": "0xB048Bbc1Ee6b733FFfCFb9e9CeF7375518e25997",
+    "smartRouter": "0x678Aa4bF4E210cf2166753e054d5b7c31cc7fa86",
+    "weth": "0x4200000000000000000000000000000000000006",
+    "addressSnapshotDate": "2026-09-22",
+    "reverifyBeforeLaunch": true
+  },
   "deployment": {
     "contractAddress": null,
     "transactionHash": null,
@@ -35,62 +53,49 @@
   "postDeploymentChecks": [
     {
       "id": "chain-id",
-      "expected": "8453",
       "status": "PENDING_DEPLOYMENT"
     },
     {
       "id": "bytecode-present",
-      "expected": true,
       "status": "PENDING_DEPLOYMENT"
     },
     {
       "id": "name",
-      "expected": "200 Token",
       "status": "PENDING_DEPLOYMENT"
     },
     {
       "id": "symbol",
-      "expected": "200",
       "status": "PENDING_DEPLOYMENT"
     },
     {
       "id": "decimals",
-      "expected": 18,
       "status": "PENDING_DEPLOYMENT"
     },
     {
       "id": "total-supply",
-      "expected": "100000000",
       "status": "PENDING_DEPLOYMENT"
     },
     {
       "id": "owner",
-      "expected": "0x64d6719831414f883aA51CB59584D7B4F4066E08",
       "status": "PENDING_DEPLOYMENT"
     },
     {
       "id": "pending-owner",
-      "expected": "0x0000000000000000000000000000000000000000",
       "status": "PENDING_DEPLOYMENT"
     },
     {
       "id": "erc2612-domain",
-      "expected": "readable and consistent with deployed token",
       "status": "PENDING_DEPLOYMENT"
     }
   ],
   "liquidity": {
     "status": "BLOCKED_UNTIL_DEPLOYMENT_IDENTITY_PASS",
-    "tokenSide200": "500000",
-    "ethSide": "CALCULATE_AT_LAUNCH_UNDER_EUR_120_LIQUIDITY_CAP",
-    "totalRealMoneyCapEUR": "200",
-    "target": "PancakeSwap Base production path; reverify official contracts before action"
+    "poolOrPosition": null,
+    "transactionHash": null
   },
   "evidence": {
-    "liquidityTx": null,
-    "positionOrPool": null,
     "firstBuyTx": null,
     "firstSellTx": null
   },
-  "warning": "This record is a prepared template. Null/PENDING fields are not evidence and must never be presented as completed mainnet verification."
+  "warning": "Prepared template only. Null/PENDING fields are not evidence. Reverify official DEX identities immediately before signing and require explicit human authorization for every real mainnet transaction."
 }
