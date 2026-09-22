@@ -46,6 +46,7 @@ jobs:
           node <<'NODE'
           const fs = require("fs");
           const { ethers } = require("ethers");
+          (async () => {
           async function rpc(method, params=[]) {
             const r = await fetch(process.env.RPC_URL, {
               method:"POST", headers:{"content-type":"application/json"},
@@ -66,4 +67,5 @@ jobs:
           console.log("Unsigned deployment gas estimate:",BigInt(estimate).toString());
           console.log("Current RPC gas price:",ethers.formatUnits(BigInt(gasPrice),"gwei"),"Gwei");
           console.log("PASS — estimate only. No private key loaded, no signature created, no transaction sent.");
+          })().catch((e) => { console.error(e); process.exit(1); });
           NODE
