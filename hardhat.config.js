@@ -12,6 +12,14 @@ if (process.env.BASE_SEPOLIA_RPC_URL && process.env.BASE_SEPOLIA_DEPLOYER_PRIVAT
   };
 }
 
+if (process.env.BASE_MAINNET_RPC_URL && process.env.BASE_MAINNET_DEPLOYER_PRIVATE_KEY) {
+  networks.baseMainnet = {
+    url: process.env.BASE_MAINNET_RPC_URL,
+    chainId: 8453,
+    accounts: [process.env.BASE_MAINNET_DEPLOYER_PRIVATE_KEY]
+  };
+}
+
 module.exports = {
   solidity: {
     version: "0.8.24",
