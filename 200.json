@@ -418,5 +418,43 @@
       "status": "PASS"
     },
     "note": "No Base Mainnet 200 Token address exists until deployment and post-deployment verification complete."
+  },
+  "efficiencyPrinciple": {
+    "name": "Cognitive-Economic Efficiency",
+    "principle": "Use the minimum information, computation, transactions and economic intermediaries necessary to reach a verifiable authorized decision.",
+    "flow": [
+      "RAW_INFORMATION",
+      "VERIFY_FILTER_COMPRESS",
+      "DECISION_STATE",
+      "200",
+      "ACT"
+    ],
+    "agentContextPolicy": {
+      "default": "DECISION_SUFFICIENT_STATE",
+      "preferredFields": [
+        "canonicalAssetIdentity",
+        "chain",
+        "permissions",
+        "fees",
+        "liquidityConditions",
+        "policyCompatibility",
+        "evidenceReferences",
+        "freshness"
+      ],
+      "deeperEvidence": "RETRIEVE_WHEN_POLICY_OR_UNCERTAINTY_REQUIRES",
+      "safetyRule": "Do not discard material evidence merely to reduce context size."
+    },
+    "economicLayer": {
+      "frozenTokenContractUnchanged": true,
+      "transferTaxes": false,
+      "automaticBuybacks": false,
+      "dividends": false,
+      "revenueSharing": false,
+      "principle": "Keep the asset layer simple; evaluate any future value-distribution mechanism separately for technical, economic and legal effects."
+    },
+    "claims": {
+      "guaranteedTokenSavingsPercent": null,
+      "guaranteedAccuracyImprovement": false
+    }
   }
 }
