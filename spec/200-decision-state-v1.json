@@ -1,0 +1,60 @@
+{
+  "schema": "200-decision-state-v1",
+  "status": "DRAFT_PROTOCOL_LAYER",
+  "purpose": "Compact, verifiable, decision-sufficient state for an authorized AI-agent economic action.",
+  "principle": "Use the minimum information, computation, transactions and economic intermediaries necessary to reach a verifiable authorized decision.",
+  "flow": [
+    "RAW_INFORMATION",
+    "VERIFY_FILTER_COMPRESS",
+    "DECISION_STATE",
+    "200",
+    "ACT"
+  ],
+  "fields": {
+    "requestId": "Unique decision request identifier",
+    "generatedAt": "ISO-8601 generation time",
+    "validUntil": "ISO-8601 freshness boundary",
+    "asset": [
+      "chainId",
+      "contract",
+      "caip19"
+    ],
+    "action": [
+      "type",
+      "amount",
+      "counterparty"
+    ],
+    "policy": [
+      "policyId",
+      "authorizationScope",
+      "maximumSlippagePercent"
+    ],
+    "verifiedState": [
+      "permissions",
+      "fees",
+      "liquidity",
+      "evidenceRefs",
+      "freshness"
+    ],
+    "decision": [
+      "result",
+      "reasonCodes",
+      "requiresEscalation"
+    ]
+  },
+  "retrievalRule": "Retrieve deeper evidence when policy, uncertainty, freshness, conflict, or verification requires it.",
+  "compressionSafety": [
+    "Never remove a material fact merely to reduce context size.",
+    "Preserve evidence references so underlying facts remain auditable.",
+    "If compact state is insufficient or conflicting, stop and retrieve deeper evidence rather than guessing."
+  ],
+  "economicSafety": [
+    "This schema does not add token taxes, automatic buybacks, dividends, revenue sharing, minting, or transfer restrictions.",
+    "The frozen 200 Token contract is unchanged."
+  ],
+  "performanceClaims": {
+    "guaranteedTokenSavingsPercent": null,
+    "guaranteedLatencyReductionPercent": null,
+    "guaranteedAccuracyImprovement": false
+  }
+}
