@@ -193,3 +193,4 @@ For transaction hashes and machine-readable fields, fetch /verification-summary.
 - Frozen 200 Token contract remains unchanged.
 - No automatic buyback, dividend, revenue-sharing or transfer-tax logic is added by this principle.
 - No fixed token/compute saving or accuracy improvement is guaranteed.
+- Decision-state schema: /spec/200-decision-state-v1.json
