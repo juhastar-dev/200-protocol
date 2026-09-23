@@ -345,7 +345,8 @@
     "verifier": "/verify.html",
     "assessmentExample": "/examples/assessment-200.json",
     "discovery": "/.well-known/200.json",
-    "discoverySchema": "/spec/200-discovery-v1.schema.json"
+    "discoverySchema": "/spec/200-discovery-v1.schema.json",
+    "decisionStateSpec": "/spec/200-decision-state-v1.json"
   },
   "machineDiscovery": {
     "canonical": "/.well-known/200.json",
@@ -455,6 +456,11 @@
     "claims": {
       "guaranteedTokenSavingsPercent": null,
       "guaranteedAccuracyImprovement": false
+    },
+    "implementation": {
+      "decisionStateSpec": "/spec/200-decision-state-v1.json",
+      "status": "DRAFT_PROTOCOL_LAYER",
+      "rule": "Compact verified state first; deeper evidence on demand."
     }
   }
 }
