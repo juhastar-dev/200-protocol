@@ -37,6 +37,20 @@ At this update, the production 200 Token has **not** been deployed to Base Mainn
 
 Before a production transaction is authorized, the launch process requires final contract/configuration review, official infrastructure-address verification, supply and permission checks, deployment configuration freeze, sufficient gas funding, and post-deployment evidence checks.
 
+
+### Cognitive-Economic Efficiency Principle
+200 adds an efficiency principle at the protocol layer without changing the frozen 200 Token contract: **use the minimum information, computation, transactions and economic intermediaries necessary to reach a verifiable authorized decision.**
+
+For AI agents, this means routing compact verified state instead of indiscriminately loading raw context. An agent should receive the smallest decision-sufficient representation practical—such as canonical asset identity, chain, permissions, fees, liquidity conditions, policy compatibility, evidence references and freshness—and retrieve deeper evidence only when policy or uncertainty requires it.
+
+The intended flow is:
+
+**RAW INFORMATION → VERIFY / FILTER / COMPRESS → DECISION STATE → 200 → ACT**
+
+This is an architectural objective, not a claim that compression is always beneficial or that a fixed percentage of token/compute savings is guaranteed. Evidence must remain retrievable and material facts must not be removed merely to reduce context size.
+
+For the economic layer, the same principle favors a simple fixed-supply token and minimal unnecessary intermediation. 200 does not add transfer taxes, automatic buybacks, dividends, revenue sharing or similar value-distribution logic to the frozen token contract. Any future economic mechanism should be separately specified, technically reviewed and legally assessed before implementation.
+
 ### Machine-Readable Asset Identity
 Ticker symbols are ambiguous. 200 therefore prefers chain-aware canonical asset identity using CAIP-19 where applicable. Machines should identify an asset by chain and contract reference rather than symbol alone. After a production deployment, machine-readable endpoints must be updated with the verified Base Mainnet identity rather than assuming that the testnet identity carries over.
 
