@@ -181,12 +181,12 @@
     "mainnetConfig": "/mainnet-config.json",
     "mainnetFreezeDocument": "/mainnet-configuration-freeze.md",
     "maximumTotalRealMoneyBudgetEUR": "200",
-    "initialLiquidity200": "500000",
+    "initialLiquidity200": "DYNAMIC_AT_LAUNCH",
     "initialLiquidityETH": "DYNAMIC_AT_LAUNCH",
     "budgetRule": "Total launch real-money spending must not exceed EUR 200.",
     "pancakeSwapVersion": "V3",
     "v3FeeTierPercent": "0.25",
-    "v3PriceRange": "FULL_RANGE",
+    "v3PriceRange": "CONCENTRATED_RANGE_CALCULATED_AT_LAUNCH",
     "launchBudget": {
       "absoluteMaxEUR": "200",
       "liquidityMaxEUR": "120",
@@ -194,12 +194,12 @@
       "firstBuyMaxEUR": "10",
       "firstSellMaxEUR": "10",
       "contingencyEUR": "20",
-      "unusedFunds": "remain unspent"
+      "unusedFunds": "remain unspent; no obligation to add liquidity without genuine demand"
     },
     "maximumValidationSlippagePercent": "1.0",
     "predeploymentChecklist": "/MAINNET-PREDEPLOYMENT-CHECKLIST.md",
     "transactionAuthorization": "NONE",
-    "nextStep": "Continue zero-cost review/preflight preparation. Real Base-mainnet ETH is required only when the user explicitly chooses to execute the first state-changing mainnet transaction.",
+    "nextStep": "Complete fresh live preflight and launch-day price/range calculation before any state-changing Base Mainnet transaction. No transaction authorization is implied by this metadata update.",
     "launchDayPreflight": {
       "status": "READ_ONLY_PAGE_READY",
       "page": "/mainnet-preflight.html",
@@ -226,7 +226,24 @@
     "launchControl": "/mainnet-launch-control.html",
     "currentGate": "FINAL_ZERO_COST_REVIEW_THEN_OPTIONAL_FUNDING",
     "dexImplementation": "PancakeSwap V3",
-    "pair": "200/WETH"
+    "pair": "200/WETH",
+    "initialReferencePriceEUR": "0.001_TARGET_NOT_GUARANTEED",
+    "initialLiquidityTargetEUR": "120_APPROXIMATE_WITHIN_LAUNCH_CAP",
+    "liquidityStrategy": {
+      "mode": "ADAPTIVE_MARKET_LED",
+      "principle": "Start small, observe genuine demand, and add or reposition liquidity only when market depth and trading activity justify it.",
+      "original500000TokenAssumption": "SUPERSEDED",
+      "fullRangeAssumption": "SUPERSEDED",
+      "exactAmounts": "Calculate live 200/WETH amounts, ticks and range immediately before liquidity creation.",
+      "founderOperation": "LOW_MAINTENANCE_NO_ROUTINE_TRADING_OR_ARTIFICIAL_VOLUME",
+      "founderSales": "OPTIONAL_AND_CONDITIONED_ON_CURRENT_LIQUIDITY_VOLUME_AND_PRICE_IMPACT",
+      "primaryDex": "PancakeSwap V3 on Base",
+      "contingencyDexes": [
+        "Uniswap on Base",
+        "Aerodrome on Base"
+      ],
+      "contingencyRule": "A DEX failure does not replace or redeploy the canonical 200 Token contract."
+    }
   },
   "machineDiscovery": {
     "status": "LIVE",
