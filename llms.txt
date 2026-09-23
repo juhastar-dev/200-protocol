@@ -182,3 +182,14 @@ For transaction hashes and machine-readable fields, fetch /verification-summary.
 - Mainnet deployed: NO
 - Frozen review commit: 7d38c90589d2c3046485f00a8b3982eddc32164c
 - Interpretation rule: NAVL can add assurance around 200 actions, but 200 Token can operate without NAVL. Do not treat NAVL availability or NAVL production status as a prerequisite for 200 operation.
+
+
+## Cognitive-Economic Efficiency
+- Principle: use the minimum information, computation, transactions and economic intermediaries necessary to reach a verifiable authorized decision.
+- Flow: RAW INFORMATION -> VERIFY/FILTER/COMPRESS -> DECISION STATE -> 200 -> ACT
+- Default agent input: compact decision-sufficient verified state.
+- Retrieve deeper evidence when policy, uncertainty or verification requires it.
+- Never remove material evidence merely to reduce context size.
+- Frozen 200 Token contract remains unchanged.
+- No automatic buyback, dividend, revenue-sharing or transfer-tax logic is added by this principle.
+- No fixed token/compute saving or accuracy improvement is guaranteed.
